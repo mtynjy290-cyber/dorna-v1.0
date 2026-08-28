@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16" />
+      <stop offset="60%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="primaryGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="glassCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.03" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Ambient background glow circles -->
+  <circle cx="200" cy="150" r="280" fill="#2563EB" fill-opacity="0.15" filter="blur(80px)" />
+  <circle cx="1000" cy="450" r="240" fill="#38BDF8" fill-opacity="0.12" filter="blur(70px)" />
+
+  <!-- Glass Container Outline -->
+  <rect x="60" y="50" width="1080" height="530" rx="32" fill="url(#glassCard)" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+
+  <!-- Brand Badge -->
+  <g transform="translate(100, 100)">
+    <rect width="220" height="42" rx="21" fill="rgba(37,99,235,0.2)" stroke="#38BDF8" stroke-opacity="0.4" stroke-width="1.5" />
+    <circle cx="26" cy="21" r="7" fill="#38BDF8" />
+    <text x="44" y="27" fill="#E2E8F0" font-family="'Vazirmatn', sans-serif" font-size="16" font-weight="700">DORNA DOOR SYSTEMS</text>
+  </g>
+
+  <!-- Brand Title (Persian) -->
+  <text x="100" y="220" fill="#FFFFFF" font-family="'Vazirmatn', sans-serif" font-size="44" font-weight="900">
+    گروه فنی مهندسی درنا درب
+  </text>
+
+  <!-- Subtitle (Persian) -->
+  <text x="100" y="285" fill="#93C5FD" font-family="'Vazirmatn', sans-serif" font-size="26" font-weight="700">
+    طراحی و اجرای سازه‌های شیشه‌ای و درب اتوماتیک
+  </text>
+
+  <!-- Description Body -->
+  <text x="100" y="345" fill="#CBD5E1" font-family="'Vazirmatn', sans-serif" font-size="19" font-weight="500">
+    مرجع تخصصی محاسبه آنلاین قیمت، اپراتورهای دانکر آلمان (Dunkermotoren)
+  </text>
+  <text x="100" y="380" fill="#CBD5E1" font-family="'Vazirmatn', sans-serif" font-size="19" font-weight="500">
+    پارتیشن‌های آکوستیک، شیشه سکوریت و فریم‌های لوکس در مناطق ۱ تا ۵ تهران
+  </text>
+
+  <!-- Features Pill Tags -->
+  <g transform="translate(100, 440)">
+    <rect x="0" y="0" width="220" height="46" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" />
+    <text x="25" y="29" fill="#F8FAFC" font-family="'Vazirmatn', sans-serif" font-size="16" font-weight="600">⚡ محاسبه‌گر زنده قیمت</text>
+
+    <rect x="235" y="0" width="230" height="46" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" />
+    <text x="260" y="29" fill="#F8FAFC" font-family="'Vazirmatn', sans-serif" font-size="16" font-weight="600">🇩🇪 قطعات دانکر آلمان</text>
+
+    <rect x="480" y="0" width="230" height="46" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" />
+    <text x="505" y="29" fill="#F8FAFC" font-family="'Vazirmatn', sans-serif" font-size="16" font-weight="600">🛡️ گارانتی تعویض ۲۴ ماهه</text>
+  </g>
+
+  <!-- Visual Door Graphic on Right Side -->
+  <g transform="translate(860, 140)">
+    <rect width="210" height="340" rx="16" fill="none" stroke="#475569" stroke-width="8" />
+    <rect x="-4" y="-4" width="218" height="42" rx="8" fill="url(#primaryGlow)" />
+    <circle cx="105" cy="17" r="5" fill="#FFFFFF" />
+
+    <!-- Left Glass Door Panel -->
+    <rect x="12" y="48" width="86" height="275" rx="6" fill="#38BDF8" fill-opacity="0.25" stroke="#38BDF8" stroke-width="3" />
+    <line x1="88" y1="160" x2="88" y2="210" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Right Glass Door Panel -->
+    <rect x="112" y="48" width="86" height="275" rx="6" fill="#38BDF8" fill-opacity="0.25" stroke="#38BDF8" stroke-width="3" />
+    <line x1="122" y1="160" x2="122" y2="210" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" />
+  </g>
+</svg>

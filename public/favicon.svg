@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1120" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded Base Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <rect width="500" height="500" x="6" y="6" rx="122" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="6" />
+
+  <!-- Outer Door Frame -->
+  <rect x="100" y="80" width="312" height="352" rx="20" fill="none" stroke="#475569" stroke-width="12" />
+  
+  <!-- Top Header Operator Box -->
+  <rect x="94" y="74" width="324" height="48" rx="12" fill="url(#accentGrad)" />
+  <circle cx="130" cy="98" r="6" fill="#67E8F9" />
+  <circle cx="154" cy="98" r="6" fill="#A5F3FC" />
+
+  <!-- Left Sliding Glass Leaf -->
+  <rect x="116" y="132" width="130" height="280" rx="8" fill="url(#glassGrad)" stroke="#38BDF8" stroke-width="4" stroke-opacity="0.6" />
+  <!-- Glass Reflection Sheen -->
+  <path d="M126 142 L210 142 L146 390 L126 390 Z" fill="white" fill-opacity="0.15" />
+  <!-- Left Handle -->
+  <rect x="226" y="240" width="6" height="64" rx="3" fill="#F8FAFC" />
+
+  <!-- Right Sliding Glass Leaf -->
+  <rect x="266" y="132" width="130" height="280" rx="8" fill="url(#glassGrad)" stroke="#38BDF8" stroke-width="4" stroke-opacity="0.6" />
+  <!-- Glass Reflection Sheen -->
+  <path d="M276 142 L360 142 L296 390 L276 390 Z" fill="white" fill-opacity="0.15" />
+  <!-- Right Handle -->
+  <rect x="280" y="240" width="6" height="64" rx="3" fill="#F8FAFC" />
+
+  <!-- Motion Radar Sensor Indicator -->
+  <path d="M226 74 C226 50, 286 50, 286 74" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" />
+  <circle cx="256" cy="62" r="5" fill="#38BDF8" />
+</svg>

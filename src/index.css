@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #E4EBF1;
+  --color-card-panel: #CBD8E2;
+  --color-ink-primary: #06080F;
+  --color-navy-secondary: #11172C;
+  --color-accent-mint: #00F090;
+  --color-accent-mint-hover: #00D882;
+}
+
+@layer base {
+  :root {
+    --bg-main: #E4EBF1;
+    --bg-card: #CBD8E2;
+    --text-primary: #06080F;
+    --text-secondary: #11172C;
+    --accent-cta: #00F090;
+    --card-glass: rgba(203, 216, 226, 0.80);
+    --border-glass: rgba(255, 255, 255, 0.70);
+    --primary-blue: #06080F;
+    --primary-blue-hover: #11172C;
+    --slate-900: #06080F;
+    --slate-800: #11172C;
+    --slate-600: #2D3748;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #E4EBF1;
+    color: #06080F;
+  }
+
+  body {
+    background-color: #E4EBF1;
+    color: #06080F;
+  }
+}
+
+/* Frosted Glass Theme Core Utilities */
+.frosted-glass-canvas {
+  background: radial-gradient(circle at 20% 50%, #ffffff 0%, transparent 50%), linear-gradient(135deg, #CBD8E2 0%, #E4EBF1 100%);
+}
+
+/* Brand Logo Icon & Shield Badge Isolation */
+.brand-logo-icon {
+  background-color: #06080F !important;
+  color: #00F090 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+.brand-logo-icon:hover,
+a:hover .brand-logo-icon,
+button:hover .brand-logo-icon {
+  background-color: #06080F !important;
+  color: #00F090 !important;
+  transform: scale(1.03);
+}
+
+.brand-badge-blue {
+  background-color: rgba(0, 240, 144, 0.12) !important;
+  color: #06080F !important;
+  border: 1px solid rgba(0, 240, 144, 0.5) !important;
+}
+
+/* ========================================================
+   STANDARDS & SERVICE ICON HOVER ISOLATION
+   ======================================================== */
+.icon-wrapper,
+.card-icon {
+  background: rgba(228, 235, 241, 0.9) !important;
+  color: #06080F !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.3s ease !important;
+}
+
+.group:hover .icon-wrapper,
+.group:hover .card-icon,
+.standards-card:hover .icon-wrapper,
+.standards-card:hover .card-icon {
+  background: rgba(0, 240, 144, 0.2) !important;
+  border-color: rgba(0, 240, 144, 0.6) !important;
+  color: #06080F !important;
+  transform: scale(1.05);
+}
+
+.group:hover .icon-wrapper svg,
+.group:hover .card-icon svg,
+.standards-card:hover .icon-wrapper svg,
+.standards-card:hover .card-icon svg {
+  color: #06080F !important;
+  stroke: #06080F !important;
+}
+
+/* ========================================================
+   SHOWCASE ARCHIVE GATEWAY CARDS (PROJECTS & ARTICLES)
+   ======================================================== */
+.archive-gateway-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.archive-gateway-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px -12px rgba(6, 8, 15, 0.35);
+}
+
+.glass-panel {
+  background: rgba(203, 216, 226, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.glass-panel-dark {
+  background: rgba(6, 8, 15, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glass-nav {
+  background: rgba(203, 216, 226, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.frosted-glass-card {
+  background: rgba(203, 216, 226, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 12px 30px -10px rgba(6, 8, 15, 0.08), 0 2px 6px 0 rgba(6, 8, 15, 0.03);
+}
+
+.frosted-glass-card-solid {
+  background: rgba(203, 216, 226, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 35px -10px rgba(6, 8, 15, 0.08);
+}
+
+.frosted-glass-header {
+  background: rgba(203, 216, 226, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.frosted-glass-dark {
+  background: rgba(6, 8, 15, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(6, 8, 15, 0.4);
+}
+
+/* ========================================================
+   LEGACY BROWSER FALLBACKS (Windows 7 / Old Chrome / Firefox / Safari)
+   When backdrop-filter is NOT supported:
+   ======================================================== */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  /* Light Glassmorphic Elements Fallback */
+  .frosted-glass-card,
+  .frosted-glass-card-solid,
+  .glass-panel,
+  .glass-nav,
+  .frosted-glass-header,
+  .glass-card,
+  header.glass-nav,
+  nav.glass-nav,
+  [class*="backdrop-blur"]:not(.glass-panel-dark):not(.frosted-glass-dark):not(.bg-slate-950):not(.bg-slate-900) {
+    background-color: #CBD8E2 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: 0 4px 12px rgba(6, 8, 15, 0.08) !important;
+  }
+
+  /* Archive Gateway Cards Fallback */
+  .archive-gateway-card {
+    background-color: #06080F !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #2D3748 !important;
+    box-shadow: 0 8px 24px rgba(6, 8, 15, 0.3) !important;
+  }
+
+  /* Dark Glassmorphic Panels Fallback */
+  .glass-panel-dark,
+  .frosted-glass-dark,
+  .bg-slate-950.backdrop-blur-md,
+  .bg-slate-900.backdrop-blur-md {
+    background-color: #06080F !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #2D3748 !important;
+    box-shadow: 0 8px 24px rgba(6, 8, 15, 0.25) !important;
+  }
+
+  /* Modal Backdrop Fallback for Legacy Browsers */
+  .fixed.inset-0.bg-black\/50,
+  .fixed.inset-0.bg-slate-950\/60,
+  .fixed.inset-0.bg-slate-900\/60 {
+    background-color: rgba(6, 8, 15, 0.85) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Modal Content Dialog Box Fallback */
+  div[role="dialog"],
+  .modal-container,
+  .quick-inquiry-modal {
+    background-color: #E4EBF1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #CBD8E2 !important;
+    box-shadow: 0 20px 25px -5px rgba(6, 8, 15, 0.15) !important;
+  }
+
+  /* Text Contrast & Readability Enhancements */
+  .text-slate-500,
+  .text-gray-500 {
+    color: #11172C !important;
+  }
+
+  .text-slate-600,
+  .text-gray-600 {
+    color: #11172C !important;
+  }
+
+  .text-slate-400,
+  .text-gray-400 {
+    color: #2D3748 !important;
+  }
+
+  .text-slate-300 {
+    color: #4A5568 !important;
+  }
+
+  /* Inputs & Form Elements Fallback */
+  input, select, textarea {
+    background-color: #ffffff !important;
+    border-color: #CBD8E2 !important;
+    color: #06080F !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E4EBF1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD8E2;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

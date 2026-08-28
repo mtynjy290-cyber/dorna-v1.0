@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پروژه‌ها و رزومه اجرایی درنا درب | ۲۵ سال اجرای سازه‌های شیشه‌ای و ورودی‌های لوکس</title>
+  
+  <!-- Local SEO & Core Meta Tags -->
+  <meta name="description" content="پروژه‌ها و رزومه اجرایی شاخص شرکت مهندسی درنا درب: اجرای درب‌های اتوماتیک اسلایدینگ، پارتیشن‌های آکوستیک اداری، سیستم‌های هرمتیک بیمارستانی و ورودی‌های لوکس در دانشگاه شریف، بانک حکمت و برج‌های فاخر تهران." />
+  <meta name="keywords" content="پروژه‌های درنا درب, درب اتوماتیک دانشگاه شریف, پارتیشن شیشه ای بانک, درب اتوماتیک بیمارستان, درب میرال لابی لوکس, اپراتور دانکر آلمان" />
+  <meta name="author" content="Dorna Door Engineering Co." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#E2E4E8',
+              card: 'rgba(255, 255, 255, 0.82)',
+              border: 'rgba(255, 255, 255, 0.95)',
+              dark: '#0f172a',
+              primary: '#2563eb',
+              primaryHover: '#1d4ed8',
+              accent: '#d97706'
+            }
+          },
+          fontFamily: {
+            vazir: ['Vazirmatn', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Vazirmatn', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Vazirmatn & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    .font-num {
+      font-family: 'Plus Jakarta Sans', 'Vazirmatn', sans-serif;
+    }
+    .brand-logo-icon {
+      background-color: #0f172a !important;
+      color: #3b82f6 !important;
+      border: 1px solid rgba(51, 65, 85, 0.6) !important;
+      transition: transform 0.2s ease, opacity 0.2s ease !important;
+    }
+    .brand-logo-icon:hover,
+    a:hover .brand-logo-icon,
+    button:hover .brand-logo-icon {
+      background-color: #0f172a !important;
+      color: #3b82f6 !important;
+      transform: scale(1.03);
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+    }
+    .glass-panel-dark {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .project-card {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+    }
+    .filter-btn {
+      transition: all 0.25s ease;
+    }
+    .filter-btn.active {
+      background-color: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.2);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Legacy Browser Fallback */
+    @supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+      .glass-panel,
+      .glass-nav,
+      header.glass-nav,
+      .project-card,
+      [class*="backdrop-blur"]:not(.glass-panel-dark):not(.bg-slate-950) {
+        background-color: #ffffff !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: 1px solid #d1d5db !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+      }
+      .glass-panel-dark {
+        background-color: #0f172a !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: 1px solid #334155 !important;
+      }
+      .text-slate-500, .text-gray-500 { color: #334155 !important; }
+      .text-slate-600, .text-gray-600 { color: #1e293b !important; }
+    }
+  </style>
+</head>
+<body class="bg-[#E2E4E8] text-slate-900 antialiased selection:bg-blue-600/30 selection:text-slate-950 min-h-screen flex flex-col justify-between pt-16">
+
+  <!-- ========================================================
+       1. GLOBAL GLASSMORPHIC NAVBAR
+  ======================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav py-2.5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-12">
+        
+        <!-- Right: Brand Logo -->
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0" id="brand-logo-link-projects">
+          <div class="brand-logo-icon relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-950 flex items-center justify-center p-1.5 shadow-sm border border-slate-700/50">
+            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 sm:w-5.5 sm:h-5.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke="#3B82F6" stroke-width="1.7" />
+              <path d="M7 6v12M7 12h3" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" />
+              <path d="M17 6v12M17 12h-3" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" />
+              <line x1="12" y1="4" x2="12" y2="20" stroke="#3B82F6" stroke-width="1.2" stroke-dasharray="2 2" />
+            </svg>
+            <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-blue-500 shadow-sm"></span>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5 leading-tight">
+              <span class="font-extrabold text-base sm:text-lg text-slate-950 tracking-tight">درنا درب</span>
+              <span class="text-blue-600 font-bold text-sm hidden sm:inline">|</span>
+              <span class="font-sans font-bold text-xs text-slate-800 tracking-wider hidden sm:inline">DORNA DOOR</span>
+            </div>
+            <span class="text-[10px] text-slate-500 font-medium tracking-tight hidden sm:block">مهندسی سیستم‌های درب اتوماتیک و شیشه</span>
+          </div>
+        </a>
+
+        <!-- Center: Global Navigation Links (7 Items) -->
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-3 p-1 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-2xs">
+          <a href="index.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">صفحه اصلی</a>
+          <a href="services.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">خدمات</a>
+          <a href="projects.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold bg-slate-950 text-white shadow-2xs">پروژه‌ها</a>
+          <a href="calculator.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">استعلام قیمت</a>
+          <a href="standards.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">استانداردها</a>
+          <a href="blog.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">مقالات</a>
+          <a href="about.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-[13px] font-bold text-slate-700 hover:text-blue-600 hover:bg-white/80 transition-all">درباره ما</a>
+        </nav>
+
+        <!-- Left: Quick Direct Actions -->
+        <div class="flex items-center gap-2.5 shrink-0">
+          <button onclick="openInquiryModal()" id="btn-projects-nav-inquiry" class="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold bg-slate-950 hover:bg-slate-900 text-white shadow-sm hover:shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap">
+            <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
+            <span>استعلام فوری / مشاوره</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       HERO BANNER & FILTER SECTION
+  ======================================================== -->
+  <main class="pt-28 pb-20 flex-grow">
+    
+    <!-- Hero Header -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div class="relative glass-panel rounded-3xl p-8 sm:p-12 lg:p-14 shadow-lg shadow-slate-900/[0.03] overflow-hidden">
+        
+        <!-- Ambient decorative lights -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-6">
+          <a href="index.html" class="hover:text-blue-600 transition-colors">صفحه اصلی</a>
+          <span>←</span>
+          <span class="text-slate-900 font-bold">پروژه‌ها و نمونه‌کارهای اجرایی</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold shadow-2xs mb-4">
+              <svg class="w-3.5 h-3.5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+              <span>آرشیو جامع پروژه‌های معماری و سازمانی</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight mb-4">
+              پروژه‌ها و رزومه اجرایی درنا درب
+            </h1>
+
+            <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-2xl">
+              ۲۵ سال اجرای سازه‌های شیشه‌ای و ورودی‌های لوکس در سراسر کشور با تکیه بر قطعات اورجینال اروپایی و استانداردهای سخت‌گیرانه مهندسی.
+            </p>
+          </div>
+
+          <!-- Quick Stat Badge -->
+          <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/90 border border-slate-200/80 shrink-0">
+            <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl font-num shadow-sm">
+              +۸۵۰
+            </div>
+            <div>
+              <span class="text-xs font-extrabold text-slate-900 block">پروژه موفق در سراسر ایران</span>
+              <span class="text-[11px] font-medium text-slate-500">پوشش پروژه‌های ملی، درمانی و مسکونی</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================
+         2. DYNAMIC CATEGORY FILTERING TABS
+    ======================================================== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-2.5 rounded-2xl glass-panel shadow-sm">
+        
+        <!-- Segmented Glass Pills -->
+        <div class="flex flex-wrap items-center gap-1.5 w-full sm:w-auto" id="filterContainer">
+          <button 
+            onclick="setCategoryFilter('all')" 
+            data-filter="all" 
+            class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-950 bg-white/60 hover:bg-white transition-all cursor-pointer">
+            همه پروژه‌ها (۶)
+          </button>
+          
+          <button 
+            onclick="setCategoryFilter('institutional')" 
+            data-filter="institutional" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-950 bg-white/60 hover:bg-white transition-all cursor-pointer">
+            سازمانی و حساس
+          </button>
+          
+          <button 
+            onclick="setCategoryFilter('commercial')" 
+            data-filter="commercial" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-950 bg-white/60 hover:bg-white transition-all cursor-pointer">
+            تجاری و اداری
+          </button>
+          
+          <button 
+            onclick="setCategoryFilter('luxury_entrance')" 
+            data-filter="luxury_entrance" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-950 bg-white/60 hover:bg-white transition-all cursor-pointer">
+            ورودی‌های لوکس و میرال
+          </button>
+        </div>
+
+        <!-- Filter helper info text -->
+        <div class="hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-500 pl-3">
+          <span id="activeCountLabel" class="text-blue-600 font-bold font-num">۶ پروژه</span>
+          <span>نمایش داده شده است</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         3. PROJECT GALLERY GRID (6 Key Highlight Projects)
+    ======================================================== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+      
+      <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- PROJECT 1: Sharif University -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="institutional commercial">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
+                alt="پارتیشن‌بندی دوجداره آکوستیک دانشگاه شریف" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-blue-600/90 text-white backdrop-blur-md shadow-sm">
+                سازمانی و دانشگاهی
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-blue-300 block">کارفرما: دانشگاه صنعتی شریف</span>
+                <span class="text-xs font-medium opacity-90">تهران، خیابان آزادی - پژوهشکده فناوری</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">۶۰ متر طول پارتیشن</span>
+                <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">عایق آکوستیک ۴۲dB</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                پارتیشن‌بندی دوجداره آکوستیک - دانشگاه صنعتی شریف
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                طراحی و اجرای ۶۰ متر طول پارتیشن شیشه‌ای دوجداره اسلیم با پرده کرکره ولومی توکار مگنتی، شیشه سکوریت ۱۰ میل فلوت سوپرکلیر و درب‌های فریم‌دار آکوستیک جهت تفکیک آزمایشگاه‌ها و دفاتر اساتید.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">پارتیشن دوجداره با پروفیل اسلیم</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">پوشش پروفیل:</span>
+                  <span class="font-bold text-slate-900">آنودایز نقره‌ای مات فابریک</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع شیشه:</span>
+                  <span class="font-bold text-slate-900">دوجداره سکوریت ۱۰+۱۰ با گاز آرگون</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('پارتیشن دوجداره مشابه دانشگاه شریف')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: High-Security Institutional Center -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="institutional">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" 
+                alt="سیستم ورودی امنیتی و درب اتوماتیک مرکز اداری امنیتی" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-indigo-600/90 text-white backdrop-blur-md shadow-sm">
+                سطح امنیتی فوق‌العاده
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-indigo-300 block">کارفرما: نهاد راهبردی و مرکز اداری</span>
+                <span class="text-xs font-medium opacity-90">تهران، منطقه ۳ - مرکز داده و کنترل تردد</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">اینترلاک دومرحله‌ای</span>
+                <span class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200/60">ضدگلوله و هوابند</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                سیستم ورودی امنیتی و درب اتوماتیک - مرکز اداری/امنیتی
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                طراحی سامانه ورودی دومرحله‌ای هوشمند (Airlock / Interlock) با اپراتور پرقدرت دانکر آلمان، قفل الکترومغناطیسی ضدانفجار و ارتباط مستقیم با گیت‌های بیومتریک و اتاق مانیتورینگ مرکزی.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">درب اتوماتیک کشویی اینترلاک هوشمند</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">موتور و محرکه:</span>
+                  <span class="font-bold text-slate-900">موتور براشلس Dunkermotoren آلمان</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع شیشه:</span>
+                  <span class="font-bold text-slate-900">لمینت چندلایه ضدگلوله و ضدضربه</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('درب امنیتی و اینترلاک مشابه مرکز اداری')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 3: Specialized Hospital in West Tehran -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="institutional">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" 
+                alt="درب‌های اتوماتیک بیمارستانی و هرمتیک غرب تهران" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-emerald-600/90 text-white backdrop-blur-md shadow-sm">
+                درمان و سلامت
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-emerald-300 block">کارفرما: بیمارستان تخصصی و فوق‌تخصصی</span>
+                <span class="text-xs font-medium opacity-90">تهران، منطقه ۵ (غرب تهران) - بخش اورژانس و اتاق عمل</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">۱۲ دستگاه درب اتوماتیک</span>
+                <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">هوابند هرمتیک CleanRoom</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                درب‌های اتوماتیک بیمارستانی و هرمتیک - بیمارستان تخصصی (غرب تهران)
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                تأمین و نصب درب‌های تمام اتوماتیک هوابند برای اتاق‌های عمل با روکش استیل ضدمیکروب نگیر ۳۰۴، سنسورهای پایی و هندفری بدون تماس، و درب‌های اسلایدینگ پرتردد ورودی اورژانس.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">درب هرمتیک ایزوله + درب اسلایدینگ</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">سنسور فرمان:</span>
+                  <span class="font-bold text-slate-900">سنسور نوری بدون تماس دست (Foot Sensor)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">ایزولاسیون:</span>
+                  <span class="font-bold text-slate-900">درزگیرهای لاستیکی EPDM با افت فشار صفر</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('درب هرمتیک بیمارستانی مشابه پروژه غرب تهران')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 4: Bank Hekmat Branches -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="institutional commercial">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
+                alt="ورودی شیشه‌ای و درب اتوماتیک شعب بانک حکمت" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-amber-600/90 text-white backdrop-blur-md shadow-sm">
+                سیستم‌های بانکی
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-amber-300 block">کارفرما: بانک حکمت ایرانیان</span>
+                <span class="text-xs font-medium opacity-90">شعب مرکزی و منتخب تهران</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">شعب متعدد پایتخت</span>
+                <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60">قفل ضدسرقت الکترومکانیک</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                ورودی شیشه‌ای و درب اتوماتیک شعب - بانک حکمت
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                اجرای پکیج کامل درب‌های اتوماتیک اسلایدینگ تلسکوپی ورودی اصلی شعب بانک، همراه با باجه‌های شیشه‌ای امنیتی نشکن و قفل‌های الکترونیکی متصل به سامانه اعلان سرقت و آژیر مرکزی.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">درب اتوماتیک تلسکوپی ۴ لنگه</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">فریم:</span>
+                  <span class="font-bold text-slate-900">استیل طلایی مات ضدخش و سایش</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">شیشه:</span>
+                  <span class="font-bold text-slate-900">۱۰ میل سکوریت سوپرکلیر فلوت</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('درب اتوماتیک بانکی مشابه بانک حکمت')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 5: Luxury Commercial Center Entrance -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="luxury_entrance commercial">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                alt="درب میرال استوپی و فریم‌لس لوکس مجتمع تجاری" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-slate-900/90 text-white backdrop-blur-md shadow-sm">
+                ورودی لوکس و میرال
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-slate-300 block">کارفرما: مجتمع تجاری و لوکس آریا</span>
+                <span class="text-xs font-medium opacity-90">تهران، زعفرانیه - ورودی اصلی لابی</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">ارتفاع ۳.۲۰ متر شیشه</span>
+                <span class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200/60">یراق‌آلات استیل ۳۰۴ PVD</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                درب میرال استوپی و فریم‌لس لوکس - مجتمع تجاری
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                تلفیق معماری شفاف مدرن با شیشه‌های جام بزرگ ارتفاع بلند سوپرکلیر وین‌لایت، استوپ‌های کف هیدرولیک سنگین توکار با شیر تنظیم دوسرعته و دستگیره‌های ۲ متری استیل مشکی مات اختصاصی.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">درب میرال شیشه‌ای استوپی فریم‌لس</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">پمپ هیدرولیک:</span>
+                  <span class="font-bold text-slate-900">استوپ روغنی کف سنگین با ضمانت ۵ ساله</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع شیشه:</span>
+                  <span class="font-bold text-slate-900">۱۲ میل سکوریت سوپرکلیر ابزار دیاموند</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('درب میرال لوکس فریم‌لس مشابه پروژه زعفرانیه')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 6: Corporate Tower Frameless Glass Partitioning -->
+        <div class="project-card glass-panel rounded-3xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:bg-white/95 transition-all duration-300" data-category="commercial luxury_entrance">
+          <div>
+            <!-- Image Area with Badges -->
+            <div class="relative h-56 w-full overflow-hidden bg-slate-200">
+              <img 
+                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" 
+                alt="پارتیشن فریم‌لس اداری برج اداری" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+              
+              <!-- Category Pill -->
+              <span class="absolute top-3.5 right-3.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-blue-600/90 text-white backdrop-blur-md shadow-sm">
+                اداری و شرکت‌های فناوری
+              </span>
+              
+              <!-- Location / Client overlay -->
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <span class="text-[11px] font-bold text-blue-300 block">کارفرما: هلدینگ بین‌المللی سرمایه‌گذاری</span>
+                <span class="text-xs font-medium opacity-90">تهران، الهیه - طبقه نهم برج نماد</span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-slate-500 font-num">طراحی فریم‌لس مدرن</span>
+                <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">پروفیل‌های پنهان توکار</span>
+              </div>
+
+              <h3 class="text-lg font-extrabold text-slate-950 tracking-tight mb-2">
+                پارتیشن فریم‌لس اداری - برج اداری
+              </h3>
+
+              <p class="text-xs text-slate-600 leading-relaxed font-normal mb-5">
+                اجرای سیستم پارتیشن شیشه‌ای تک‌جداره فریم‌لس با درزگیری نوارهای پلی‌کربنات شفاف، درب‌های لولایی تمام‌شیشه بدون فریم با قفل‌های مغناطیسی مرغوب و مات‌کاری سندبلاست سفارشی لوگوی شرکت.
+              </p>
+
+              <!-- Technical Specs List -->
+              <div class="space-y-1.5 text-xs text-slate-700 bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/70 mb-5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">نوع سیستم:</span>
+                  <span class="font-bold text-slate-900">پارتیشن تک‌جداره شیشه‌ای Frameless</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">پروفیل کف و سقف:</span>
+                  <span class="font-bold text-slate-900">آلومینیوم مقطع سنگین مشکی مات ۲.۵ سانتی</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500 font-medium">شیشه:</span>
+                  <span class="font-bold text-slate-900">۱۰ میل سکوریت کلیر با سندبلاست دکوراتیو</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card Action -->
+          <div class="p-6 pt-0">
+            <button onclick="openInquiryModal('پارتیشن فریم‌لس اداری مشابه برج نماد الهیه')" class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+              <span>درخواست مشاوره برای پروژه مشابه</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================
+           4. EMPTY FILTER HOOK (تله مشتری برای بخش‌های خالی یا پروژه‌های سفارشی)
+      ======================================================== -->
+      <div id="emptyFilterHook" class="hidden my-12">
+        <div class="relative glass-panel rounded-3xl p-8 sm:p-10 border-2 border-dashed border-blue-300 text-center max-w-3xl mx-auto shadow-sm overflow-hidden">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-2xs">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+          </div>
+
+          <h3 class="text-xl font-extrabold text-slate-950 mb-2">
+            مشابه این پروژه را مد نظر دارید؟
+          </h3>
+
+          <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mb-6 leading-relaxed">
+            درنا درب آماده است تا سیستم درب اتوماتیک یا سازه شیشه‌ای اختصاصی شما را با ابعاد دقیق، متریال انتخابی و گارانتی طلایی ۵ ساله اجرا نماید.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="openInquiryModal('سفارش پروژه اختصاصی')" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all cursor-pointer">
+              درخواست استعلام و بازدید حضوری
+            </button>
+            <a href="calculator.html" class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-bold transition-all shadow-xs">
+              محاسبه آنلاین قیمت این نوع پروژه
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Bottom Action Banner -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+      <div class="glass-panel-dark rounded-3xl p-8 sm:p-12 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+        
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-2xl">
+          <span class="text-xs font-bold text-blue-400 font-num uppercase tracking-wider block mb-1">Dorna Door Guarantee</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+            تمامی پروژه‌ها همراه با ۵ سال ضمانت کتبی عملکرد اجرا می‌شوند
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+            تأمین ۱۰۰٪ قطعات اورجینال دانکر آلمان و گارانتی طلایی بی‌قیدوشرط موتور و فریم به همراه ۱۰ سال خدمات پس از فروش.
+          </p>
+        </div>
+
+        <div class="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+          <a href="calculator.html" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md active:scale-95">
+            محاسبه هزینه دقیق پروژه شما
+          </a>
+          <button onclick="openInquiryModal()" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold transition-all active:scale-95 cursor-pointer">
+            درخواست کارشناسی در محل
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       5. GLOBAL FOOTER
+  ======================================================== -->
+  <footer class="bg-slate-950 text-slate-300 pt-16 pb-10 border-t border-slate-800 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- Brand Info -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center p-2 border border-slate-700">
+              <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 text-blue-400">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8" />
+                <path d="M9 3v18" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2" />
+                <path d="M15 3v18" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl font-extrabold text-white">درنا درب</span>
+              <span class="text-slate-600">|</span>
+              <span class="text-xs font-bold text-slate-400 font-num">DORNA DOOR</span>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-400 leading-relaxed max-w-md">
+            طراحی، تأمین متریال و اجرای سیستم‌های مدرن درب‌های اتوماتیک شیشه‌ای، پارتیشن‌های فریم‌لس آکوستیک و کرکره‌های برقی با ۲۵ سال تجربه مهندسی و تعهد ۵ ساله طلایی.
+          </p>
+
+          <div class="space-y-2 text-xs text-slate-300 pt-2">
+            <p>تلفن دفتر مرکزی: <a href="tel:02122009876" class="text-white hover:text-blue-400 font-bold font-num">۰۲۱-۲۲۰۰۹۸۷۶</a></p>
+            <p>خط مستقیم کارشناسی فنی: <a href="tel:09121234567" class="text-white hover:text-blue-400 font-bold font-num">۰۹۱۲-۱۲۳۴۵۶۷</a></p>
+            <p>آدرس: تهران، خیابان فرشته، برج اداری نماد، طبقه ۷</p>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="lg:col-span-3 space-y-4">
+          <h4 class="text-sm font-bold text-white border-r-2 border-blue-500 pr-2">دسترسی به صفحات</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="index.html" class="hover:text-white transition-colors">صفحه اصلی</a></li>
+            <li><a href="services.html" class="hover:text-white transition-colors">خدمات مهندسی و اجرایی</a></li>
+            <li><a href="projects.html" class="text-blue-400 font-bold">پروژه‌های شاخص</a></li>
+            <li><a href="calculator.html" class="hover:text-white transition-colors">سامانه محاسبه قیمت</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">درباره درنا درب</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">تماس با کارشناسان</a></li>
+          </ul>
+        </div>
+
+        <!-- Direct Actions -->
+        <div class="lg:col-span-4 space-y-4">
+          <h4 class="text-sm font-bold text-white border-r-2 border-blue-500 pr-2">ارتباط مستقیم</h4>
+          <div class="space-y-2.5">
+            <button onclick="openInquiryModal()" class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md text-center cursor-pointer">
+              درخواست پیش‌فاکتور رسمی و بازدید
+            </button>
+            <a href="https://wa.me/989121234567" target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 text-xs font-bold transition-all flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+              <span>مشاوره در واتس‌اپ: ۰۹۱۲۱۲۳۴۵۶۷</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© تمامی حقوق مادی و معنوی متعلق به شرکت مهندسی درنا درب (Dorna Door) می‌باشد.</p>
+        <p class="font-num">Engineering Excellence Since 2001</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       LEAD CAPTURE MODAL
+  ======================================================== -->
+  <div id="inquiryModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-lg rounded-3xl glass-panel p-6 sm:p-8 shadow-2xl border border-white">
+      
+      <!-- Close button -->
+      <button onclick="closeInquiryModal()" class="absolute top-5 left-5 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Modal Title -->
+      <div class="mb-6">
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 block w-fit mb-2">استعلام مستقیم پروژه</span>
+        <h3 class="text-xl font-extrabold text-slate-950 tracking-tight">درخواست استعلام و بازدید کارشناسی</h3>
+        <p class="text-xs text-slate-600 mt-1 font-medium">مشخصات اولیه را ثبت نمایید؛ کارشناس ارشد فنی ظرف کمتر از ۱ ساعت با شما تماس خواهد گرفت.</p>
+      </div>
+
+      <!-- Form -->
+      <form onsubmit="handleInquirySubmit(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">پروژه یا سیستم مورد نظر:</label>
+          <input type="text" id="modalProjectName" required class="w-full p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600" value="استعلام پروژه" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-800 mb-1">نام و نام خانوادگی:</label>
+            <input type="text" required placeholder="مهندس ..." class="w-full p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-800 mb-1">شماره تماس همراه:</label>
+            <input type="tel" required placeholder="۰۹۱۲..." class="w-full p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">موقعیت و شهر/منطقه پروژه:</label>
+          <input type="text" placeholder="مثال: تهران، منطقه ۱ - فرشته" class="w-full p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600" />
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md transition-all mt-4 cursor-pointer">
+          ارسال اطلاعات و ثبت درخواست کارشناسی
+        </button>
+      </form>
+
+      <div id="modalSuccessMsg" class="hidden mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold text-center">
+        درخواست شما با موفقیت ثبت شد. کارشناسان ما به زودی با شما تماس خواهند گرفت.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       JAVASCRIPT LOGIC
+  ======================================================== -->
+  <script>
+    // 1. Dynamic Category Filtering Functionality
+    function setCategoryFilter(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      const cards = document.querySelectorAll('.project-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const categories = card.getAttribute('data-category').split(' ');
+        if (category === 'all' || categories.includes(category)) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update count label
+      const countLabel = document.getElementById('activeCountLabel');
+      if (countLabel) {
+        countLabel.textContent = `${visibleCount} پروژه`;
+      }
+
+      // Empty Filter Hook
+      const emptyHook = document.getElementById('emptyFilterHook');
+      if (emptyHook) {
+        if (visibleCount === 0) {
+          emptyHook.classList.remove('hidden');
+        } else {
+          // Keep it visible as subtle bottom lead trap when filtered or show when 0
+          emptyHook.classList.add('hidden');
+        }
+      }
+    }
+
+    // 2. Modal Open/Close handlers
+    function openInquiryModal(defaultProjectName = 'استعلام و بازدید کارشناسی پروژه') {
+      const modal = document.getElementById('inquiryModal');
+      const input = document.getElementById('modalProjectName');
+      const successMsg = document.getElementById('modalSuccessMsg');
+      
+      if (input) input.value = defaultProjectName;
+      if (successMsg) successMsg.classList.add('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeInquiryModal() {
+      const modal = document.getElementById('inquiryModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function handleInquirySubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('modalSuccessMsg');
+      if (successMsg) {
+        successMsg.classList.remove('hidden');
+        setTimeout(() => {
+          closeInquiryModal();
+        }, 2200);
+      }
+    }
+
+    // Close modal on click outside
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('inquiryModal');
+      if (e.target === modal) {
+        closeInquiryModal();
+      }
+    });
+  </script>
+
+</body>
+</html>
