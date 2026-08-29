@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useSpring, useMotionValueEvent } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Sparkles, Calculator, PhoneCall } from 'lucide-react';
 import { useSiteContentStore } from '../lib/siteContentStore';
 
@@ -8,106 +8,173 @@ interface HeroProps {
   onOpenInquiry?: () => void;
 }
 
+const TOTAL_FRAMES = 141;
+
 export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const heroContent = useSiteContentStore((state) => state.hero);
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
 
-  // 1. Track Scroll Progress inside Hero Section
+  // 1. Precise Track of Section Scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  // 2. Physics Spring for Ultra-Smooth Playback Interpolation
+  // Smooth spring motion for buttery responsive frame interpolation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 45,
-    damping: 18,
-    mass: 0.08,
+    stiffness: 140,
+    damping: 26,
+    mass: 0.1,
     restDelta: 0.0001,
   });
 
-  // 3. Initialize video metadata & prepare playback sync
+  // Smooth fade/depth transitions for foreground content during scroll
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75, 0.95], [1, 0.85, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.96]);
+
+  // 2. High-Performance Instant Image Sequence Preloader & Canvas Renderer
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    video.pause();
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
 
-    const handleLoadedMetadata = () => {
-      setIsVideoLoaded(true);
-      if (video.duration && !isNaN(video.duration)) {
-        const currentProgress = smoothProgress.get();
-        video.currentTime = currentProgress * video.duration;
+    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES + 1);
+    let currentRenderedIndex = -1;
+    let isComponentMounted = true;
+    let rafId: number;
+
+    // Helper: Draw image on canvas with 'object-fit: cover'
+    const drawCoverImage = (img: HTMLImageElement) => {
+      if (!ctx || !canvas || !img || !img.complete || !img.naturalWidth) return;
+
+      const cWidth = canvas.width;
+      const cHeight = canvas.height;
+      const iWidth = img.naturalWidth;
+      const iHeight = img.naturalHeight;
+
+      const scale = Math.max(cWidth / iWidth, cHeight / iHeight);
+      const renderW = iWidth * scale;
+      const renderH = iHeight * scale;
+      const offsetX = (cWidth - renderW) / 2;
+      const offsetY = (cHeight - renderH) / 2;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'medium';
+      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+    };
+
+    // Resize canvas with high-DPI awareness
+    const handleResize = () => {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+
+      const frameIdx = currentRenderedIndex > 0 ? currentRenderedIndex : 1;
+      if (images[frameIdx] && images[frameIdx].complete) {
+        drawCoverImage(images[frameIdx]);
       }
     };
 
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    if (video.readyState >= 1 && video.duration) {
-      handleLoadedMetadata();
+    // 1. Instant First Frame Load (Zero Waiting)
+    const firstImg = new Image();
+    firstImg.src = '/video/frames/frame_001.webp';
+    images[1] = firstImg;
+
+    firstImg.onload = () => {
+      if (!isComponentMounted) return;
+      setFirstFrameLoaded(true);
+      handleResize();
+      drawCoverImage(firstImg);
+      currentRenderedIndex = 1;
+    };
+
+    if (firstImg.complete) {
+      setFirstFrameLoaded(true);
+      handleResize();
+      drawCoverImage(firstImg);
+      currentRenderedIndex = 1;
     }
 
-    // Direct frame render request loop with micro-lerp to ensure 60fps buttery smooth sub-frame movement
-    let rafId: number;
-    let targetTime = 0;
+    // 2. Preload remaining frames in background
+    for (let i = 2; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const paddedIndex = String(i).padStart(3, '0');
+      img.src = `/video/frames/frame_${paddedIndex}.webp`;
+      images[i] = img;
+    }
 
+    // 3. Continuous 60fps / 120fps ultra-fast canvas render loop
     const renderLoop = () => {
-      if (video && video.duration && !isNaN(video.duration)) {
-        const latest = smoothProgress.get();
-        targetTime = Math.min(Math.max(latest * video.duration, 0), video.duration);
-        
-        const delta = targetTime - video.currentTime;
-        if (Math.abs(delta) > 0.001) {
-          // Smooth micro-step towards target position
-          video.currentTime += delta * 0.25;
+      const progress = smoothProgress.get();
+      // Calculate active frame index (1 to 141)
+      const targetIndex = Math.min(
+        Math.max(Math.round(progress * (TOTAL_FRAMES - 1)) + 1, 1),
+        TOTAL_FRAMES
+      );
+
+      if (targetIndex !== currentRenderedIndex) {
+        const targetImg = images[targetIndex];
+        if (targetImg && targetImg.complete && targetImg.naturalWidth > 0) {
+          drawCoverImage(targetImg);
+          currentRenderedIndex = targetIndex;
+        } else {
+          // Fallback to nearest loaded frame to guarantee zero flicker
+          for (let offset = 1; offset <= 10; offset++) {
+            const prev = images[targetIndex - offset];
+            if (prev && prev.complete && prev.naturalWidth > 0) {
+              drawCoverImage(prev);
+              break;
+            }
+            const next = images[targetIndex + offset];
+            if (next && next.complete && next.naturalWidth > 0) {
+              drawCoverImage(next);
+              break;
+            }
+          }
         }
       }
+
       rafId = requestAnimationFrame(renderLoop);
     };
 
+    window.addEventListener('resize', handleResize);
     rafId = requestAnimationFrame(renderLoop);
 
     return () => {
+      isComponentMounted = false;
       cancelAnimationFrame(rafId);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      window.removeEventListener('resize', handleResize);
     };
   }, [smoothProgress]);
 
-  // 4. Synchronize video frame directly on value change
-  useMotionValueEvent(smoothProgress, 'change', (latest) => {
-    const video = videoRef.current;
-    if (video && video.duration && !isNaN(video.duration)) {
-      const target = Math.min(Math.max(latest * video.duration, 0), video.duration);
-      if (Math.abs(video.currentTime - target) > 0.08) {
-        video.currentTime = target;
-      }
-    }
-  });
-
   return (
-    <div ref={containerRef} id="hero-section" className="relative h-[1200vh] bg-[#E4EBF1]">
-      {/* Sticky Fullscreen Frame */}
+    <div ref={containerRef} id="hero-section" className="relative h-[320vh] bg-[#E4EBF1] isolate">
+      {/* Sticky Fullscreen Viewport */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Background Video Layer - 100% Crisp & Clear without White Veil */}
-        <video
-          ref={videoRef}
-          src="/video/hero-scroll.mp4"
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transition-opacity duration-500"
-          style={{ opacity: isVideoLoaded ? 1 : 0 }}
+        {/* GPU-Accelerated 2D Canvas Viewport (Zero Lag, Instant Load, 60/120fps) */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
         />
 
         {/* Hero Content Overlay */}
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 px-4 py-8 pointer-events-auto">
+        <motion.div
+          style={{ opacity: contentOpacity, scale: contentScale }}
+          className="relative z-10 max-w-5xl mx-auto text-center space-y-8 px-4 py-8 pointer-events-auto"
+        >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#CBD8E2]/85 backdrop-blur-md border border-[#06080F]/10 text-[#06080F] text-xs font-bold shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#CBD8E2]/85 backdrop-blur-xs border border-[#06080F]/10 text-[#06080F] text-xs font-bold shadow-xs"
           >
             <Sparkles className="w-4 h-4 text-[#00F090]" />
             <span>{heroContent.badgeText || 'سیستم‌های هوشمند درب اتوماتیک و سازه‌های شیشه‌ای'}</span>
@@ -166,26 +233,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
-            <div className="bg-[#CBD8E2]/65 backdrop-blur-sm border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
+            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
               <span className="block text-lg font-black text-[#06080F]">۵ سال</span>
               <span className="text-[11px] text-[#11172C]">گارانتی بی‌قیدوشرط</span>
             </div>
-            <div className="bg-[#CBD8E2]/65 backdrop-blur-sm border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
+            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
               <span className="block text-lg font-black text-[#06080F]">دانکر آلمان</span>
               <span className="text-[11px] text-[#11172C]">موتورهای براشلس اصلی</span>
             </div>
-            <div className="bg-[#CBD8E2]/65 backdrop-blur-sm border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
+            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
               <span className="block text-lg font-black text-[#06080F]">۱۰ میل</span>
               <span className="text-[11px] text-[#11172C]">سکوریت سوپرکلیر</span>
             </div>
-            <div className="bg-[#CBD8E2]/65 backdrop-blur-sm border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
+            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
               <span className="block text-lg font-black text-[#06080F]">مناطق ۱ تا ۵</span>
               <span className="text-[11px] text-[#11172C]">کارشناسی و اعزام فوری</span>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 };
+
 
