@@ -23,6 +23,8 @@ import {
   ChevronLeft
 } from 'lucide-react';
 import { QuickInquiryModal } from './components/QuickInquiryModal';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
 import { dbService, PricingConfig, CatalogItem, DEFAULT_PRICING_CONFIG } from './lib/supabase';
 
 /**
@@ -546,6 +548,7 @@ export function CalculatorPage() {
     { id: 'home', label: 'صفحه اصلی', href: 'index.html', icon: Sparkles, desc: 'خانه و معرفی سیستم‌ها' },
     { id: 'services', label: 'خدمات', href: 'services.html', icon: Layers, desc: 'سیستم‌های درب اتوماتیک و شیشه' },
     { id: 'projects', label: 'پروژه‌ها', href: 'projects.html', icon: Briefcase, desc: 'پروژه‌های شاخص و رزومه اجرایی' },
+    { id: 'products', label: 'محصولات', href: 'products.html', icon: Settings2, desc: 'درب اتوماتیک، کرکره، میرال و پارتیشن' },
     { id: 'calculator', label: 'استعلام قیمت', href: 'calculator.html', icon: Calculator, desc: 'سامانه آنلاین برآورد قیمت' },
     { id: 'standards', label: 'استانداردها', href: 'standards.html', icon: ShieldCheck, desc: 'گارانتی ۲۴ ماهه و استانداردها' },
     { id: 'blog', label: 'مقالات', href: 'blog.html', icon: FileText, desc: 'دانشنامه و مقالات فنی' },
@@ -555,137 +558,13 @@ export function CalculatorPage() {
   return (
     <div className="min-h-screen bg-[#E4EBF1] text-[#11172C] font-['Vazirmatn',sans-serif] flex flex-col justify-between selection:bg-[#00F090]/30 selection:text-[#06080F]">
       
-      {/* ========================================================
-          1. PAGE HEADER & DESIGN SYSTEM: EXACT LUXURY NAVBAR
-      ======================================================== */}
-      <header className="sticky top-0 z-40 bg-[#CBD8E2]/90 backdrop-blur-[16px] border-b border-white/80 shadow-xs py-2.5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-12">
-            
-            {/* 1. Logo & Brand Tagline */}
-            <a href="index.html" className="flex items-center gap-2.5 shrink-0" id="brand-logo-link-calc">
-              <div className="brand-logo-icon relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#06080F] flex items-center justify-center p-1.5 shadow-sm border border-slate-700/50">
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 sm:w-5.5 sm:h-5.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#00F090" strokeWidth="1.7" />
-                  <path d="M9 3v18" stroke="#00F090" strokeWidth="1.7" strokeDasharray="2 2" />
-                  <path d="M15 3v18" stroke="#00F090" strokeWidth="1.7" strokeDasharray="2 2" />
-                  <circle cx="12" cy="12" r="2" fill="#00F090" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5 leading-tight">
-                  <span className="font-extrabold text-base sm:text-lg text-[#06080F] tracking-tight">درنا درب</span>
-                  <span className="text-[#00F090] font-bold text-sm hidden sm:inline">|</span>
-                  <span className="font-sans font-bold text-xs text-[#11172C] tracking-wider hidden sm:inline">DORNA DOOR</span>
-                </div>
-                <span className="text-[10px] text-[#11172C]/70 font-medium tracking-wide hidden sm:block">
-                  سامانه برآورد آنلاین مهندسی
-                </span>
-              </div>
-            </a>
-
-            {/* 2. Desktop Navigation: 7 Concise Items */}
-            <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 p-1 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-2xs">
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  onMouseEnter={() => setActiveHoverNav(link.id)}
-                  onMouseLeave={() => setActiveHoverNav(null)}
-                  className={`relative px-2.5 xl:px-3 py-1.5 text-xs xl:text-[13px] font-bold rounded-xl transition-all whitespace-nowrap ${
-                    link.id === 'calculator' ? 'text-[#06080F] bg-white font-extrabold shadow-xs' : 'text-[#11172C] hover:text-[#06080F] hover:bg-white/80'
-                  }`}
-                >
-                  {link.label}
-                  {activeHoverNav === link.id && (
-                    <motion.span
-                      layoutId="nav-indicator-calc"
-                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#00F090] rounded-full"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </a>
-              ))}
-            </nav>
-
-            {/* 3. Desktop CTA Button: Single prominent CTA */}
-            <div className="hidden lg:flex items-center gap-2.5 shrink-0">
-              <button
-                onClick={() => setInquiryOpen(true)}
-                id="btn-nav-inquiry-calc"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-black bg-[#00F090] hover:bg-[#00D882] text-[#06080F] shadow-sm hover:shadow-md transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#06080F]" />
-                <span>استعلام فوری / مشاوره</span>
-              </button>
-            </div>
-
-            {/* 4. Mobile Controls */}
-            <div className="flex lg:hidden items-center gap-2 shrink-0">
-              <a
-                href="tel:02122009876"
-                aria-label="مشاوره فوری"
-                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white/80 hover:bg-white text-[#06080F] border border-white/90 shadow-2xs backdrop-blur-[8px] flex items-center justify-center transition-all active:scale-95"
-              >
-                <Phone className="w-4 h-4 text-[#06080F]" />
-              </a>
-
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="منوی سایت"
-                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-[#06080F] hover:bg-slate-900 text-white border border-slate-700/50 shadow-2xs backdrop-blur-[8px] flex items-center justify-center transition-all active:scale-95"
-              >
-                {mobileMenuOpen ? <X className="w-4 h-4 text-white" /> : <Menu className="w-4 h-4 text-white" />}
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Mobile Dropdown Navigation */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden px-4 pt-3 pb-5 border-t border-white/80 bg-[#CBD8E2]/95 backdrop-blur-xl space-y-2 mt-2">
-            {navLinks.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/70 hover:bg-white text-[#06080F] font-bold text-xs transition-colors border border-white/70"
-              >
-                <div className="flex items-center gap-2.5">
-                  <item.icon className="w-4 h-4 text-[#06080F]" />
-                  <span>{item.label}</span>
-                </div>
-                <span className="text-[10px] text-[#11172C]/70 font-normal">{item.desc}</span>
-              </a>
-            ))}
-
-            <div className="pt-2 flex flex-col gap-2">
-              <a
-                href="index.html"
-                className="w-full py-3 rounded-xl bg-white/80 hover:bg-white text-[#06080F] text-xs font-bold flex items-center justify-center gap-2 text-center border border-white/80"
-              >
-                <span>بازگشت به صفحه اصلی</span>
-              </a>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setInquiryOpen(true);
-                }}
-                className="w-full py-3 rounded-xl bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs font-black flex items-center justify-center gap-2 shadow-sm"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>درخواست مشاوره تخصصی</span>
-              </button>
-            </div>
-          </div>
-        )}
-      </header>
+      {/* Global Unified Luxury Dark Glass Navbar */}
+      <Navbar onOpenInquiry={() => setInquiryOpen(true)} />
 
       {/* ========================================================
           2. PAGE TITLE & HERO HEADER
       ======================================================== */}
-      <main className="flex-1 py-8 sm:py-12 lg:py-16">
+      <main className="flex-1 pt-24 sm:pt-28 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
@@ -1508,20 +1387,8 @@ export function CalculatorPage() {
         </div>
       </main>
 
-      {/* Luxury Footer */}
-      <footer className="bg-[#CBD8E2] text-[#11172C] py-10 border-t border-white/80 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-[#06080F]">
-            <span className="font-black text-sm">درنا درب</span>
-            <span className="text-[#11172C]/40">•</span>
-            <span className="text-xs text-[#11172C]/80">سامانه تخصصی برآورد آنلاین قیمت درب اتوماتیک و سازه‌های شیشه‌ای</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="index.html" className="hover:text-[#06080F] transition-colors font-medium">صفحه اصلی</a>
-            <a href="tel:02122009876" className="text-[#06080F] hover:text-[#00F090] font-black">۰۲۱-۲۲۰۰۹۸۷۶</a>
-          </div>
-        </div>
-      </footer>
+      {/* Global Luxury Unified Footer */}
+      <Footer onOpenInquiry={() => setInquiryOpen(true)} />
 
       {/* Quick Inquiry & On-site Survey Modal */}
       <QuickInquiryModal 

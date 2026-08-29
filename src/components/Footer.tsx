@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Phone, 
   Mail, 
@@ -6,11 +6,16 @@ import {
   ShieldCheck, 
   Clock, 
   ArrowUp,
-  Sparkles,
-  MessageCircle,
-  Calculator,
+  Sparkles, 
+  MessageCircle, 
+  Calculator, 
   ChevronLeft,
-  Sliders
+  Sliders,
+  CheckCircle2,
+  Award,
+  Layers,
+  Building2,
+  Cpu
 } from 'lucide-react';
 import { SITE_CONFIG } from '../config/siteConfig';
 import { useSiteContentStore } from '../lib/siteContentStore';
@@ -27,96 +32,145 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
 
   const navLinks = [
     { label: 'صفحه اصلی', href: 'index.html' },
-    { label: 'کاتالوگ قطعات و موتورها', href: 'products.html' },
+    { label: 'محصولات و مشخصات فنی', href: 'products.html' },
     { label: 'خدمات مهندسی و اجرایی', href: 'services.html' },
-    { label: 'پروژه‌های شاخص', href: 'projects.html' },
-    { label: 'محاسبه‌گر هوشمند قیمت', href: 'calculator.html' },
-    { label: 'استانداردها و تعهدات', href: 'standards.html' },
-    { label: 'مجله تخصصی و مقالات', href: 'blog.html' },
-    { label: 'درباره ما و اصالت برند', href: 'about.html' },
-    { label: 'پنل مدیریت زنده محتوا (CMS)', href: 'admin.html' },
+    { label: 'پروژه‌های شاخص ملی و لوکس', href: 'projects.html' },
+    { label: 'استعلام آنلاین و پیش‌فاکتور', href: 'calculator.html' },
+    { label: 'استانداردها و گارانتی ۲۴ ماهه', href: 'standards.html' },
+    { label: 'دانشنامه و مقالات تخصصی', href: 'blog.html' },
+    { label: 'درباره ما و اصالت ۲۵ ساله', href: 'about.html' },
+  ];
+
+  const productLinks = [
+    { label: 'درب‌های اتوماتیک اسلایدینگ و تلسکوپی', href: 'products.html' },
+    { label: 'کرکره‌های برقی امنیتی و پلی‌کربنات', href: 'products.html' },
+    { label: 'درب‌های شیشه‌ای میرال و اسلایدی', href: 'products.html' },
+    { label: 'پارتیشن‌های فریم‌لس و دوجداره آکوستیک', href: 'products.html' },
+    { label: 'موتور و اپراتورهای دانکر آلمان (Dunker)', href: 'products.html' },
   ];
 
   return (
-    <footer className="bg-[#CBD8E2] text-[#11172C] pt-16 pb-10 border-t border-white/80 relative overflow-hidden backdrop-blur-[20px]">
+    <footer className="relative bg-[#06080F] text-[#CBD8E2] pt-16 pb-10 border-t border-white/10 overflow-hidden">
       
-      {/* Background Subtle Accent Glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#00F090]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#00F090]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
+        {/* Top Highlight Feature Bar */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-12 border-b border-white/10">
+          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="w-11 h-11 rounded-xl bg-[#00F090]/10 border border-[#00F090]/30 flex items-center justify-center shrink-0">
+              <Award className="w-5 h-5 text-[#00F090]" />
+            </div>
+            <div>
+              <span className="text-xs font-black text-white block">۲۴ ماه گارانتی طلایی تعویض</span>
+              <span className="text-[11px] text-[#CBD8E2]/70">تعهد کتبی و بی قیدوشرط برد و موتور</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-400/30 flex items-center justify-center shrink-0">
+              <Cpu className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <span className="text-xs font-black text-white block">قطعات اورجینال اروپایی</span>
+              <span className="text-[11px] text-[#CBD8E2]/70">موتور Dunkermotoren آلمان و سنسور BEA</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shrink-0">
+              <Clock className="w-5 h-5 text-amber-400" />
+            </div>
+            <div>
+              <span className="text-xs font-black text-white block">پشتیبانی و خدمات فوری</span>
+              <span className="text-[11px] text-[#CBD8E2]/70">۱۰ سال تأمین قطعات و پشتیبانی سراسر کشور</span>
+            </div>
+          </div>
+        </div>
+
         {/* Main Footer Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 py-12 border-b border-white/10">
           
           {/* ========================================================
-              RIGHT: BRAND IDENTITY & OFFICIAL DETAILS (5 cols)
+              RIGHT: BRAND IDENTITY & OFFICIAL DETAILS (4 cols)
           ======================================================== */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-4 space-y-4">
             {/* Brand Logo & Name */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/80 flex items-center justify-center p-2 border border-white shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#06080F] flex items-center justify-center p-2 border border-white/20 shadow-md">
                 <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
-                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#06080F" strokeWidth="1.7" />
-                  <path d="M9 3v18" stroke="#06080F" strokeWidth="1.7" strokeDasharray="2 2" />
-                  <path d="M15 3v18" stroke="#06080F" strokeWidth="1.7" strokeDasharray="2 2" />
-                  <circle cx="12" cy="12" r="2" fill="#00F090" />
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#00F090" strokeWidth="1.7" />
+                  <path d="M7 6v12M7 12h3" stroke="#FFFFFF" strokeWidth="1.7" strokeLinecap="round" />
+                  <path d="M17 6v12M17 12h-3" stroke="#FFFFFF" strokeWidth="1.7" strokeLinecap="round" />
+                  <line x1="12" y1="4" x2="12" y2="20" stroke="#00F090" strokeWidth="1.2" strokeDasharray="2 2" />
                 </svg>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xl font-black text-[#06080F] tracking-tight">{brand.name}</span>
-                <span className="text-[#11172C]/40">|</span>
-                <span className="text-sm font-sans font-bold text-[#11172C]/70 tracking-wider uppercase">{brand.nameEn}</span>
+                <span className="text-xl font-black text-white tracking-tight">{brand.name}</span>
+                <span className="text-[#00F090] font-bold text-sm">|</span>
+                <span className="text-xs font-sans font-bold text-[#CBD8E2]/80 tracking-wider uppercase">{brand.nameEn}</span>
               </div>
             </div>
 
             {/* Mission Statement */}
-            <p className="text-xs text-[#11172C]/80 leading-relaxed max-w-md">
-              {SITE_CONFIG.brand.shortDescription}
+            <p className="text-xs text-[#CBD8E2]/80 leading-relaxed max-w-sm">
+              شرکت مهندسی درنا درب با بیش از ۲۵ سال تجربه در زمینه مشاوره، طراحی، تولید و اجرای پیشرفته‌ترین سیستم‌های درب‌های اتوماتیک، شیشه‌های سکوریت و سازه‌های معماری در سراسر کشور.
             </p>
 
             {/* Official Contact Numbers */}
-            <div className="pt-2 space-y-2 text-xs text-[#11172C]">
+            <div className="pt-2 space-y-2.5 text-xs text-[#CBD8E2]">
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#06080F] shrink-0" />
-                <span className="text-[#11172C]/70">تلفن دفتر مرکزی:</span>
-                <a href={`tel:${contact.centralPhoneTel}`} className="text-[#06080F] hover:text-[#00F090] font-black font-sans tracking-wide transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                  <Phone className="w-3.5 h-3.5 text-[#00F090]" />
+                </div>
+                <span className="text-[#CBD8E2]/70">تلفن دفتر مرکزی:</span>
+                <a href={`tel:${contact.centralPhoneTel}`} className="text-white hover:text-[#00F090] font-bold font-sans tracking-wide transition-colors">
                   {contact.centralPhone}
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#06080F] shrink-0" />
-                <span className="text-[#11172C]/70">خط مستقیم کارشناسی فنی:</span>
-                <a href={`tel:${contact.directMobileTel}`} className="text-[#06080F] hover:text-[#00F090] font-black font-sans tracking-wide transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                  <Phone className="w-3.5 h-3.5 text-[#00F090]" />
+                </div>
+                <span className="text-[#CBD8E2]/70">کارشناسی فنی و اندازه‌گیری:</span>
+                <a href={`tel:${contact.directMobileTel}`} className="text-white hover:text-[#00F090] font-bold font-sans tracking-wide transition-colors">
                   {contact.directMobile}
                 </a>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 text-[#06080F] shrink-0" />
-                <span className="text-[#11172C]/70">آدرس:</span>
-                <span className="text-[#11172C] font-medium">{contact.address}</span>
+              <div className="flex items-start gap-2.5">
+                <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#00F090]" />
+                </div>
+                <div className="text-xs leading-relaxed">
+                  <span className="text-[#CBD8E2]/70">آدرس کارخانه و دفتر: </span>
+                  <span className="text-white font-medium">{contact.address}</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* ========================================================
-              CENTER: QUICK NAVIGATION LINKS (3 cols)
+              CENTER-RIGHT: QUICK NAVIGATION LINKS (2.5 cols)
           ======================================================== */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-black text-[#06080F] tracking-wide border-r-2 border-[#00F090] pr-2.5">
-              دسترسی سریع
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5 flex items-center gap-1.5">
+              <span>صفحات اصلی</span>
             </h4>
 
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2 text-xs">
               {navLinks.map((item, idx) => (
                 <li key={idx}>
                   <a 
                     href={item.href} 
-                    className="text-[#11172C]/80 hover:text-[#06080F] font-bold transition-colors flex items-center gap-1.5 group"
+                    className="text-[#CBD8E2]/75 hover:text-[#00F090] font-medium transition-colors flex items-center gap-1.5 group py-0.5"
                   >
-                    <ChevronLeft className="w-3 h-3 text-[#11172C]/50 group-hover:text-[#06080F] transition-colors" />
+                    <ChevronLeft className="w-3 h-3 text-[#00F090]/40 group-hover:text-[#00F090] transition-colors" />
                     <span>{item.label}</span>
                   </a>
                 </li>
@@ -125,85 +179,102 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
           </div>
 
           {/* ========================================================
-              LEFT: DIRECT CONTACT TRIGGERS & ACTIONS (4 cols)
+              CENTER-LEFT: PRODUCTS & SYSTEMS (2.5 cols)
           ======================================================== */}
-          <div className="lg:col-span-4 space-y-4">
-            <h4 className="text-sm font-black text-[#06080F] tracking-wide border-r-2 border-[#00F090] pr-2.5">
-              ارتباط مستقیم و ثبت درخواست
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5 flex items-center gap-1.5">
+              <span>محصولات و سیستم‌ها</span>
             </h4>
 
-            <p className="text-xs text-[#11172C]/80 leading-relaxed">
-              جهت هماهنگی بازدید حضوری کارشناس یا برآورد قیمت پیش‌فاکتور، از راه‌های مستقیم زیر با ما در ارتباط باشید:
+            <ul className="space-y-2 text-xs">
+              {productLinks.map((item, idx) => (
+                <li key={idx}>
+                  <a 
+                    href={item.href} 
+                    className="text-[#CBD8E2]/75 hover:text-[#00F090] font-medium transition-colors flex items-center gap-1.5 group py-0.5"
+                  >
+                    <ChevronLeft className="w-3 h-3 text-[#00F090]/40 group-hover:text-[#00F090] transition-colors" />
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ========================================================
+              LEFT: DIRECT CONTACT TRIGGERS & ACTIONS (3 cols)
+          ======================================================== */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5">
+              ارتباط و استعلام قیمت
+            </h4>
+
+            <p className="text-xs text-[#CBD8E2]/80 leading-relaxed">
+              جهت استعلام آنلاین، دریافت پیش‌فاکتور رسمی یا اعزام کارشناس فنی به محل پروژه:
             </p>
 
             {/* Direct Action Triggers */}
             <div className="flex flex-col gap-2.5 pt-1">
               <button
                 onClick={onOpenInquiry}
-                className="w-full py-2.5 px-4 rounded-full bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-md shadow-[#00F090]/20 transition-all active:scale-[0.98] cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-full bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs font-black flex items-center justify-center gap-2 shadow-lg shadow-[#00F090]/15 transition-all active:scale-[0.98] cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>درخواست مشاوره تخصصی و اندازه‌گیری</span>
+                <Sparkles className="w-3.5 h-3.5 text-[#06080F]" />
+                <span>درخواست مشاوره و بازدید کارشناسی</span>
               </button>
 
               <a
                 href="calculator.html"
-                className="w-full py-2.5 px-4 rounded-full bg-[#06080F] hover:bg-[#11172C] text-[#00F090] border border-[#00F090]/40 hover:border-[#00F090] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-full bg-white/5 hover:bg-white/10 text-[#00F090] border border-[#00F090]/40 hover:border-[#00F090] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <Calculator className="w-3.5 h-3.5 text-[#00F090]" />
-                <span>ورود به سامانه محاسبه‌گر آنلاین قیمت</span>
+                <span>محاسبه‌گر هوشمند آنلاین قیمت</span>
               </a>
 
-              <button
-                onClick={onOpenInquiry}
-                className="w-full py-2.5 px-4 rounded-full bg-white/70 hover:bg-white text-[#06080F] border border-white/90 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs"
+              <a
+                href="https://wa.me/989121234567"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-2.5 px-4 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/15 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
-                <MessageCircle className="w-3.5 h-3.5 text-[#06080F]" />
-                <span>ارتباط مستقیم در واتس‌اپ و استعلام فوری</span>
-              </button>
+                <MessageCircle className="w-3.5 h-3.5 text-[#00F090]" />
+                <span>مشاوره فوری در واتس‌اپ</span>
+              </a>
             </div>
 
             {/* Operating Hours */}
-            <div className="pt-2 flex items-center gap-2 text-[11px] text-[#11172C]/80 font-medium">
-              <Clock className="w-3.5 h-3.5 text-[#06080F] shrink-0" />
-              <span>ساعات پاسخگویی: {contact.workingHours}</span>
+            <div className="pt-2 flex items-center gap-2 text-[11px] text-[#CBD8E2]/70 font-medium">
+              <Clock className="w-3.5 h-3.5 text-[#00F090] shrink-0" />
+              <span>پاسخگویی: {contact.workingHours}</span>
             </div>
           </div>
 
         </div>
 
         {/* Technical Guarantee Footnote */}
-        <div className="py-5 border-b border-white/40 text-[11px] text-[#11172C]/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="py-5 border-b border-white/10 text-[11px] text-[#CBD8E2]/70 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#06080F] shrink-0" />
-            <span className="font-bold">{SITE_CONFIG.guarantees.goldenWarrantyLabel} ({SITE_CONFIG.guarantees.afterSalesLabel})</span>
+            <ShieldCheck className="w-4 h-4 text-[#00F090] shrink-0" />
+            <span className="font-bold text-white">{SITE_CONFIG.guarantees.goldenWarrantyLabel} ({SITE_CONFIG.guarantees.afterSalesLabel})</span>
           </div>
-          <div className="flex items-center gap-2 text-[#11172C] font-sans text-[11px] font-semibold">
-            <Mail className="w-3.5 h-3.5 text-[#06080F]" />
+          <div className="flex items-center gap-2 text-[#CBD8E2] font-sans text-[11px] font-semibold">
+            <Mail className="w-3.5 h-3.5 text-[#00F090]" />
             <span>{contact.email || SITE_CONFIG.contact.supportEmail}</span>
           </div>
         </div>
 
         {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#11172C]">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#CBD8E2]/70">
           <div className="flex flex-wrap items-center gap-3">
-            <p>© {new Date().getFullYear()} {brand.name} ({brand.nameEn}). کلیه حقوق محفوظ است.</p>
-            <a
-              href="admin.html"
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/80 hover:bg-white text-[#06080F] border border-white/80 text-[11px] font-bold transition-all shadow-xs"
-              title="پنل مدیریت محتوا و تنظیمات زنده"
-            >
-              <Sliders className="w-3 h-3 text-[#06080F]" />
-              <span>مدیریت محتوا (Live CMS)</span>
-            </a>
+            <p>© {new Date().getFullYear()} {brand.name} ({brand.nameEn}). تمامی حقوق مادی و معنوی محفوظ است.</p>
           </div>
           
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/80 hover:bg-white text-[#06080F] font-bold transition-colors border border-white/80 backdrop-blur-md cursor-pointer shadow-xs"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-white/15 backdrop-blur-md cursor-pointer hover:border-[#00F090]/40"
           >
-            <span>بازگشت به ابتدای صفحه</span>
-            <ArrowUp className="w-3.5 h-3.5 text-[#06080F]" />
+            <span>بازگشت به بالای صفحه</span>
+            <ArrowUp className="w-3.5 h-3.5 text-[#00F090]" />
           </button>
         </div>
 

@@ -30,9 +30,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
     restDelta: 0.0001,
   });
 
-  // Smooth fade/depth transitions for foreground content during scroll
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75, 0.95], [1, 0.85, 0]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.96]);
+  // Camera Pass-Through Zoom & Forward Motion as doors open (0.65 -> 1.0)
+  const canvasScale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 1.18]);
+  const passThroughGlowOpacity = useTransform(scrollYProgress, [0.65, 0.92, 1], [0, 0.6, 0.9]);
+  const heroFadeOut = useTransform(scrollYProgress, [0.88, 1], [1, 0.2]);
 
   // 2. High-Performance Instant Image Sequence Preloader & Canvas Renderer
   useEffect(() => {
@@ -47,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
     let isComponentMounted = true;
     let rafId: number;
 
-    // Helper: Draw image on canvas with 'object-fit: cover'
+    // Helper: Draw single unified high-definition full-screen frame (Cover mode)
     const drawCoverImage = (img: HTMLImageElement) => {
       if (!ctx || !canvas || !img || !img.complete || !img.naturalWidth) return;
 
@@ -56,6 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       const iWidth = img.naturalWidth;
       const iHeight = img.naturalHeight;
 
+      // Clean single cover scaling - fills viewport seamlessly with zero letterboxing
       const scale = Math.max(cWidth / iWidth, cHeight / iHeight);
       const renderW = iWidth * scale;
       const renderH = iHeight * scale;
@@ -63,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       const offsetY = (cHeight - renderH) / 2;
 
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'medium';
+      ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
     };
 
@@ -154,38 +156,38 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   }, [smoothProgress]);
 
   return (
-    <div ref={containerRef} id="hero-section" className="relative h-[320vh] bg-[#E4EBF1] isolate">
+    <div ref={containerRef} id="hero-section" className="relative h-[320vh] bg-[#06080F] isolate">
       {/* Sticky Fullscreen Viewport */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* GPU-Accelerated 2D Canvas Viewport (Zero Lag, Instant Load, 60/120fps) */}
-        <canvas
+      <motion.div 
+        style={{ opacity: heroFadeOut }}
+        className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
+      >
+        {/* GPU-Accelerated 2D Canvas Viewport (Zero Lag, Instant Load, 60/120fps with Pass-Through Zoom) */}
+        <motion.canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform"
-          style={{ transform: 'translate3d(0, 0, 0)' }}
+          style={{ scale: canvasScale }}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform origin-center"
         />
 
-        {/* Hero Content Overlay */}
-        <motion.div
-          style={{ opacity: contentOpacity, scale: contentScale }}
-          className="relative z-10 max-w-5xl mx-auto text-center space-y-8 px-4 py-8 pointer-events-auto"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#CBD8E2]/85 backdrop-blur-xs border border-[#06080F]/10 text-[#06080F] text-xs font-bold shadow-xs"
-          >
-            <Sparkles className="w-4 h-4 text-[#00F090]" />
-            <span>{heroContent.badgeText || 'سیستم‌های هوشمند درب اتوماتیک و سازه‌های شیشه‌ای'}</span>
-          </motion.div>
+        {/* Ambient Contrast Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06080F]/65 via-[#06080F]/20 to-[#06080F]/80 pointer-events-none z-[1]" />
 
+        {/* Cinematic Doorway Pass-Through Light Bloom (Emerges as doors slide fully open) */}
+        <motion.div 
+          style={{ opacity: passThroughGlowOpacity }}
+          className="absolute inset-0 pointer-events-none z-[2] bg-[radial-gradient(ellipse_at_center,rgba(0,240,144,0.18)_0%,rgba(203,216,226,0.15)_40%,transparent_75%)] backdrop-blur-[2px]"
+        />
+
+        {/* Hero Content Overlay (Stable, high-contrast, no jittery scale/fade fluctuations) */}
+        <div
+          className="relative z-10 max-w-5xl mx-auto text-center space-y-6 px-4 py-8 pointer-events-auto"
+        >
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#06080F] tracking-tight leading-[1.3] max-w-4xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.3] max-w-4xl mx-auto drop-shadow-md"
           >
             {heroContent.headline || 'تلاقی شیشه، نور و مهندسی مدرن'}
           </motion.h1>
@@ -195,7 +197,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-[#11172C] max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg text-[#CBD8E2] max-w-2xl mx-auto leading-relaxed drop-shadow-xs font-medium"
           >
             طراحی، تولید و اجرای تخصصی انواع درب‌های اتوماتیک شیشه‌ای، تلسکوپی، کرو و سازه‌های لوکس معماری در مناطق ۱ تا ۵ تهران
           </motion.p>
@@ -205,53 +207,33 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+            className="flex flex-wrap items-center justify-center gap-4 pt-3"
           >
             <a
-              href={heroContent.ctaPrimaryLink || 'calculator.html'}
+              href="calculator.html"
               id="btn-hero-calc"
-              className="px-8 py-4 rounded-xl bg-[#00F090] text-[#06080F] font-black text-sm hover:bg-[#00F090]/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center gap-2 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = 'calculator.html';
+              }}
+              className="px-8 py-4 rounded-xl bg-[#00F090] text-[#06080F] font-black text-sm hover:bg-[#00F090]/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center gap-2 cursor-pointer relative z-30 pointer-events-auto"
             >
               <Calculator className="w-5 h-5" />
               <span>{heroContent.ctaPrimaryText || 'محاسبه آنلاین قیمت'}</span>
             </a>
 
             <button
+              type="button"
               onClick={onOpenInquiry}
               id="btn-hero-inquiry"
-              className="px-8 py-4 rounded-xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 font-bold text-sm hover:bg-[#06080F]/90 transition-all shadow-md hover:scale-[1.02] flex items-center gap-2 cursor-pointer"
+              className="px-8 py-4 rounded-xl bg-[#06080F]/85 text-[#00F090] border border-[#00F090]/40 backdrop-blur-md font-bold text-sm hover:bg-[#06080F] transition-all shadow-lg hover:scale-[1.02] flex items-center gap-2 cursor-pointer relative z-30 pointer-events-auto"
             >
               <PhoneCall className="w-5 h-5" />
               <span>{heroContent.ctaSecondaryText || 'مشاوره و استعلام پروژه'}</span>
             </button>
           </motion.div>
-
-          {/* Quick Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"
-          >
-            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
-              <span className="block text-lg font-black text-[#06080F]">۵ سال</span>
-              <span className="text-[11px] text-[#11172C]">گارانتی بی‌قیدوشرط</span>
-            </div>
-            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
-              <span className="block text-lg font-black text-[#06080F]">دانکر آلمان</span>
-              <span className="text-[11px] text-[#11172C]">موتورهای براشلس اصلی</span>
-            </div>
-            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
-              <span className="block text-lg font-black text-[#06080F]">۱۰ میل</span>
-              <span className="text-[11px] text-[#11172C]">سکوریت سوپرکلیر</span>
-            </div>
-            <div className="bg-[#CBD8E2]/65 border border-[#06080F]/10 rounded-xl p-3 text-center shadow-xs">
-              <span className="block text-lg font-black text-[#06080F]">مناطق ۱ تا ۵</span>
-              <span className="text-[11px] text-[#11172C]">کارشناسی و اعزام فوری</span>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
 };

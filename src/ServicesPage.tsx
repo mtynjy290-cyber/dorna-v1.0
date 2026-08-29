@@ -189,45 +189,45 @@ export const ServicesPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#E2E4E8] text-[#1E242B] font-['Vazirmatn',sans-serif] relative overflow-hidden">
+    <div className="min-h-screen bg-[#E4EBF1] text-[#06080F] flex flex-col justify-between selection:bg-[#00F090]/30 selection:text-[#06080F]">
       
       {/* Top Main Frosted Glass Navbar */}
       <Navbar onOpenInquiry={() => setInquiryModalOpen(true)} />
 
       {/* Main Page Container with Top Padding for Fixed Navbar */}
-      <main className="pt-24 sm:pt-28 pb-20">
+      <main className="pt-24 sm:pt-28 pb-20 flex-grow">
         
         {/* ========================================================
             PAGE HERO / HEADER SECTION
         ======================================================== */}
         <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-16">
-          <div className="relative rounded-3xl bg-white/70 backdrop-blur-[20px] border border-white/90 p-8 sm:p-12 lg:p-14 shadow-lg shadow-slate-900/[0.03] overflow-hidden">
+          <div className="relative rounded-3xl bg-[#CBD8E2]/75 backdrop-blur-[20px] border border-white/80 p-8 sm:p-12 lg:p-14 shadow-xl overflow-hidden">
             
             {/* Ambient Background Lights */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#00F090]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Breadcrumb Navigation */}
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-6">
-              <a href="index.html" className="hover:text-blue-600 transition-colors">صفحه اصلی</a>
+            <div className="flex items-center gap-2 text-xs font-bold text-[#11172C]/70 mb-6">
+              <a href="index.html" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
               <ChevronLeft className="w-3.5 h-3.5" />
-              <span className="text-slate-900 font-bold">خدمات مهندسی و اجرایی</span>
+              <span className="text-[#06080F]">خدمات مهندسی و اجرایی</span>
             </div>
 
             <div className="max-w-3xl">
               {/* Top Category Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold shadow-2xs mb-4">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-white text-[#06080F] text-xs font-bold shadow-xs mb-4">
+                <Sparkles className="w-3.5 h-3.5 text-[#00F090]" />
                 <span>دپارتمان جامع مهندسی و خدمات تخصصی</span>
               </div>
 
               {/* Main Page Title */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#06080F] tracking-tight leading-tight mb-4">
                 خدمات مهندسی و اجرایی درنا درب
               </h1>
 
               {/* Subtitle */}
-              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-[#11172C]/80 font-medium leading-relaxed mb-8">
                 طراحی، اجرای پروژه‌های ملی و سازمانی، و خدمات تخصصی پشتیبانی و تعمیرات با ۲۵ سال سابقه درخشان در سراسر تهران.
               </p>
 
@@ -235,15 +235,15 @@ export const ServicesPage: React.FC = () => {
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
                   href="#installation-services"
-                  className="px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
+                  className="px-4 py-2.5 rounded-xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] border border-[#00F090]/40 text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
                 >
-                  <Layers className="w-3.5 h-3.5 text-blue-400" />
+                  <Layers className="w-3.5 h-3.5 text-[#00F090]" />
                   <span>پروژه‌های اجرایی و نو</span>
                 </a>
 
                 <a
                   href="#maintenance-services"
-                  className="px-4 py-2.5 rounded-xl bg-white/90 hover:bg-white text-slate-800 border border-slate-300/80 text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
+                  className="px-4 py-2.5 rounded-xl bg-white/80 hover:bg-white text-[#06080F] border border-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
                 >
                   <Wrench className="w-3.5 h-3.5 text-amber-600" />
                   <span>پشتیبانی و تعمیرات تخصصی</span>
@@ -251,9 +251,9 @@ export const ServicesPage: React.FC = () => {
 
                 <a
                   href="#trust-portfolio"
-                  className="px-4 py-2.5 rounded-xl bg-white/90 hover:bg-white text-slate-800 border border-slate-300/80 text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
+                  className="px-4 py-2.5 rounded-xl bg-white/80 hover:bg-white text-[#06080F] border border-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all active:scale-[0.98]"
                 >
-                  <Award className="w-3.5 h-3.5 text-blue-600" />
+                  <Award className="w-3.5 h-3.5 text-[#06080F]" />
                   <span>رزومه و اعتبار ۲۵ ساله</span>
                 </a>
 

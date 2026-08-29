@@ -273,13 +273,13 @@ export const BlogPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#E2E4E8] text-slate-900 font-['Vazirmatn',sans-serif] flex flex-col antialiased selection:bg-indigo-500/30 selection:text-slate-950">
+    <div className="min-h-screen bg-[#E4EBF1] text-[#06080F] font-['Vazirmatn',sans-serif] flex flex-col antialiased selection:bg-[#00F090]/30 selection:text-[#06080F]">
       
       {/* Top Sticky Reading Progress Bar (when viewing article) */}
       {selectedArticle && (
-        <div className="fixed top-0 left-0 right-0 h-1.5 bg-slate-300/60 z-50">
+        <div className="fixed top-0 left-0 right-0 h-1.5 bg-[#CBD8E2] z-50">
           <div 
-            className="h-full bg-gradient-to-r from-indigo-600 via-blue-500 to-indigo-600 transition-all duration-150 ease-out shadow-sm"
+            className="h-full bg-gradient-to-r from-[#06080F] via-[#00F090] to-[#06080F] transition-all duration-150 ease-out shadow-sm"
             style={{ width: `${readingProgress}%` }}
           />
         </div>
@@ -313,52 +313,52 @@ export const BlogPage: React.FC = () => {
               className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"
             >
               {/* Breadcrumb Navigation & Back Button */}
-              <div className="flex flex-wrap items-center justify-between gap-4 py-4 mb-4 border-b border-slate-300/80">
-                <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
+              <div className="flex flex-wrap items-center justify-between gap-4 py-4 mb-4 border-b border-[#CBD8E2]">
+                <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#11172C]/70">
                   <a 
                     href="index.html" 
-                    className="hover:text-indigo-600 transition-colors flex items-center gap-1"
+                    className="hover:text-[#06080F] font-semibold transition-colors flex items-center gap-1"
                   >
                     صفحه اصلی
                   </a>
-                  <span className="text-slate-400">/</span>
+                  <span className="text-[#CBD8E2]">/</span>
                   <button 
                     onClick={handleBackToCatalog}
-                    className="hover:text-indigo-600 transition-colors font-medium cursor-pointer"
+                    className="hover:text-[#06080F] transition-colors font-medium cursor-pointer"
                   >
                     مقالات و دانشنامه
                   </button>
-                  <span className="text-slate-400">/</span>
-                  <span className="text-slate-500 font-bold">
+                  <span className="text-[#CBD8E2]">/</span>
+                  <span className="text-[#06080F] font-bold">
                     {selectedArticle.category}
                   </span>
-                  <span className="text-slate-400 hidden md:inline">/</span>
-                  <span className="text-slate-900 font-bold truncate max-w-[200px] hidden md:inline">
+                  <span className="text-[#CBD8E2] hidden md:inline">/</span>
+                  <span className="text-[#06080F] font-bold truncate max-w-[200px] hidden md:inline">
                     {selectedArticle.title}
                   </span>
                 </nav>
 
                 <button
                   onClick={handleBackToCatalog}
-                  className="px-3.5 py-1.5 rounded-xl bg-white/90 hover:bg-white text-slate-800 text-xs font-bold border border-slate-300 shadow-2xs hover:shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                  className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-white text-[#06080F] text-xs font-bold border border-white/90 shadow-2xs hover:shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
                 >
-                  <ArrowRight className="w-3.5 h-3.5 text-indigo-600" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#06080F]" />
                   <span>بازگشت به فهرست مقالات</span>
                 </button>
               </div>
 
               {/* Article Header & Main Meta */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white shadow-xl space-y-6 mb-8">
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white/90 shadow-xl space-y-6 mb-8">
                 
                 {/* Category, Read Time & Verification Badge */}
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-extrabold flex items-center gap-1.5 shadow-2xs">
-                    <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
+                  <span className="px-3.5 py-1 rounded-full bg-[#06080F] text-[#00F090] text-xs font-black flex items-center gap-1.5 shadow-xs">
+                    <BookOpen className="w-3.5 h-3.5 text-[#00F090]" />
                     {selectedArticle.category}
                   </span>
 
-                  <span className="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="px-3 py-1 rounded-full bg-[#CBD8E2]/60 border border-white/60 text-[#06080F] text-xs font-medium flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-[#11172C]/60" />
                     {selectedArticle.readTime}
                   </span>
 
@@ -367,35 +367,35 @@ export const BlogPage: React.FC = () => {
                     تاییدیه فنی دپارتمان مهندسی درنا درب
                   </span>
 
-                  <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-mono mr-auto flex items-center gap-1">
-                    <Eye className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="px-3 py-1 rounded-full bg-[#CBD8E2]/50 text-[#11172C]/70 text-xs font-mono mr-auto flex items-center gap-1">
+                    <Eye className="w-3.5 h-3.5 text-[#11172C]/50" />
                     {selectedArticle.viewsCount || 1200} بازدید تخصصی
                   </span>
                 </div>
 
                 {/* Main Article Title */}
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 leading-tight sm:leading-snug">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#06080F] leading-tight sm:leading-snug">
                   {selectedArticle.title}
                 </h1>
 
                 {/* Lead Summary */}
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium bg-slate-50/80 p-4 sm:p-5 rounded-2xl border border-slate-200/80">
+                <p className="text-sm sm:text-base text-[#11172C] leading-relaxed font-medium bg-[#CBD8E2]/40 p-4 sm:p-5 rounded-2xl border border-white/60">
                   {selectedArticle.summary}
                 </p>
 
                 {/* Author Info Bar & Action Buttons */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#CBD8E2]">
                   {/* Author Meta */}
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-600 to-blue-700 text-white font-black text-sm flex items-center justify-center shadow-md">
+                    <div className="w-11 h-11 rounded-full bg-[#06080F] text-[#00F090] font-black text-sm flex items-center justify-center shadow-md border border-[#00F090]/40">
                       {selectedArticle.author?.name ? selectedArticle.author.name[0] : 'د'}
                     </div>
                     <div>
-                      <div className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                      <div className="text-xs sm:text-sm font-bold text-[#06080F] flex items-center gap-1.5">
                         <span>{selectedArticle.author?.name || 'مهندس ارشد دپارتمان درنا درب'}</span>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00F090]" />
                       </div>
-                      <div className="text-[11px] text-slate-500">
+                      <div className="text-[11px] text-[#11172C]/70">
                         {selectedArticle.author?.role || 'سرپرست مهندسی و بازرسی سازه‌های شیشه‌ای'} • تاریخ انتشار: {selectedArticle.date}
                       </div>
                     </div>
