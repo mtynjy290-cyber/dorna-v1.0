@@ -29,7 +29,7 @@ if (isSupabaseConfigured) {
 
 export interface ArticleRecord {
   id: string;
-  slug: string;
+  slug?: string;
   title: string;
   summary: string;
   content: string;
@@ -41,12 +41,13 @@ export interface ArticleRecord {
   featured: boolean;
   published?: boolean;
   viewsCount?: number;
-  author?: string;
+  author?: string | { name: string; role: string };
   status?: 'draft' | 'published' | 'scheduled';
   scheduledDate?: string;
   seoTitle?: string;
   seoDescription?: string;
   gallery?: string[];
+  keyTakeaways?: string[];
 }
 
 export interface ProjectRecord {

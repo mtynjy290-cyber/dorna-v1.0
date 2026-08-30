@@ -119,13 +119,23 @@ export const CMSContentEditor: React.FC = () => {
             )}
 
             {activeSubTab === 'articles' && (
-              <button
-                onClick={() => openArticleEditor('new')}
-                className="px-4 py-2 rounded-xl bg-[#00F090] text-[#06080F] font-black text-xs flex items-center gap-1.5 shadow-md hover:bg-[#00F090]/90 transition-all cursor-pointer"
-              >
-                <Plus className="w-4 h-4" />
-                <span>افزودن مقاله جدید</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/blog?id=1001&edit=true"
+                  className="px-4 py-2 rounded-xl bg-[#06080F] hover:bg-black text-[#00F090] border border-[#00F090]/40 font-black text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                  title="ورود به ویرایشگر زنده درون‌صفحه‌ای"
+                >
+                  <Sparkles className="w-4 h-4 text-[#00F090]" />
+                  <span>ویرایشگر زنده روی صفحه</span>
+                </a>
+                <button
+                  onClick={() => openArticleEditor('new')}
+                  className="px-4 py-2 rounded-xl bg-[#00F090] text-[#06080F] font-black text-xs flex items-center gap-1.5 shadow-md hover:bg-[#00D882] transition-all cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>افزودن مقاله جدید</span>
+                </button>
+              </div>
             )}
 
             {activeSubTab === 'projects' && (
@@ -398,13 +408,21 @@ export const CMSContentEditor: React.FC = () => {
                 </button>
 
                 <div className="flex items-center gap-1.5">
+                  <a
+                    href={`/blog?id=${art.id}&edit=true`}
+                    className="px-2.5 py-1.5 rounded-lg bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs font-black flex items-center gap-1 cursor-pointer shadow-xs"
+                    title="ویرایش زنده روی صفحه اصلی مقاله (WYSIWYG)"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-[#06080F]" />
+                    <span>ادیتور زنده</span>
+                  </a>
                   <button
                     onClick={() => openArticleEditor(art.id)}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#06080F] hover:bg-black text-[#00F090] text-xs font-bold flex items-center gap-1 cursor-pointer shadow-xs"
-                    title="ویرایش در صفحه اختصاصی"
+                    className="px-2 py-1.5 rounded-lg bg-[#06080F] hover:bg-black text-white text-xs font-bold flex items-center gap-1 cursor-pointer shadow-xs"
+                    title="ویرایش در فرم تفصیلی CMS"
                   >
-                    <Edit className="w-3.5 h-3.5" />
-                    <span>ویرایش</span>
+                    <Edit className="w-3.5 h-3.5 text-[#00F090]" />
+                    <span>فرم</span>
                   </button>
                   <button
                     onClick={() => {

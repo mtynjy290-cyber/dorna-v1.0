@@ -14,7 +14,8 @@ import {
   Info,
   Cpu,
   Shield,
-  Sliders
+  Sliders,
+  Lock
 } from 'lucide-react';
 import { SITE_CONFIG } from '../config/siteConfig';
 import { useSiteContentStore } from '../lib/siteContentStore';
@@ -30,6 +31,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeHoverNav, setActiveHoverNav] = useState<string | null>(null);
+  const [adminRedirectToast, setAdminRedirectToast] = useState(false);
+
+  // Global Admin Access Shortcut: Ctrl + Shift + A or Cmd + Shift + A or Alt + A
+  useEffect(() => {
+    const handleAdminShortcut = (e: KeyboardEvent) => {
+      const isCtrlShiftA = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.code === 'KeyA');
+      const isAltA = e.altKey && !e.ctrlKey && (e.key === 'A' || e.key === 'a' || e.code === 'KeyA');
+      
+      if (isCtrlShiftA || isAltA) {
+        e.preventDefault();
+        setAdminRedirectToast(true);
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 500);
+      }
+    };
+
+    window.addEventListener('keydown', handleAdminShortcut);
+    return () => window.removeEventListener('keydown', handleAdminShortcut);
+  }, []);
 
   // Dynamic CMS Store selector
   const brand = useSiteContentStore((state) => state.brand);
@@ -412,6 +433,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
 
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Admin Quick Access Toast */}
+      <AnimatePresence>
+        {adminRedirectToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -40, scale: 0.95 }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] px-5 py-3 rounded-2xl bg-[#06080F] text-white border border-[#00F090]/50 shadow-[0_10px_30px_rgba(0,0,0,0.5),0_0_20px_rgba(0,240,144,0.3)] flex items-center gap-3"
+            dir="rtl"
+          >
+            <div className="w-8 h-8 rounded-xl bg-[#00F090]/20 border border-[#00F090]/40 flex items-center justify-center text-[#00F090] shrink-0">
+              <Lock className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-xs font-black text-white">کلید میانبر مدیریت شناسایی شد</p>
+              <p className="text-[11px] text-[#00F090]">در حال انتقال به پنل مدیریت دُرنا دَرب...</p>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

@@ -15,7 +15,8 @@ import {
   Award,
   Layers,
   Building2,
-  Cpu
+  Cpu,
+  Lock
 } from 'lucide-react';
 import { SITE_CONFIG } from '../config/siteConfig';
 import { useSiteContentStore } from '../lib/siteContentStore';
@@ -267,6 +268,18 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#CBD8E2]/70">
           <div className="flex flex-wrap items-center gap-3">
             <p>© {new Date().getFullYear()} {brand.name} ({brand.nameEn}). تمامی حقوق مادی و معنوی محفوظ است.</p>
+            <span className="text-white/20 hidden sm:inline">•</span>
+            {/* Discreet Admin Link */}
+            <a
+              href="/admin"
+              id="footer-admin-login-link"
+              title="ورود به پنل مدیریت (کلید میانبر: Ctrl + Shift + A)"
+              className="inline-flex items-center gap-1.5 text-[#CBD8E2]/40 hover:text-[#00F090] transition-colors py-0.5 px-2 rounded hover:bg-white/5 cursor-pointer"
+            >
+              <Lock className="w-3 h-3" />
+              <span className="text-[11px]">ورود مدیریت</span>
+              <kbd className="hidden md:inline-block px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-mono text-white/50 border border-white/10">Ctrl+Shift+A</kbd>
+            </a>
           </div>
           
           <button
