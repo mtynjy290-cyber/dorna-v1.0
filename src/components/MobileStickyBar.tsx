@@ -35,7 +35,7 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({ onOpenInquiry 
 
         {/* Online Calculator */}
         <a
-          href="calculator.html"
+          href="/calculator"
           className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#00F090] text-[#06080F] font-black shadow-md border border-white/60 active:scale-95 transition-all text-center"
         >
           <Calculator className="w-4 h-4 text-[#06080F] mb-1" />

@@ -38,6 +38,7 @@ import {
 import { useAdminStore } from '../../stores/adminStore';
 import { ArticleRecord } from '../../lib/supabase';
 import { ImageDropUploader } from './ImageDropUploader';
+import { RichWordEditor } from './RichWordEditor';
 
 export const ArticleEditorView: React.FC = () => {
   const {
@@ -418,14 +419,14 @@ export const ArticleEditorView: React.FC = () => {
             </div>
           )}
 
-          {/* Rich Content Editor & Toolbar */}
+          {/* Rich Content Word-Style Editor */}
           {previewMode !== 'preview' && (
             <div className="bg-[#CBD8E2] border border-[#06080F]/10 rounded-2xl p-5 shadow-sm space-y-3">
               <div className="flex items-center justify-between border-b border-[#06080F]/10 pb-3">
                 <div className="flex items-center gap-2">
                   <FileText className="w-4 h-4 text-[#06080F]" />
                   <span className="text-xs font-black text-[#06080F]">
-                    متن اصلی مقاله (پشتیبانی از پاراگراف‌ها، عناوین و کد HTML / مارک‌داون)
+                    ویرایشگر متن پیشرفته شبیه ورد (WYSIWYG Word Editor)
                   </span>
                 </div>
                 <div className="text-[11px] text-[#11172C]/70 font-mono">
@@ -433,123 +434,13 @@ export const ArticleEditorView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Formatting Action Toolbar */}
-              <div className="flex flex-wrap items-center gap-1.5 bg-[#E4EBF1] p-2 rounded-xl border border-[#06080F]/10">
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('## ', '\n', 'تیتر سطح ۲')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs flex items-center gap-1 cursor-pointer transition-all border border-[#06080F]/5"
-                  title="تیتر سطح دو (H2)"
-                >
-                  <Heading2 className="w-3.5 h-3.5" />
-                  <span className="text-[10px]">H2</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('### ', '\n', 'تیتر سطح ۳')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs flex items-center gap-1 cursor-pointer transition-all border border-[#06080F]/5"
-                  title="تیتر سطح سه (H3)"
-                >
-                  <Heading3 className="w-3.5 h-3.5" />
-                  <span className="text-[10px]">H3</span>
-                </button>
-
-                <div className="h-4 w-px bg-[#06080F]/20 mx-1" />
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('**', '**', 'متن برجسته')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="ضخیم (Bold)"
-                >
-                  <Bold className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('*', '*', 'متن مورب')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="مورب (Italic)"
-                >
-                  <Italic className="w-3.5 h-3.5" />
-                </button>
-
-                <div className="h-4 w-px bg-[#06080F]/20 mx-1" />
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('\n- ', '', 'مورد اول')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="لیست بالت‌دار"
-                >
-                  <List className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('\n1. ', '', 'مورد اول')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="لیست شماره‌دار"
-                >
-                  <ListOrdered className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('\n> ', '\n', 'نکته فنی و مهندسی مهم')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="نقل قول / کادر یادداشت"
-                >
-                  <Quote className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('`', '`', 'کد یا مدل قطعه')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="کد یا مشخصه فنی"
-                >
-                  <Code className="w-3.5 h-3.5" />
-                </button>
-
-                <div className="h-4 w-px bg-[#06080F]/20 mx-1" />
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('[عنوان لینک](', ')', 'https://example.com')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="درج پیوند (Link)"
-                >
-                  <LinkIcon className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => insertFormatting('\n![توضیح تصویر](', ')\n', 'https://images.unsplash.com/...')}
-                  className="p-1.5 rounded-lg bg-[#CBD8E2] hover:bg-white text-[#06080F] font-black text-xs cursor-pointer transition-all border border-[#06080F]/5"
-                  title="درج تصویر در متن"
-                >
-                  <ImageIcon className="w-3.5 h-3.5" />
-                </button>
-
-                <div className="mr-auto text-[10px] text-[#11172C]/60 flex items-center gap-1">
-                  <HelpCircle className="w-3 h-3" />
-                  <span>پشتیبانی کامل از تگ‌های HTML</span>
-                </div>
-              </div>
-
-              {/* Textarea Workspace */}
-              <div className="relative">
-                <textarea
-                  ref={textareaRef}
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows={20}
-                  placeholder="محتوای تخصصی و جامع مقاله را اینجا وارد نمایید. شما می‌توانید از تگ‌های مارک‌داون یا HTML مانند <p> ، <h3> ، <ul> استفاده نمایید..."
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#E4EBF1] border border-[#06080F]/15 font-mono text-xs text-[#06080F] focus:border-[#06080F] focus:bg-white focus:outline-none transition-all leading-relaxed shadow-inner"
-                />
-              </div>
+              {/* Word-like Editor Component */}
+              <RichWordEditor
+                initialContent={content}
+                onChange={(newHtml) => setContent(newHtml)}
+                placeholder="متن جامع، سرفصل‌ها و توضیحات مهندسی مقاله را اینجا بنویسید یا ویرایش نمایید..."
+                minHeight="380px"
+              />
             </div>
           )}
 
@@ -618,38 +509,13 @@ export const ArticleEditorView: React.FC = () => {
                 </div>
               )}
 
-              {/* Main Body Preview */}
-              <div className="prose prose-slate max-w-none text-xs sm:text-sm text-[#06080F] leading-relaxed space-y-4">
+              {/* Main Body Preview with HTML Rendering */}
+              <div className="bg-white/80 rounded-2xl p-6 border border-white/60 shadow-xs">
                 {content ? (
-                  content.split('\n\n').map((paragraph, index) => {
-                    const trimmed = paragraph.trim();
-                    if (trimmed.startsWith('## ')) {
-                      return (
-                        <h2 key={index} className="text-base sm:text-lg font-black text-[#06080F] pt-3 border-b border-[#06080F]/10 pb-1">
-                          {trimmed.replace('## ', '')}
-                        </h2>
-                      );
-                    }
-                    if (trimmed.startsWith('### ')) {
-                      return (
-                        <h3 key={index} className="text-sm sm:text-base font-black text-[#06080F] pt-2">
-                          {trimmed.replace('### ', '')}
-                        </h3>
-                      );
-                    }
-                    if (trimmed.startsWith('> ')) {
-                      return (
-                        <blockquote key={index} className="p-3 bg-[#E4EBF1] border-r-4 border-[#06080F] rounded-lg text-xs italic text-[#11172C]">
-                          {trimmed.replace('> ', '')}
-                        </blockquote>
-                      );
-                    }
-                    return (
-                      <p key={index} className="text-xs sm:text-sm leading-relaxed text-[#06080F]/90">
-                        {trimmed}
-                      </p>
-                    );
-                  })
+                  <div
+                    className="prose prose-slate max-w-none text-xs sm:text-sm text-[#06080F] leading-relaxed space-y-4"
+                    dangerouslySetInnerHTML={{ __html: content }}
+                  />
                 ) : (
                   <p className="text-xs text-[#11172C]/50 italic">
                     محتوای مقاله هنوز وارد نشده است...

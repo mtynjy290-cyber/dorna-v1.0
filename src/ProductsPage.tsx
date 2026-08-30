@@ -807,7 +807,7 @@ export const ProductsPage: React.FC = () => {
                   <span>درخواست استعلام محصول و پیش‌فاکتور</span>
                 </button>
                 <a
-                  href="calculator.html"
+                  href="/calculator"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold border border-white/20 backdrop-blur-md transition-all cursor-pointer"
                 >
                   <Calculator className="w-4 h-4 text-[#00F090]" />

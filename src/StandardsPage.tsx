@@ -121,7 +121,7 @@ export const StandardsPage: React.FC = () => {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs font-bold text-[#11172C]/70 mb-6">
-              <a href="index.html" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
+              <a href="/" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
               <span>←</span>
               <span className="text-[#06080F]">استانداردها و تعهدات کیفیت مهندسی</span>
             </div>
@@ -152,7 +152,7 @@ export const StandardsPage: React.FC = () => {
                   </button>
 
                   <a 
-                    href="calculator.html" 
+                    href="/calculator" 
                     className="px-5 py-3 rounded-xl bg-white/90 hover:bg-white text-[#06080F] border border-white text-xs font-bold shadow-xs transition-all flex items-center gap-2"
                   >
                     <span>محاسبه هزینه پروژه بر اساس استانداردها</span>

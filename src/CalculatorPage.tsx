@@ -545,14 +545,14 @@ export function CalculatorPage() {
   };
 
   const navLinks = [
-    { id: 'home', label: 'صفحه اصلی', href: 'index.html', icon: Sparkles, desc: 'خانه و معرفی سیستم‌ها' },
-    { id: 'services', label: 'خدمات', href: 'services.html', icon: Layers, desc: 'سیستم‌های درب اتوماتیک و شیشه' },
-    { id: 'projects', label: 'پروژه‌ها', href: 'projects.html', icon: Briefcase, desc: 'پروژه‌های شاخص و رزومه اجرایی' },
-    { id: 'products', label: 'محصولات', href: 'products.html', icon: Settings2, desc: 'درب اتوماتیک، کرکره، میرال و پارتیشن' },
-    { id: 'calculator', label: 'استعلام قیمت', href: 'calculator.html', icon: Calculator, desc: 'سامانه آنلاین برآورد قیمت' },
-    { id: 'standards', label: 'استانداردها', href: 'standards.html', icon: ShieldCheck, desc: 'گارانتی ۲۴ ماهه و استانداردها' },
-    { id: 'blog', label: 'مقالات', href: 'blog.html', icon: FileText, desc: 'دانشنامه و مقالات فنی' },
-    { id: 'about', label: 'درباره ما', href: 'about.html', icon: Info, desc: 'پیشینه و اصالت ۲۵ ساله' },
+    { id: 'home', label: 'صفحه اصلی', href: '/', icon: Sparkles, desc: 'خانه و معرفی سیستم‌ها' },
+    { id: 'services', label: 'خدمات', href: '/services', icon: Layers, desc: 'سیستم‌های درب اتوماتیک و شیشه' },
+    { id: 'projects', label: 'پروژه‌ها', href: '/projects', icon: Briefcase, desc: 'پروژه‌های شاخص و رزومه اجرایی' },
+    { id: 'products', label: 'محصولات', href: '/products', icon: Settings2, desc: 'درب اتوماتیک، کرکره، میرال و پارتیشن' },
+    { id: 'calculator', label: 'استعلام قیمت', href: '/calculator', icon: Calculator, desc: 'سامانه آنلاین برآورد قیمت' },
+    { id: 'standards', label: 'استانداردها', href: '/standards', icon: ShieldCheck, desc: 'گارانتی ۲۴ ماهه و استانداردها' },
+    { id: 'blog', label: 'مقالات', href: '/blog', icon: FileText, desc: 'دانشنامه و مقالات فنی' },
+    { id: 'about', label: 'درباره ما', href: '/about', icon: Info, desc: 'پیشینه و اصالت ۲۵ ساله' },
   ];
 
   return (

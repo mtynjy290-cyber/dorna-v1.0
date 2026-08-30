@@ -164,15 +164,15 @@ export const BlogPage: React.FC = () => {
     setHasLiked(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Update browser URL to /blog/1001 or blog.html?id=1001
-    const targetUrl = `blog.html?id=${article.id}`;
+    // Update browser URL to clean /blog?id=1001
+    const targetUrl = `/blog?id=${article.id}`;
     window.history.pushState({ articleId: article.id }, '', targetUrl);
   };
 
   const handleBackToCatalog = () => {
     setSelectedArticle(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.pushState({}, '', 'blog.html');
+    window.history.pushState({}, '', '/blog');
   };
 
   // Scroll listener for reading progress
@@ -235,7 +235,7 @@ export const BlogPage: React.FC = () => {
   // Share & Copy URL Action
   const handleCopyLink = () => {
     if (!selectedArticle) return;
-    const shareableUrl = `${window.location.origin}/blog.html?id=${selectedArticle.id}`;
+    const shareableUrl = `${window.location.origin}/blog?id=${selectedArticle.id}`;
     navigator.clipboard.writeText(shareableUrl);
     setCopyToast(true);
     setTimeout(() => setCopyToast(false), 3000);
@@ -243,7 +243,7 @@ export const BlogPage: React.FC = () => {
 
   const handleWhatsAppShare = () => {
     if (!selectedArticle) return;
-    const shareableUrl = `${window.location.origin}/blog.html?id=${selectedArticle.id}`;
+    const shareableUrl = `${window.location.origin}/blog?id=${selectedArticle.id}`;
     const text = encodeURIComponent(
       `مقاله تخصصی درنا درب: ${selectedArticle.title}\n\nمطالعه در لینک زیر:\n${shareableUrl}`
     );
@@ -316,7 +316,7 @@ export const BlogPage: React.FC = () => {
               <div className="flex flex-wrap items-center justify-between gap-4 py-4 mb-4 border-b border-[#CBD8E2]">
                 <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#11172C]/70">
                   <a 
-                    href="index.html" 
+                    href="/" 
                     className="hover:text-[#06080F] font-semibold transition-colors flex items-center gap-1"
                   >
                     صفحه اصلی
@@ -474,16 +474,16 @@ export const BlogPage: React.FC = () => {
 
                 {/* Key Engineering Takeaways Box */}
                 {selectedArticle.keyTakeaways && selectedArticle.keyTakeaways.length > 0 && (
-                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-indigo-50/90 to-blue-50/70 border border-indigo-200/80 shadow-sm space-y-3">
-                    <div className="flex items-center gap-2 text-indigo-900 font-black text-sm sm:text-base">
-                      <Sparkles className="w-4 h-4 text-indigo-600" />
+                  <div className="p-5 sm:p-6 rounded-2xl bg-[#CBD8E2]/60 backdrop-blur-md border border-white/80 shadow-xs space-y-3">
+                    <div className="flex items-center gap-2 text-[#06080F] font-black text-sm sm:text-base">
+                      <Sparkles className="w-4 h-4 text-[#00F090]" />
                       <span>نکات کلیدی و چک‌لیست تصمیم‌گیری مهندسی:</span>
                     </div>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-800">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs sm:text-sm text-[#11172C]">
                       {selectedArticle.keyTakeaways.map((takeaway, idx) => (
-                        <li key={idx} className="flex items-start gap-2 bg-white/70 p-2.5 rounded-xl border border-indigo-100">
-                          <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span>{takeaway}</span>
+                        <li key={idx} className="flex items-start gap-2 bg-white/80 p-3 rounded-xl border border-white/90 shadow-2xs">
+                          <CheckCircle2 className="w-4 h-4 text-[#00F090] shrink-0 mt-0.5" />
+                          <span className="font-medium">{takeaway}</span>
                         </li>
                       ))}
                     </ul>
@@ -492,21 +492,21 @@ export const BlogPage: React.FC = () => {
 
                 {/* Full Article Rich Technical Body Content */}
                 <div 
-                  className="prose prose-slate max-w-none text-slate-800 leading-loose text-sm sm:text-base pt-4 border-t border-slate-200/80"
+                  className="prose prose-slate max-w-none text-[#11172C] leading-loose text-sm sm:text-base pt-4 border-t border-[#CBD8E2]"
                   dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
                 />
 
                 {/* Tags Section */}
                 {selectedArticle.tags && selectedArticle.tags.length > 0 && (
-                  <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                  <div className="pt-6 border-t border-[#CBD8E2] flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-[#11172C]/70 flex items-center gap-1">
                       <Tag className="w-3.5 h-3.5" />
                       برچسب‌های فنی:
                     </span>
                     {selectedArticle.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium border border-slate-200/80 transition-colors"
+                        className="px-3 py-1 rounded-xl bg-white/80 hover:bg-white text-[#11172C] text-xs font-medium border border-white/90 transition-colors shadow-2xs"
                       >
                         #{tag}
                       </span>
@@ -515,12 +515,12 @@ export const BlogPage: React.FC = () => {
                 )}
 
                 {/* Interactive Article Feedback & Helpful Bar */}
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="p-5 rounded-2xl bg-[#CBD8E2]/50 border border-white/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
-                    <span className="font-bold text-xs sm:text-sm text-slate-900">
+                    <span className="font-bold text-xs sm:text-sm text-[#06080F]">
                       آیا این راهنمای مهندسی برای پروژه شما مفید بود؟
                     </span>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-[#11172C]/70">
                       بازخورد شما به تیم تحقیق و توسعه درنا درب در تدوین مقالات کاربردی‌تر کمک می‌کند.
                     </p>
                   </div>
@@ -530,8 +530,8 @@ export const BlogPage: React.FC = () => {
                       onClick={() => setHasLiked(true)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                         hasLiked === true
-                          ? 'bg-emerald-600 text-white shadow-md'
-                          : 'bg-white hover:bg-emerald-50 text-slate-700 border border-slate-200'
+                          ? 'bg-[#00F090] text-[#06080F] shadow-sm font-black'
+                          : 'bg-white hover:bg-white/90 text-[#11172C] border border-white/90 shadow-2xs'
                       }`}
                     >
                       <ThumbsUp className="w-3.5 h-3.5" />
@@ -542,8 +542,8 @@ export const BlogPage: React.FC = () => {
                       onClick={() => setHasLiked(false)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                         hasLiked === false
-                          ? 'bg-rose-600 text-white shadow-md'
-                          : 'bg-white hover:bg-rose-50 text-slate-700 border border-slate-200'
+                          ? 'bg-rose-600 text-white shadow-sm'
+                          : 'bg-white hover:bg-rose-50 text-[#11172C] border border-white/90 shadow-2xs'
                       }`}
                     >
                       <ThumbsDown className="w-3.5 h-3.5" />
@@ -553,12 +553,12 @@ export const BlogPage: React.FC = () => {
                 </div>
 
                 {/* Direct Project Consultation Banner inside Article */}
-                <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-950 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
+                <div className="p-6 rounded-2xl bg-[#06080F] text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl border border-slate-800">
                   <div className="space-y-2">
-                    <span className="px-2.5 py-1 rounded-md bg-indigo-500/30 text-indigo-300 text-[11px] font-bold border border-indigo-400/30 inline-block">
+                    <span className="px-2.5 py-1 rounded-md bg-white/10 text-[#00F090] text-[11px] font-bold border border-white/15 inline-block">
                       مشاوره مهندسی درنا درب
                     </span>
-                    <h3 className="text-base sm:text-lg font-black">
+                    <h3 className="text-base sm:text-lg font-black text-white">
                       نیاز به آنالیز ابعاد و محاسبه هزینه برای پروژه اختصاصی خود دارید؟
                     </h3>
                     <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
@@ -572,17 +572,17 @@ export const BlogPage: React.FC = () => {
                         setInquiryPrefill(`استعلام پروژه از صفحه مقاله: ${selectedArticle.title}`);
                         setInquiryModalOpen(true);
                       }}
-                      className="px-5 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-black flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/30 cursor-pointer active:scale-95"
+                      className="px-5 py-3 rounded-xl bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs font-black flex items-center gap-2 transition-all shadow-md cursor-pointer active:scale-95"
                     >
                       <Phone className="w-4 h-4" />
                       <span>درخواست تماس فوری</span>
                     </button>
 
                     <a
-                      href="calculator.html"
+                      href="/calculator"
                       className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-2 transition-all border border-white/20"
                     >
-                      <Calculator className="w-4 h-4" />
+                      <Calculator className="w-4 h-4 text-[#00F090]" />
                       <span>محاسبه آنلاین قیمت</span>
                     </a>
                   </div>
@@ -593,13 +593,13 @@ export const BlogPage: React.FC = () => {
                   {prevNextArticles.prev ? (
                     <button
                       onClick={() => handleSelectArticle(prevNextArticles.prev!)}
-                      className="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 text-right transition-all flex flex-col justify-between group cursor-pointer"
+                      className="p-4 rounded-2xl bg-white/70 hover:bg-white border border-white/90 hover:border-[#00F090]/50 text-right transition-all flex flex-col justify-between group cursor-pointer shadow-2xs"
                     >
-                      <span className="text-[11px] text-slate-400 font-bold flex items-center gap-1 group-hover:text-indigo-600">
-                        <ArrowRight className="w-3.5 h-3.5" />
+                      <span className="text-[11px] text-[#11172C]/60 font-bold flex items-center gap-1 group-hover:text-[#06080F]">
+                        <ArrowRight className="w-3.5 h-3.5 text-[#06080F]" />
                         مقاله قبلی
                       </span>
-                      <span className="text-xs sm:text-sm font-black text-slate-900 group-hover:text-indigo-600 line-clamp-1 mt-1">
+                      <span className="text-xs sm:text-sm font-black text-[#06080F] group-hover:text-[#06080F] line-clamp-1 mt-1">
                         {prevNextArticles.prev.title}
                       </span>
                     </button>
@@ -610,13 +610,13 @@ export const BlogPage: React.FC = () => {
                   {prevNextArticles.next && (
                     <button
                       onClick={() => handleSelectArticle(prevNextArticles.next!)}
-                      className="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 text-left sm:text-left transition-all flex flex-col justify-between group cursor-pointer sm:col-start-2"
+                      className="p-4 rounded-2xl bg-white/70 hover:bg-white border border-white/90 hover:border-[#00F090]/50 text-left sm:text-left transition-all flex flex-col justify-between group cursor-pointer sm:col-start-2 shadow-2xs"
                     >
-                      <span className="text-[11px] text-slate-400 font-bold flex items-center justify-end gap-1 group-hover:text-indigo-600">
+                      <span className="text-[11px] text-[#11172C]/60 font-bold flex items-center justify-end gap-1 group-hover:text-[#06080F]">
                         مقاله بعدی
-                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <ArrowLeft className="w-3.5 h-3.5 text-[#06080F]" />
                       </span>
-                      <span className="text-xs sm:text-sm font-black text-slate-900 group-hover:text-indigo-600 line-clamp-1 mt-1 text-right">
+                      <span className="text-xs sm:text-sm font-black text-[#06080F] group-hover:text-[#06080F] line-clamp-1 mt-1 text-right">
                         {prevNextArticles.next.title}
                       </span>
                     </button>
@@ -628,8 +628,8 @@ export const BlogPage: React.FC = () => {
               {/* Related Articles Section */}
               {relatedArticles.length > 0 && (
                 <div className="space-y-4 mb-10">
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                    <Compass className="w-5 h-5 text-indigo-600" />
+                  <h3 className="text-base sm:text-lg font-black text-[#06080F] flex items-center gap-2">
+                    <Compass className="w-5 h-5 text-[#00F090]" />
                     <span>مقالات مرتبط و تکمیلی مهندسی</span>
                   </h3>
 
@@ -638,7 +638,7 @@ export const BlogPage: React.FC = () => {
                       <div
                         key={rel.id}
                         onClick={() => handleSelectArticle(rel)}
-                        className="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white hover:border-indigo-300 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                        className="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/90 hover:border-[#00F090]/50 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer"
                       >
                         <div className="space-y-3">
                           <div className="h-36 rounded-xl overflow-hidden bg-slate-950 relative">
@@ -648,23 +648,23 @@ export const BlogPage: React.FC = () => {
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                               referrerPolicy="no-referrer"
                             />
-                            <span className="absolute top-2 right-2 px-2.5 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md text-[10px] font-bold text-indigo-300 border border-white/20">
+                            <span className="absolute top-2 right-2 px-2.5 py-0.5 rounded-full bg-[#06080F]/80 backdrop-blur-md text-[10px] font-bold text-[#00F090] border border-white/15">
                               {rel.category}
                             </span>
                           </div>
 
-                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 line-clamp-2 transition-colors">
+                          <h4 className="text-xs sm:text-sm font-bold text-[#06080F] group-hover:text-[#06080F] line-clamp-2 transition-colors">
                             {rel.title}
                           </h4>
 
-                          <p className="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
+                          <p className="text-[11px] text-[#11172C]/80 line-clamp-2 leading-relaxed">
                             {rel.summary}
                           </p>
                         </div>
 
-                        <div className="mt-4 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-indigo-600">
+                        <div className="mt-4 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-[#06080F]">
                           <span>مطالعه مقاله</span>
-                          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-[#00F090]" />
                         </div>
                       </div>
                     ))}
@@ -673,28 +673,28 @@ export const BlogPage: React.FC = () => {
               )}
 
               {/* Discussion & Architect Comments Section */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white shadow-xl space-y-6">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+              <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/90 shadow-xl space-y-6">
+                <div className="flex items-center justify-between border-b border-[#CBD8E2] pb-4">
                   <div>
-                    <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                      <MessageCircle className="w-5 h-5 text-indigo-600" />
+                    <h3 className="text-base sm:text-lg font-black text-[#06080F] flex items-center gap-2">
+                      <MessageCircle className="w-5 h-5 text-[#00F090]" />
                       <span>دیدگاه‌ها و پرسش‌های مهندسی معماران ({comments.length})</span>
                     </h3>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-[#11172C]/70 mt-0.5">
                       تبادل تجربیات فنی، استعلام متریال و راهکارهای اجرایی
                     </p>
                   </div>
                 </div>
 
                 {/* Submit New Comment Form */}
-                <form onSubmit={handleCommentSubmit} className="space-y-4 bg-slate-50/80 p-5 rounded-2xl border border-slate-200/80">
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+                <form onSubmit={handleCommentSubmit} className="space-y-4 bg-[#CBD8E2]/40 p-5 rounded-2xl border border-white/80">
+                  <h4 className="text-xs sm:text-sm font-bold text-[#06080F]">
                     ثبت پرسش فنی یا تجربه اجرایی
                   </h4>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-bold text-[#11172C] mb-1">
                         نام و نام خانوادگی <span className="text-rose-500">*</span>
                       </label>
                       <input
@@ -703,12 +703,12 @@ export const BlogPage: React.FC = () => {
                         value={newCommentName}
                         onChange={(e) => setNewCommentName(e.target.value)}
                         placeholder="مثال: مهندس کاوه سهرابی"
-                        className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:border-indigo-500 focus:outline-none"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-white/90 text-xs text-[#06080F] focus:border-[#00F090] focus:outline-none shadow-2xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-bold text-[#11172C] mb-1">
                         سمت / پروژه (اختیاری)
                       </label>
                       <input
@@ -716,13 +716,13 @@ export const BlogPage: React.FC = () => {
                         value={newCommentRole}
                         onChange={(e) => setNewCommentRole(e.target.value)}
                         placeholder="مثال: مدیر پروژه برج الهیه"
-                        className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:border-indigo-500 focus:outline-none"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-white/90 text-xs text-[#06080F] focus:border-[#00F090] focus:outline-none shadow-2xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    <label className="block text-[11px] font-bold text-[#11172C] mb-1">
                       متن دیدگاه یا سوال مهندسی <span className="text-rose-500">*</span>
                     </label>
                     <textarea
@@ -731,16 +731,16 @@ export const BlogPage: React.FC = () => {
                       value={newCommentText}
                       onChange={(e) => setNewCommentText(e.target.value)}
                       placeholder="دیدگاه، پرسش فنی در مورد مشخصات قطعات یا تجربیات خود را در اینجا بنویسید..."
-                      className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:border-indigo-500 focus:outline-none leading-relaxed"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-white/90 text-xs text-[#06080F] focus:border-[#00F090] focus:outline-none leading-relaxed shadow-2xs"
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <button
                       type="submit"
-                      className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-md shadow-indigo-600/20 cursor-pointer active:scale-95"
+                      className="px-5 py-2.5 rounded-xl bg-[#06080F] hover:bg-slate-900 text-[#00F090] text-xs font-black flex items-center gap-2 transition-all shadow-md cursor-pointer active:scale-95 border border-slate-700"
                     >
-                      <Send className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5 text-[#00F090]" />
                       <span>ارسال دیدگاه</span>
                     </button>
 
@@ -758,30 +758,30 @@ export const BlogPage: React.FC = () => {
                   {comments.map((comment) => (
                     <div
                       key={comment.id}
-                      className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-2.5"
+                      className="p-4 rounded-2xl bg-white border border-white/90 shadow-2xs space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center border border-slate-200">
+                          <div className="w-8 h-8 rounded-full bg-[#06080F] text-[#00F090] font-black text-xs flex items-center justify-center border border-slate-700">
                             {comment.name[0]}
                           </div>
                           <div>
-                            <span className="font-bold text-xs text-slate-900 block">
+                            <span className="font-bold text-xs text-[#06080F] block">
                               {comment.name}
                             </span>
-                            <span className="text-[10px] text-slate-500">
+                            <span className="text-[10px] text-[#11172C]/70">
                               {comment.role} • {comment.date}
                             </span>
                           </div>
                         </div>
 
-                        <span className="text-[11px] text-indigo-600 font-bold flex items-center gap-1 bg-indigo-50 px-2 py-0.5 rounded-md">
-                          <ThumbsUp className="w-3 h-3" />
+                        <span className="text-[11px] text-[#06080F] font-bold flex items-center gap-1 bg-[#CBD8E2]/60 px-2.5 py-1 rounded-lg">
+                          <ThumbsUp className="w-3 h-3 text-[#00F090]" />
                           {comment.likes}
                         </span>
                       </div>
 
-                      <p className="text-xs text-slate-700 leading-relaxed pt-1">
+                      <p className="text-xs text-[#11172C] leading-relaxed pt-1">
                         {comment.comment}
                       </p>
                     </div>
@@ -803,16 +803,16 @@ export const BlogPage: React.FC = () => {
             >
               {/* Header Hero Banner */}
               <div className="text-center max-w-3xl mx-auto space-y-4 pt-4">
-                <span className="px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-black inline-flex items-center gap-2 shadow-2xs">
-                  <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
+                <span className="px-4 py-1.5 rounded-full bg-[#CBD8E2]/80 border border-white/80 text-[#06080F] text-xs font-black inline-flex items-center gap-2 shadow-xs">
+                  <BookOpen className="w-3.5 h-3.5 text-[#00F090]" />
                   دانشنامه و مقالات مهندسی درنا درب
                 </span>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 tracking-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#06080F] tracking-tight">
                   پایگاه دانش فنی، سازه‌های شیشه‌ای و اپراتورها
                 </h1>
 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#11172C]/80 leading-relaxed">
                   راهنماهای انتخاب متریال، تحلیل متالورژی موتورهای دانکر آلمان، استانداردسازی عایق صوتی و حرارتی در پروژه‌های لوکس مناطق ۱ تا ۵ تهران.
                 </p>
               </div>
@@ -821,7 +821,7 @@ export const BlogPage: React.FC = () => {
               {featuredArticle && !searchQuery && activeCategory === 'همه مقالات' && (
                 <div 
                   onClick={() => handleSelectArticle(featuredArticle)}
-                  className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6 lg:p-8"
+                  className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/90 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6 lg:p-8"
                 >
                   <div className="lg:col-span-7 rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-96 relative bg-slate-950">
                     <img
@@ -831,16 +831,16 @@ export const BlogPage: React.FC = () => {
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute top-4 right-4 px-3.5 py-1 rounded-full bg-indigo-500 text-white text-xs font-black shadow-lg flex items-center gap-1.5">
-                      <Star className="w-3.5 h-3.5 fill-white" />
+                    <span className="absolute top-4 right-4 px-3.5 py-1 rounded-full bg-[#00F090] text-[#06080F] text-xs font-black shadow-lg flex items-center gap-1.5 border border-white/60">
+                      <Star className="w-3.5 h-3.5 fill-[#06080F]" />
                       مقاله ویژه مهندسی
                     </span>
                   </div>
 
                   <div className="lg:col-span-5 flex flex-col justify-between py-2 space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-center gap-3 text-xs text-slate-500">
-                        <span className="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 font-bold">
+                      <div className="flex items-center gap-3 text-xs text-[#11172C]/70">
+                        <span className="px-3 py-1 rounded-full bg-[#CBD8E2]/80 text-[#06080F] font-bold border border-white/80">
                           {featuredArticle.category}
                         </span>
                         <span>{featuredArticle.readTime}</span>
@@ -848,11 +848,11 @@ export const BlogPage: React.FC = () => {
                         <span>{featuredArticle.date}</span>
                       </div>
 
-                      <h2 className="text-xl sm:text-2xl font-black text-slate-950 group-hover:text-indigo-600 transition-colors leading-snug">
+                      <h2 className="text-xl sm:text-2xl font-black text-[#06080F] group-hover:text-[#06080F] transition-colors leading-snug">
                         {featuredArticle.title}
                       </h2>
 
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-4">
+                      <p className="text-xs sm:text-sm text-[#11172C]/80 leading-relaxed line-clamp-4">
                         {featuredArticle.summary}
                       </p>
 
@@ -860,7 +860,7 @@ export const BlogPage: React.FC = () => {
                         {featuredArticle.tags?.slice(0, 3).map((tag, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-[11px] font-medium"
+                            className="px-2.5 py-1 rounded-lg bg-[#CBD8E2]/60 text-[#11172C] text-[11px] font-medium border border-white/60"
                           >
                             #{tag}
                           </span>
@@ -868,12 +868,12 @@ export const BlogPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-black text-indigo-600 flex items-center gap-2 group-hover:gap-3 transition-all">
+                    <div className="pt-4 border-t border-[#CBD8E2] flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-black text-[#06080F] flex items-center gap-2 group-hover:gap-3 transition-all">
                         مطالعه کامل مقاله در صفحه اختصاصی
-                        <ArrowLeft className="w-4 h-4" />
+                        <ArrowLeft className="w-4 h-4 text-[#00F090]" />
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">
+                      <span className="text-xs text-[#11172C]/60 font-mono">
                         URL: /blog/{featuredArticle.id}
                       </span>
                     </div>
@@ -882,7 +882,7 @@ export const BlogPage: React.FC = () => {
               )}
 
               {/* Search & Category Filter Toolbar */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white shadow-md space-y-4">
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/90 shadow-md space-y-4">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                   {/* Category Pills */}
                   <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
@@ -892,8 +892,8 @@ export const BlogPage: React.FC = () => {
                         onClick={() => setActiveCategory(cat)}
                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                           activeCategory === cat
-                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                            ? 'bg-[#06080F] text-[#00F090] shadow-md border border-slate-700'
+                            : 'bg-[#CBD8E2]/60 hover:bg-[#CBD8E2] text-[#11172C] border border-white/80'
                         }`}
                       >
                         {cat}
@@ -908,9 +908,9 @@ export const BlogPage: React.FC = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="جستجو در عناوین و مقالات..."
-                      className="w-full pl-3 pr-9 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-900 focus:bg-white focus:border-indigo-500 focus:outline-none"
+                      className="w-full pl-3 pr-9 py-2 rounded-xl bg-white border border-white/90 text-xs text-[#06080F] focus:bg-white focus:border-[#00F090] focus:outline-none shadow-2xs"
                     />
-                    <Search className="w-4 h-4 text-slate-400 absolute right-3 top-2.5" />
+                    <Search className="w-4 h-4 text-[#11172C]/50 absolute right-3 top-2.5" />
                   </div>
                 </div>
               </div>
@@ -922,7 +922,7 @@ export const BlogPage: React.FC = () => {
                     <div
                       key={article.id}
                       onClick={() => handleSelectArticle(article)}
-                      className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white hover:border-indigo-300 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                      className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-white/90 hover:border-[#00F090]/50 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group cursor-pointer"
                     >
                       <div className="space-y-3">
                         {/* Thumbnail Image */}
@@ -934,33 +934,33 @@ export const BlogPage: React.FC = () => {
                             referrerPolicy="no-referrer"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-                          <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-white/20">
+                          <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#06080F]/80 backdrop-blur-md text-[11px] font-bold text-[#00F090] border border-white/15">
                             {article.category}
                           </span>
-                          <span className="absolute bottom-3 left-3 text-[10px] text-slate-300 font-mono bg-slate-950/70 px-2 py-0.5 rounded">
+                          <span className="absolute bottom-3 left-3 text-[10px] text-slate-300 font-mono bg-[#06080F]/70 px-2 py-0.5 rounded border border-white/10">
                             {article.readTime}
                           </span>
                         </div>
 
                         {/* Date & Meta */}
-                        <div className="flex items-center gap-3 text-[11px] text-slate-500">
+                        <div className="flex items-center gap-3 text-[11px] text-[#11172C]/70">
                           <span className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-slate-400" />
+                            <Calendar className="w-3 h-3 text-[#11172C]/50" />
                             {article.date}
                           </span>
                           <span>•</span>
                           <span className="flex items-center gap-1">
-                            <Eye className="w-3 h-3 text-slate-400" />
+                            <Eye className="w-3 h-3 text-[#11172C]/50" />
                             {article.viewsCount || 850} بازدید
                           </span>
                         </div>
 
                         {/* Title & Summary */}
-                        <h3 className="text-sm sm:text-base font-black text-slate-950 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2">
+                        <h3 className="text-sm sm:text-base font-black text-[#06080F] group-hover:text-[#06080F] transition-colors leading-snug line-clamp-2">
                           {article.title}
                         </h3>
 
-                        <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                        <p className="text-xs text-[#11172C]/80 leading-relaxed line-clamp-3">
                           {article.summary}
                         </p>
 
@@ -970,7 +970,7 @@ export const BlogPage: React.FC = () => {
                             {article.tags.slice(0, 3).map((tag, idx) => (
                               <span
                                 key={idx}
-                                className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-500"
+                                className="text-[10px] px-2 py-0.5 rounded-md bg-[#CBD8E2]/60 text-[#11172C] border border-white/60 font-medium"
                               >
                                 #{tag}
                               </span>
@@ -980,13 +980,13 @@ export const BlogPage: React.FC = () => {
                       </div>
 
                       {/* Footer Read Action */}
-                      <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-900 group-hover:text-indigo-600 flex items-center gap-1 transition-colors">
+                      <div className="mt-5 pt-3.5 border-t border-[#CBD8E2] flex items-center justify-between">
+                        <span className="text-xs font-bold text-[#06080F] group-hover:text-[#06080F] flex items-center gap-1 transition-colors">
                           ورود به صفحه مقاله
-                          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-[#00F090]" />
                         </span>
 
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-[#11172C]/60 font-mono">
                           /blog/{article.id}
                         </span>
                       </div>
@@ -994,12 +994,12 @@ export const BlogPage: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-16 bg-white/60 rounded-3xl border border-white space-y-3">
-                  <HelpCircle className="w-10 h-10 text-slate-400 mx-auto" />
-                  <h3 className="text-base font-bold text-slate-800">
+                <div className="text-center py-16 bg-white/80 rounded-3xl border border-white/90 space-y-3 shadow-sm">
+                  <HelpCircle className="w-10 h-10 text-[#11172C]/50 mx-auto" />
+                  <h3 className="text-base font-bold text-[#06080F]">
                     مقاله‌ای با این مشخصات یافت نشد
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-[#11172C]/70">
                     لطفاً عبارت جستجو یا دسته‌بندی انتخابی را تغییر دهید.
                   </p>
                   <button
@@ -1007,7 +1007,7 @@ export const BlogPage: React.FC = () => {
                       setSearchQuery('');
                       setActiveCategory('همه مقالات');
                     }}
-                    className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold"
+                    className="px-4 py-2 rounded-xl bg-[#06080F] text-[#00F090] text-xs font-black shadow-md border border-slate-700 cursor-pointer"
                   >
                     مشاهده همه مقالات
                   </button>
@@ -1015,10 +1015,13 @@ export const BlogPage: React.FC = () => {
               )}
 
               {/* Engineering Consultation Banner */}
-              <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+              <div className="bg-[#06080F] rounded-3xl p-6 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl border border-slate-800">
                 <div className="space-y-2 text-center md:text-right">
-                  <h3 className="text-lg sm:text-xl font-black">
-                    همکاری تخصصی با دفاتر معماری و مهندسین مشاور
+                  <span className="px-3 py-1 rounded-full bg-white/10 text-[#00F090] text-xs font-bold border border-white/15 inline-block">
+                    همکاری تخصصی با دفاتر معماری
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-white">
+                    مشاوره تخصصی با دفاتر معماری و مهندسین مشاور
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
                     ارائه دیتیل‌های اجرایی اتوکد (CAD Details)، نمونه متریال شیشه‌های سوپرکلیر، و محاسبات بارهای سازه‌ای برای پروژه‌های مناطق ۱ تا ۵ تهران.
@@ -1031,17 +1034,17 @@ export const BlogPage: React.FC = () => {
                       setInquiryPrefill('درخواست مشاوره تخصصی دفاتر معماری و محاسبات سازه');
                       setInquiryModalOpen(true);
                     }}
-                    className="px-5 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-black flex items-center gap-2 shadow-lg shadow-indigo-500/20 cursor-pointer active:scale-95"
+                    className="px-5 py-3 rounded-xl bg-[#00F090] hover:bg-[#00D882] text-[#06080F] text-xs font-black flex items-center gap-2 shadow-lg cursor-pointer active:scale-95"
                   >
                     <Phone className="w-4 h-4" />
                     <span>ارتباط مستقیم با مهندس ارشد</span>
                   </button>
 
                   <a
-                    href="calculator.html"
+                    href="/calculator"
                     className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-2 border border-white/20"
                   >
-                    <Calculator className="w-4 h-4" />
+                    <Calculator className="w-4 h-4 text-[#00F090]" />
                     <span>محاسبه‌گر آنلاین قیمت</span>
                   </a>
                 </div>

@@ -210,11 +210,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             className="flex flex-wrap items-center justify-center gap-4 pt-3"
           >
             <a
-              href="calculator.html"
+              href="/calculator"
               id="btn-hero-calc"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = 'calculator.html';
+                window.location.href = '/calculator';
               }}
               className="px-8 py-4 rounded-xl bg-[#00F090] text-[#06080F] font-black text-sm hover:bg-[#00F090]/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center gap-2 cursor-pointer relative z-30 pointer-events-auto"
             >

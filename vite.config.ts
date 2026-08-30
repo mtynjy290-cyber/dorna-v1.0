@@ -1,11 +1,37 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import {defineConfig, Plugin} from 'vite';
+
+function cleanUrlsPlugin(): Plugin {
+  const pages = ['products', 'calculator', 'services', 'projects', 'about', 'standards', 'blog', 'admin'];
+  const handler = (req: any, res: any, next: any) => {
+    if (req.url) {
+      const [pathname, search] = req.url.split('?');
+      const cleanPath = pathname.replace(/^\//, '').replace(/\/$/, '');
+      if (pages.includes(cleanPath)) {
+        req.url = `/${cleanPath}.html${search ? `?${search}` : ''}`;
+      } else if (cleanPath === '' || cleanPath === 'index') {
+        req.url = `/index.html${search ? `?${search}` : ''}`;
+      }
+    }
+    next();
+  };
+
+  return {
+    name: 'vite-plugin-clean-urls',
+    configureServer(server) {
+      server.middlewares.use(handler);
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(handler);
+    },
+  };
+}
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), cleanUrlsPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

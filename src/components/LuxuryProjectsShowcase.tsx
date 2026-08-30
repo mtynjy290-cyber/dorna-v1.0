@@ -163,7 +163,7 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
 
           {/* 3rd Card: Premium Architectural Photo Showcase Gateway Card */}
           <motion.a
-            href="projects.html"
+            href="/projects"
             id="card-projects-archive-link"
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -243,7 +243,7 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
                 <span>درخواست مشاوره و استعلام</span>
               </button>
               <a
-                href="projects.html"
+                href="/projects"
                 id="btn-projects-gallery"
                 className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#06080F] hover:bg-[#11172C] text-[#00F090] border border-[#00F090]/40 hover:border-[#00F090] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all active:scale-[0.98] cursor-pointer"
               >

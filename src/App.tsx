@@ -72,7 +72,7 @@ export default function App() {
       <div className="hidden md:flex fixed bottom-5 left-5 z-40 flex-col items-center gap-3">
         {/* Floating Calculator Link Button (10% Mint Accent with #06080F Text/Icon) */}
         <a
-          href="calculator.html"
+          href="/calculator"
           aria-label="Online Price Estimator"
           className="w-12 h-12 rounded-full bg-[#00F090] text-[#06080F] shadow-xl border border-white/60 backdrop-blur-md flex items-center justify-center hover:scale-110 active:scale-95 transition-all group cursor-pointer"
           title="محاسبه آنلاین قیمت پروژه"

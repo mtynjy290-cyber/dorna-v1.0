@@ -31,22 +31,22 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
   };
 
   const navLinks = [
-    { label: 'صفحه اصلی', href: 'index.html' },
-    { label: 'محصولات و مشخصات فنی', href: 'products.html' },
-    { label: 'خدمات مهندسی و اجرایی', href: 'services.html' },
-    { label: 'پروژه‌های شاخص ملی و لوکس', href: 'projects.html' },
-    { label: 'استعلام آنلاین و پیش‌فاکتور', href: 'calculator.html' },
-    { label: 'استانداردها و گارانتی ۲۴ ماهه', href: 'standards.html' },
-    { label: 'دانشنامه و مقالات تخصصی', href: 'blog.html' },
-    { label: 'درباره ما و اصالت ۲۵ ساله', href: 'about.html' },
+    { label: 'صفحه اصلی', href: '/' },
+    { label: 'محصولات و مشخصات فنی', href: '/products' },
+    { label: 'خدمات مهندسی و اجرایی', href: '/services' },
+    { label: 'پروژه‌های شاخص ملی و لوکس', href: '/projects' },
+    { label: 'استعلام آنلاین و پیش‌فاکتور', href: '/calculator' },
+    { label: 'استانداردها و گارانتی ۲۴ ماهه', href: '/standards' },
+    { label: 'دانشنامه و مقالات تخصصی', href: '/blog' },
+    { label: 'درباره ما و اصالت ۲۵ ساله', href: '/about' },
   ];
 
   const productLinks = [
-    { label: 'درب‌های اتوماتیک اسلایدینگ و تلسکوپی', href: 'products.html' },
-    { label: 'کرکره‌های برقی امنیتی و پلی‌کربنات', href: 'products.html' },
-    { label: 'درب‌های شیشه‌ای میرال و اسلایدی', href: 'products.html' },
-    { label: 'پارتیشن‌های فریم‌لس و دوجداره آکوستیک', href: 'products.html' },
-    { label: 'موتور و اپراتورهای دانکر آلمان (Dunker)', href: 'products.html' },
+    { label: 'درب‌های اتوماتیک اسلایدینگ و تلسکوپی', href: '/products' },
+    { label: 'کرکره‌های برقی امنیتی و پلی‌کربنات', href: '/products' },
+    { label: 'درب‌های شیشه‌ای میرال و اسلایدی', href: '/products' },
+    { label: 'پارتیشن‌های فریم‌لس و دوجداره آکوستیک', href: '/products' },
+    { label: 'موتور و اپراتورهای دانکر آلمان (Dunker)', href: '/products' },
   ];
 
   return (
@@ -224,7 +224,7 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
               </button>
 
               <a
-                href="calculator.html"
+                href="/calculator"
                 className="w-full py-2.5 px-4 rounded-full bg-white/5 hover:bg-white/10 text-[#00F090] border border-[#00F090]/40 hover:border-[#00F090] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <Calculator className="w-3.5 h-3.5 text-[#00F090]" />

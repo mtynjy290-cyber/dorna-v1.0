@@ -83,7 +83,7 @@ export const AboutPage: React.FC = () => {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs font-bold text-[#11172C]/70 mb-6">
-              <a href="index.html" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
+              <a href="/" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
               <span>←</span>
               <span className="text-[#06080F]">درباره شرکت مهندسی درنا درب</span>
             </div>
@@ -105,14 +105,14 @@ export const AboutPage: React.FC = () => {
 
                 <div className="flex flex-wrap items-center gap-3">
                   <a 
-                    href="projects.html" 
+                    href="/projects" 
                     className="px-5 py-3 rounded-xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] text-xs font-bold shadow-sm transition-all flex items-center gap-2 border border-[#00F090]/40"
                   >
                     <span>مشاهده پروژه‌ها و رزومه شاخص</span>
                     <ChevronLeft className="w-3.5 h-3.5 text-[#00F090]" />
                   </a>
                   <a 
-                    href="calculator.html" 
+                    href="/calculator" 
                     className="px-5 py-3 rounded-xl bg-white/90 hover:bg-white text-[#06080F] border border-white text-xs font-bold shadow-xs transition-all"
                   >
                     استعلام آنلاین قیمت پروژه‌ها

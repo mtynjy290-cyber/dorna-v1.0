@@ -95,23 +95,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { id: 'home', label: 'صفحه اصلی', href: 'index.html', icon: Sparkles, desc: 'خانه و معرفی سیستم‌ها' },
-    { id: 'products', label: 'محصولات', href: 'products.html', icon: Cpu, desc: 'درب اتوماتیک، کرکره، میرال، پارتیشن و موتورها' },
-    { id: 'services', label: 'خدمات', href: 'services.html', icon: Layers, desc: 'طراحی و اجرای پروژه‌های شیشه‌ای' },
-    { id: 'projects', label: 'پروژه‌ها', href: 'projects.html', icon: Briefcase, desc: 'پروژه‌های شاخص و رزومه اجرایی' },
-    { id: 'calculator', label: 'استعلام قیمت', href: 'calculator.html', icon: Calculator, desc: 'محاسبه آنلاین و پیش‌فاکتور' },
-    { id: 'standards', label: 'استانداردها', href: 'standards.html', icon: ShieldCheck, desc: `${SITE_CONFIG.guarantees.goldenWarrantyMonths} ماه گارانتی و استانداردها` },
-    { id: 'blog', label: 'مقالات', href: 'blog.html', icon: FileText, desc: 'دانشنامه و مقالات فنی' },
-    { id: 'about', label: 'درباره ما', href: 'about.html', icon: Info, desc: `اصالت و معرفی ${brand.name}` },
+    { id: 'home', label: 'صفحه اصلی', href: '/', icon: Sparkles, desc: 'خانه و معرفی سیستم‌ها' },
+    { id: 'products', label: 'محصولات', href: '/products', icon: Cpu, desc: 'درب اتوماتیک، کرکره، میرال، پارتیشن و موتورها' },
+    { id: 'services', label: 'خدمات', href: '/services', icon: Layers, desc: 'طراحی و اجرای پروژه‌های شیشه‌ای' },
+    { id: 'projects', label: 'پروژه‌ها', href: '/projects', icon: Briefcase, desc: 'پروژه‌های شاخص و رزومه اجرایی' },
+    { id: 'calculator', label: 'استعلام قیمت', href: '/calculator', icon: Calculator, desc: 'محاسبه آنلاین و پیش‌فاکتور' },
+    { id: 'standards', label: 'استانداردها', href: '/standards', icon: ShieldCheck, desc: `${SITE_CONFIG.guarantees.goldenWarrantyMonths} ماه گارانتی و استانداردها` },
+    { id: 'blog', label: 'مقالات', href: '/blog', icon: FileText, desc: 'دانشنامه و مقالات فنی' },
+    { id: 'about', label: 'درباره ما', href: '/about', icon: Info, desc: `اصالت و معرفی ${brand.name}` },
   ];
 
   // Precise Active Page Link Evaluator
   const isLinkActive = (href: string) => {
     if (typeof window === 'undefined') return false;
     const pathname = window.location.pathname.toLowerCase();
-    const cleanHref = href.toLowerCase();
+    const cleanHref = href.toLowerCase().replace(/^\//, '').replace(/\/$/, '').replace('.html', '');
 
-    if (cleanHref === 'index.html') {
+    if (cleanHref === '' || cleanHref === 'index') {
       return (
         pathname === '/' ||
         pathname === '' ||
@@ -121,11 +121,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
       );
     }
 
-    const pageSlug = cleanHref.replace('.html', '');
-    return pathname.endsWith(`/${cleanHref}`) || 
-           pathname.endsWith(cleanHref) || 
-           pathname.includes(`/${pageSlug}`) ||
-           pathname.endsWith(pageSlug);
+    return (
+      pathname === `/${cleanHref}` ||
+      pathname === `/${cleanHref}/` ||
+      pathname.endsWith(`/${cleanHref}.html`) ||
+      pathname.includes(`/${cleanHref}`)
+    );
   };
 
 
@@ -150,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
               {/* ========================================================
                   1. RIGHT: BRAND LOGO & TAGLINE
               ======================================================== */}
-              <a href="index.html" className="flex items-center gap-2.5 shrink-0" id="brand-logo-link">
+              <a href="/" className="flex items-center gap-2.5 shrink-0" id="brand-logo-link">
                 <div className="brand-logo-icon relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#06080F]/80 backdrop-blur-md flex items-center justify-center p-1 shadow-sm border border-white/20">
                   {/* Architectural Door Emblem */}
                   <svg viewBox="0 0 24 24" fill="none" className="w-4.5 h-4.5">
@@ -399,7 +400,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
 
                 {/* Action 2: Price Calculator Link */}
                 <a
-                  href="calculator.html"
+                  href="/calculator"
                   onClick={() => setMobileMenuOpen(false)}
                   id="mobile-drawer-calc-link"
                   className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"

@@ -233,7 +233,7 @@ export const ProjectsPage: React.FC = () => {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs font-bold text-[#11172C]/70 mb-6">
-              <a href="index.html" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
+              <a href="/" className="hover:text-[#06080F] transition-colors">صفحه اصلی</a>
               <span>←</span>
               <span className="text-[#06080F]">پروژه‌ها و نمونه‌کارهای اجرایی</span>
             </div>
@@ -495,7 +495,7 @@ export const ProjectsPage: React.FC = () => {
                   </button>
 
                   <a
-                    href="calculator.html"
+                    href="/calculator"
                     className="py-3 px-4 rounded-xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] border border-[#00F090]/30 text-xs font-bold flex items-center justify-center gap-2 transition-all"
                   >
                     <Calculator className="w-4 h-4 text-[#00F090]" />

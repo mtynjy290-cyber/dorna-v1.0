@@ -189,7 +189,7 @@ const ModernServiceCard: React.FC<{
       {/* Card Action Link */}
       <div className="pt-3 mt-1 flex items-center justify-between">
         <a
-          href="calculator.html"
+          href="/calculator"
           className="inline-flex items-center gap-1.5 text-xs font-black text-[#06080F] group-hover:text-[#06080F] transition-colors"
         >
           <Calculator className="w-3.5 h-3.5 text-[#00F090]" />
@@ -275,7 +275,7 @@ export const ServiceIconsBar: React.FC = () => {
           </div>
 
           <a
-            href="services.html"
+            href="/services"
             className="inline-flex items-center gap-1.5 font-black text-[#06080F] hover:text-[#00D882] transition-colors py-1 px-3 rounded-lg bg-white/70 border border-white hover:border-[#00F090]/40 shadow-2xs"
           >
             <span>کاتالوگ کامل و مشخصات فنی</span>

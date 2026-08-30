@@ -43,7 +43,7 @@ export const ArticlesSection: React.FC = () => {
           {articles.slice(0, 2).map((article, idx) => (
             <motion.a
               key={article.id}
-              href={`blog.html?id=${article.id}`}
+              href={`/blog?id=${article.id}`}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
@@ -101,7 +101,7 @@ export const ArticlesSection: React.FC = () => {
 
           {/* 3rd Card: Premium Architectural Photo Knowledge Archive Card */}
           <motion.a
-            href="blog.html"
+            href="/blog"
             id="card-blog-archive-preview"
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ export const ArticlesSection: React.FC = () => {
           className="mt-12 text-center"
         >
           <a
-            href="blog.html"
+            href="/blog"
             id="btn-blog-archive"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#06080F] hover:bg-[#11172C] text-[#00F090] font-bold text-xs sm:text-sm border border-[#00F090]/40 hover:border-[#00F090] shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all active:scale-[0.98] cursor-pointer group"
           >

@@ -102,9 +102,9 @@ export const DEFAULT_HERO_CONTENT: HeroContent = {
   videoUrl: 'https://fileditchfiles.st/balpha9/659494cb8503cfb1a4c3/Og_v.webm',
   posterUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85',
   ctaPrimaryText: 'محاسبه آنلاین قیمت',
-  ctaPrimaryLink: 'calculator.html',
+  ctaPrimaryLink: '/calculator',
   ctaSecondaryText: 'پروژه‌ها و رزومه',
-  ctaSecondaryLink: 'projects.html',
+  ctaSecondaryLink: '/projects',
   operatorStatus: 'DUNKERMOTOREN BG-75 • OPERATIONAL',
   operatorStandard: 'EN 16005',
 };

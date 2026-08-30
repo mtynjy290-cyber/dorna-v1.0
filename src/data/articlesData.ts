@@ -38,14 +38,14 @@ export const ARTICLES_DATA: Article[] = [
     relatedSlugs: ['dunkermotoren-technology-in-automatic-doors', 'acoustic-frameless-glass-partitions-design'],
     content: `
       <div class="space-y-8 text-slate-800 leading-relaxed font-normal">
-        <p class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed border-r-4 border-indigo-600 pr-4 bg-indigo-50/50 py-2 rounded-l-xl">
+        <p class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed border-r-4 border-[#06080F] pr-4 bg-[#CBD8E2]/40 py-2 rounded-l-xl">
           مقاومت مکانیکی، ضریب عبور نور، ایمنی جانی و پایداری سازه‌ای در برابر بارهای جانبی و نوسانات جوی، چهار رکن بنیادین در مهندسی شیشه‌های معماری برای ورودی‌های مدرن، لابی برج‌های تجاری-مسکونی و سازه‌های تمام‌شیشه‌ای بدون فریم به شمار می‌روند. در این راهنمای جامع، متالورژی شیشه، استانداردهای بین‌المللی آزمون، مقایسه فوتومتریک و الزامات اجرایی مورد تحلیل مهندسی قرار گرفته است.
         </p>
 
         <!-- Key Engineering Alert -->
-        <div class="p-5 rounded-2xl bg-indigo-50/90 border border-indigo-200/80 text-xs sm:text-sm text-indigo-950 space-y-2.5 shadow-xs">
-          <div class="font-black flex items-center gap-2 text-indigo-900 text-sm sm:text-base">
-            <svg class="w-5 h-5 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <div class="p-5 rounded-2xl bg-white/80 border border-slate-300 text-xs sm:text-sm text-slate-900 space-y-2.5 shadow-xs">
+          <div class="font-black flex items-center gap-2 text-slate-950 text-sm sm:text-base">
+            <svg class="w-5 h-5 text-[#06080F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             <span>الزام مهندسی و مدیریت وزن در لنگه‌های متحرک:</span>
           </div>
           <p class="leading-relaxed">
@@ -56,7 +56,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 1 -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white text-xs font-black flex items-center justify-center">۱</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-[#00F090] text-xs font-black flex items-center justify-center">۱</span>
             فرآیند سکوریتینگ حرارتی (Thermal Tempering) و استاندارد EN 12150
           </h2>
           <p>
@@ -88,7 +88,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 2: HST Test Deep Dive -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white text-xs font-black flex items-center justify-center">۲</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۲</span>
             آزمون غوطه‌وری حرارتی (Heat Soak Test - HST) بر اساس EN 14179
           </h2>
           <p>
@@ -103,7 +103,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 3: Laminated Glass & PVB / SentryGlas -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white text-xs font-black flex items-center justify-center">۳</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۳</span>
             شیشه‌های چندلایه لمینت (Laminated Safety Glass) و ساختار لایه‌های میانی
           </h2>
           <p>
@@ -129,7 +129,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Visual Side-by-Side Comparison Box with VS Badge -->
         <div class="my-6 p-4 sm:p-6 rounded-2xl bg-slate-900 text-white shadow-xl">
           <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-            <span class="text-xs font-extrabold text-indigo-400">آنالیز فوتومتریک و شفافیت شیشه سوپرکلیر در برابر فلوت</span>
+            <span class="text-xs font-extrabold text-[#00F090]">آنالیز فوتومتریک و شفافیت شیشه سوپرکلیر در برابر فلوت</span>
             <span class="text-[11px] text-slate-400 font-mono">Spectrophotometric Analysis</span>
           </div>
 
@@ -148,17 +148,17 @@ export const ARTICLES_DATA: Article[] = [
             </div>
 
             {/* Central VS Badge for Desktop */}
-            <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-indigo-600 border-2 border-white text-white font-black text-xs items-center justify-center shadow-2xl">
+            <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-[#06080F] border-2 border-white text-white font-black text-xs items-center justify-center shadow-2xl">
               VS
             </div>
 
             {/* Right Glass: Super Clear Low-Iron */}
-            <div class="space-y-2 rounded-xl overflow-hidden bg-indigo-950/40 p-3 border border-indigo-500/40">
+            <div class="space-y-2 rounded-xl overflow-hidden bg-slate-900 p-3 border border-white/20">
               <div class="h-44 sm:h-52 rounded-lg overflow-hidden relative">
                 <img src="/images/super-clear-glass.jpg" alt="شیشه سوپرکلیر کم آهن کریستال" class="w-full h-full object-cover" />
-                <span class="absolute top-2 right-2 px-2.5 py-1 rounded-md bg-indigo-950/80 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-indigo-400/50">سوپرکلیر وین‌لایت (Ultra-Clear Low-Iron)</span>
+                <span class="absolute top-2 right-2 px-2.5 py-1 rounded-md bg-[#06080F]/90 backdrop-blur-md text-[11px] font-bold text-[#00F090] border border-[#00F090]/40">سوپرکلیر وین‌لایت (Ultra-Clear Low-Iron)</span>
               </div>
-              <div class="text-[11px] text-indigo-200/80 space-y-1 pt-1">
+              <div class="text-[11px] text-slate-300 space-y-1 pt-1">
                 <p>• ضریب عبور نور مرئی (VLT): بالای ۹۱.۵٪ (شفافیت حداکثری کریستال)</p>
                 <p>• میزان ناخالصی اکسید آهن: کمتر از ۰.۰۱٪ (خلوص فوق‌العاده)</p>
                 <p>• ظاهر بصری: لبه‌های شفاف بلورین، نمایش واقعی و بدون اعوجاج رنگ‌های دکوراسیون داخلی</p>
@@ -170,7 +170,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 4: Engineering Selection Matrix Table -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white text-xs font-black flex items-center justify-center">۴</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۴</span>
             ماتریس مهندسی انتخاب نوع و ضخامت شیشه در پروژه‌ها
           </h2>
           <div class="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-2xs">
@@ -204,7 +204,7 @@ export const ARTICLES_DATA: Article[] = [
                   <td class="p-3">لمینت سکوریت دوجداره با SentryGlas</td>
                   <td class="p-3 font-mono">10+10+1.52 SGP</td>
                   <td class="p-3">44 dB</td>
-                  <td class="p-3 text-indigo-700 font-bold">فوق‌العاده مقاوم در برابر باد و ضربه</td>
+                  <td class="p-3 text-emerald-700 font-bold">فوق‌العاده مقاوم در برابر باد و ضربه</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition-colors">
                   <td class="p-3 font-bold text-slate-900">جان‌پناه شیشه‌ای بالکن و وید مجتمع تجاری</td>
@@ -220,21 +220,21 @@ export const ARTICLES_DATA: Article[] = [
 
         <!-- Checklist for quality control -->
         <div class="p-5 rounded-2xl bg-slate-900 text-white space-y-3">
-          <h3 class="text-sm sm:text-base font-black text-indigo-400 flex items-center gap-2">
+          <h3 class="text-sm sm:text-base font-black text-[#00F090] flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
             چک‌لیست کنترل کیفیت و تحویل‌گیری کارگاهی شیشه درنا درب:
           </h3>
           <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
             <li class="flex items-start gap-2">
-              <span class="text-indigo-400 font-bold">✓</span>
+              <span class="text-[#00F090] font-bold">✓</span>
               <span><strong>ابزار لبه (Edge Working):</strong> لبه‌های شیشه باید توسط دستگاه‌های CNC و راسته دیاموند به صورت تخت براق (Flat Polished with Arris) ابزار خورده باشند تا تمرکز تنش در لبه‌ها خنثی شود.</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-indigo-400 font-bold">✓</span>
+              <span class="text-[#00F090] font-bold">✓</span>
               <span><strong>سوراخ‌کاری و جاسازی:</strong> فاصله لبه سوراخ تا لبه شیشه نباید کمتر از ۲ برابر ضخامت شیشه باشد و تمامی سوراخ‌ها باید دارای لچکی و فرز کونیک باشند.</span>
             </li>
             <li class="flex items-start gap-2">
-              <span class="text-indigo-400 font-bold">✓</span>
+              <span class="text-[#00F090] font-bold">✓</span>
               <span><strong>کنترل موج غلطک (Roller Wave):</strong> حداکثر اعوجاج ناشی از حرکت روی غلطک‌های کوره سکوریت باید کمتر از ۰.۱۵ میلی‌متر در طول ۳۰۰ میلی‌متر باشد تا بازتاب بصری آینه‌ای نما کاملاً یکدست بماند.</span>
             </li>
           </ul>
@@ -362,7 +362,7 @@ export const ARTICLES_DATA: Article[] = [
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition-colors">
                   <td class="p-3 font-bold text-slate-900">نوع گیربکس</td>
-                  <td class="p-3 font-bold text-indigo-700">سیاره‌ای تمام‌فولادی PLG 60</td>
+                  <td class="p-3 font-bold text-emerald-700">سیاره‌ای تمام‌فولادی PLG 60</td>
                   <td class="p-3">حلزونی با دنده تفلونی/برنجی</td>
                   <td class="p-3">عدم ایجاد لقی و حرکت نرم و بدون تکان لنگه</td>
                 </tr>
@@ -426,14 +426,14 @@ export const ARTICLES_DATA: Article[] = [
     relatedSlugs: ['guide-to-tempered-and-laminated-glass', 'aluminum-frames-anodizing-and-electrostatic-anatomy'],
     content: `
       <div class="space-y-8 text-slate-800 leading-relaxed font-normal">
-        <p class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed border-r-4 border-purple-600 pr-4 bg-purple-50/50 py-2 rounded-l-xl">
+        <p class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed border-r-4 border-[#06080F] pr-4 bg-[#CBD8E2]/40 py-2 rounded-l-xl">
           در طراحی محیط‌های کار معاصر و شرکت‌های پیشرو، دفاتر با پلان باز (Open-Plan) به دلیل تقویت تعامل تیمی محبوبیت فراوانی یافته‌اند؛ اما چالش اصلی این رویکرد، آلودگی صوتی، کاهش تمرکز پرسنل و عدم وجود حریم خصوصی برای جلسات محرمانه است. پارتیشن‌های شیشه‌ای آکوستیک دوجداره فریم‌لس، پاسخی مهندسی به این چالش هستند که شفافیت بصری و سکوت مطلق را در یک قاب پیاده‌سازی می‌کنند.
         </p>
 
         <!-- Acoustic Highlight Alert -->
-        <div class="p-5 rounded-2xl bg-purple-50/90 border border-purple-200/80 text-xs sm:text-sm text-purple-950 space-y-2.5 shadow-xs">
-          <div class="font-black flex items-center gap-2 text-purple-900 text-sm sm:text-base">
-            <svg class="w-5 h-5 text-purple-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+        <div class="p-5 rounded-2xl bg-white/80 border border-slate-300 text-xs sm:text-sm text-slate-900 space-y-2.5 shadow-xs">
+          <div class="font-black flex items-center gap-2 text-[#06080F] text-sm sm:text-base">
+            <svg class="w-5 h-5 text-[#06080F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
             <span>استاندارد آسایش صوتی دفاتر اداری (ISO 3382-3):</span>
           </div>
           <p class="leading-relaxed">
@@ -444,7 +444,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 1: Physics of Acoustic Glass -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-purple-600 text-white text-xs font-black flex items-center justify-center">۱</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۱</span>
             فیزیک صوت و پدیده افت فرکانسی (Coincidence Dip) در شیشه‌های اداری
           </h2>
           <p>
@@ -459,7 +459,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 2: Frameless Details & Profiles -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-purple-600 text-white text-xs font-black flex items-center justify-center">۲</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۲</span>
             آناتومی پروفیل‌های دفنی، نوارهای EPDM و اتصالات نامرئی
           </h2>
           <p>
@@ -488,15 +488,15 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 3: PDLC Smart Switchable Glass -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-purple-600 text-white text-xs font-black flex items-center justify-center">۳</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۳</span>
             تکنولوژی شیشه هوشمند مات‌شونده (PDLC Smart Switchable Glass)
           </h2>
           <p>
             یکی از لوکس‌ترین و کارآمدترین آپشن‌ها در پارتیشن‌های اتاق مدیریت و اتاق‌های کنفرانس هیئت مدیره، استفاده از شیشه‌های هوشمند کریستال مایع (Polymer Dispersed Liquid Crystal - PDLC) است:
           </p>
-          <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-purple-950 text-white space-y-3 shadow-lg">
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-[#06080F] text-white space-y-3 shadow-lg">
             <div class="flex items-center justify-between border-b border-white/10 pb-2">
-              <span class="text-xs font-bold text-purple-300">نحوه عملکرد فیلم‌های PDLC</span>
+              <span class="text-xs font-bold text-[#00F090]">نحوه عملکرد فیلم‌های PDLC</span>
               <span class="text-[11px] text-slate-400 font-mono">Response Time < 20ms</span>
             </div>
             <p class="text-xs leading-relaxed text-slate-200">
@@ -504,19 +504,19 @@ export const ARTICLES_DATA: Article[] = [
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs pt-2">
               <div class="p-2 rounded-lg bg-white/10">
-                <span class="block font-black text-purple-300">سرعت سوئیچ</span>
+                <span class="block font-black text-[#00F090]">سرعت سوئیچ</span>
                 <span class="text-[11px] text-slate-300">کمتر از ۲۰ میلی‌ثانیه</span>
               </div>
               <div class="p-2 rounded-lg bg-white/10">
-                <span class="block font-black text-purple-300">مصرف انرژی</span>
+                <span class="block font-black text-[#00F090]">مصرف انرژی</span>
                 <span class="text-[11px] text-slate-300">کمتر از ۵ وات بر متر مربع</span>
               </div>
               <div class="p-2 rounded-lg bg-white/10">
-                <span class="block font-black text-purple-300">طول عمر</span>
+                <span class="block font-black text-[#00F090]">طول عمر</span>
                 <span class="text-[11px] text-slate-300">بیش از ۸۰,۰۰۰ ساعت سوئیچ</span>
               </div>
               <div class="p-2 rounded-lg bg-white/10">
-                <span class="block font-black text-purple-300">کنترل هوشمند</span>
+                <span class="block font-black text-[#00F090]">کنترل هوشمند</span>
                 <span class="text-[11px] text-slate-300">کلید، ریموت، BMS و موبایل</span>
               </div>
             </div>
@@ -526,7 +526,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Section 4: Hardware and Hinges -->
         <div class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-950 tracking-tight pb-2 border-b border-slate-200 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-purple-600 text-white text-xs font-black flex items-center justify-center">۴</span>
+            <span class="w-7 h-7 rounded-lg bg-[#06080F] text-white text-xs font-black flex items-center justify-center">۴</span>
             یراق‌آلات هیدرولیک، لولاهای توکار کف و قفل‌های مگنتی بی‌صدا
           </h2>
           <p>
@@ -694,7 +694,7 @@ export const ARTICLES_DATA: Article[] = [
         <!-- Engineering Metallurgy Alert -->
         <div class="p-5 rounded-2xl bg-slate-100 border border-slate-300 text-xs sm:text-sm text-slate-900 space-y-2.5 shadow-xs">
           <div class="font-black flex items-center gap-2 text-slate-950 text-sm sm:text-base">
-            <svg class="w-5 h-5 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            <svg class="w-5 h-5 text-[#06080F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
             <span>تمایز بیلت فابریک خالص ۶۰۶۳ در برابر آلومینیوم ضایعاتی بازیافتی:</span>
           </div>
           <p class="leading-relaxed">
