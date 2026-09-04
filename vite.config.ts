@@ -38,6 +38,11 @@ export default defineConfig(() => {
       },
     },
     build: {
+      target: 'es2020',
+      minify: 'esbuild',
+      cssCodeSplit: true,
+      assetsInlineLimit: 4096,
+      reportCompressedSize: false,
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
@@ -49,6 +54,25 @@ export default defineConfig(() => {
           standards: path.resolve(__dirname, 'standards.html'),
           blog: path.resolve(__dirname, 'blog.html'),
           admin: path.resolve(__dirname, 'admin.html'),
+        },
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react') || id.includes('react-dom')) {
+                return 'vendor-react';
+              }
+              if (id.includes('motion')) {
+                return 'vendor-motion';
+              }
+              if (id.includes('lucide-react')) {
+                return 'vendor-icons';
+              }
+              if (id.includes('@supabase') || id.includes('zustand')) {
+                return 'vendor-data';
+              }
+              return 'vendor-core';
+            }
+          },
         },
       },
     },

@@ -85,6 +85,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
 
     // 1. Instant First Frame Load (Zero Waiting)
     const firstImg = new Image();
+    firstImg.decoding = 'async';
     firstImg.src = '/video/frames/frame_001.webp';
     images[1] = firstImg;
 
@@ -103,13 +104,64 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       currentRenderedIndex = 1;
     }
 
-    // 2. Preload remaining frames in background
+    // 2. Intelligent Progressive Background Preloader
+    // Load keyframes first (every 8 frames) for immediate responsive scrubbing, then fill remaining frames in idle chunks
+    const keyframeIndices: number[] = [];
+    const remainingIndices: number[] = [];
+
     for (let i = 2; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const paddedIndex = String(i).padStart(3, '0');
-      img.src = `/video/frames/frame_${paddedIndex}.webp`;
-      images[i] = img;
+      if (i % 8 === 0 || i === TOTAL_FRAMES) {
+        keyframeIndices.push(i);
+      } else {
+        remainingIndices.push(i);
+      }
     }
+
+    const loadSingleFrame = (idx: number): Promise<void> => {
+      return new Promise((resolve) => {
+        if (images[idx] && images[idx].complete) {
+          resolve();
+          return;
+        }
+        const img = new Image();
+        img.decoding = 'async';
+        const paddedIndex = String(idx).padStart(3, '0');
+        img.src = `/video/frames/frame_${paddedIndex}.webp`;
+        img.onload = () => {
+          if (isComponentMounted) images[idx] = img;
+          resolve();
+        };
+        img.onerror = () => resolve();
+        images[idx] = img;
+      });
+    };
+
+    // Load keyframes in small batches to preserve network bandwidth for above-the-fold assets
+    let chunkTimer: any = null;
+    const processBatch = (queue: number[], batchSize: number, delayMs: number) => {
+      if (!isComponentMounted || queue.length === 0) return;
+      const currentBatch = queue.splice(0, batchSize);
+      currentBatch.forEach((idx) => loadSingleFrame(idx));
+
+      if (queue.length > 0) {
+        chunkTimer = setTimeout(() => {
+          if ('requestIdleCallback' in window) {
+            (window as any).requestIdleCallback(() => processBatch(queue, batchSize, delayMs), { timeout: 150 });
+          } else {
+            processBatch(queue, batchSize, delayMs);
+          }
+        }, delayMs);
+      }
+    };
+
+    // Start keyframe loading after initial paint (50ms delay)
+    setTimeout(() => {
+      processBatch(keyframeIndices, 4, 30);
+      // Once keyframes are on their way, stream remaining frames smoothly
+      setTimeout(() => {
+        processBatch(remainingIndices, 6, 40);
+      }, 200);
+    }, 50);
 
     // 3. Continuous 60fps / 120fps ultra-fast canvas render loop
     const renderLoop = () => {
@@ -126,8 +178,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           drawCoverImage(targetImg);
           currentRenderedIndex = targetIndex;
         } else {
+          // If current frame is not yet loaded, actively load it immediately
+          if (!targetImg) {
+            loadSingleFrame(targetIndex);
+          }
+
           // Fallback to nearest loaded frame to guarantee zero flicker
-          for (let offset = 1; offset <= 10; offset++) {
+          for (let offset = 1; offset <= 15; offset++) {
             const prev = images[targetIndex - offset];
             if (prev && prev.complete && prev.naturalWidth > 0) {
               drawCoverImage(prev);
@@ -145,28 +202,43 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       rafId = requestAnimationFrame(renderLoop);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    // Precise ResizeObserver for seamless fluid resizing
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    if (canvas) {
+      resizeObserver.observe(canvas);
+    }
+
     rafId = requestAnimationFrame(renderLoop);
 
     return () => {
       isComponentMounted = false;
+      if (chunkTimer) clearTimeout(chunkTimer);
       cancelAnimationFrame(rafId);
       window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
     };
   }, [smoothProgress]);
 
   return (
     <div ref={containerRef} id="hero-section" className="relative h-[320vh] bg-[#06080F] isolate">
-      {/* Sticky Fullscreen Viewport */}
+      {/* Sticky Fullscreen / Fluid Viewport */}
       <motion.div 
-        style={{ opacity: heroFadeOut }}
-        className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
+        style={{ 
+          opacity: heroFadeOut,
+          height: 'clamp(560px, 85vh + 5vw, 100vh)',
+          minHeight: 'clamp(520px, 85dvh, 960px)',
+        }}
+        className="hero-video-container sticky top-0 w-full flex items-center justify-center overflow-hidden"
       >
         {/* GPU-Accelerated 2D Canvas Viewport (Zero Lag, Instant Load, 60/120fps with Pass-Through Zoom) */}
         <motion.canvas
           ref={canvasRef}
           style={{ scale: canvasScale }}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform origin-center"
+          className="hero-video-canvas absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform origin-center"
         />
 
         {/* Ambient Contrast Gradient Overlay */}
@@ -178,60 +250,80 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           className="absolute inset-0 pointer-events-none z-[2] bg-[radial-gradient(ellipse_at_center,rgba(0,240,144,0.18)_0%,rgba(203,216,226,0.15)_40%,transparent_75%)] backdrop-blur-[2px]"
         />
 
-        {/* Hero Content Overlay (Stable, high-contrast, no jittery scale/fade fluctuations) */}
-        <div
-          className="relative z-10 max-w-5xl mx-auto text-center space-y-6 px-4 py-8 pointer-events-auto"
+        {/* Hero Content Overlay (Aligned to 12-Column Grid System: 80px Margins, 24px Gutter) */}
+        <div 
+          style={{
+            paddingTop: 'clamp(2.5rem, 6vh + 1rem, 6rem)',
+            paddingBottom: 'clamp(2.5rem, 6vh + 1rem, 6rem)',
+          }}
+          className="hero-video-content relative z-10 grid-container-12 pointer-events-auto"
         >
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.3] max-w-4xl mx-auto drop-shadow-md"
-          >
-            {heroContent.headline || 'تلاقی شیشه، نور و مهندسی مدرن'}
-          </motion.h1>
+          <div className="grid grid-cols-12 gap-6">
+            <div className="col-span-12 lg:col-span-10 lg:col-start-2 text-center space-y-8 sm:space-y-10">
+              {/* Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                style={{
+                  fontSize: 'clamp(1.5rem, 2.5vw + 1rem, 3rem)',
+                  fontWeight: 800,
+                  lineHeight: 1.4,
+                  letterSpacing: '-0.03em',
+                }}
+                className="hero-title text-white max-w-4xl mx-auto drop-shadow-md text-[clamp(1.5rem,2.5vw+1rem,3rem)] font-[800] leading-[1.4] tracking-[-0.03em]"
+              >
+                {heroContent.headline || 'تلاقی شیشه، نور و مهندسی مدرن'}
+              </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-[#CBD8E2] max-w-2xl mx-auto leading-relaxed drop-shadow-xs font-medium"
-          >
-            طراحی، تولید و اجرای تخصصی انواع درب‌های اتوماتیک شیشه‌ای، تلسکوپی، کرو و سازه‌های لوکس معماری در مناطق ۱ تا ۵ تهران
-          </motion.p>
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  fontSize: 'clamp(0.9rem, 0.8vw + 0.7rem, 1.2rem)',
+                  fontWeight: 300,
+                  lineHeight: 1.8,
+                  opacity: 0.9,
+                }}
+                className="hero-subtitle text-[#CBD8E2] max-w-2xl mx-auto drop-shadow-xs text-[clamp(0.9rem,0.8vw+0.7rem,1.2rem)] font-[300] leading-[1.8] opacity-90"
+              >
+                طراحی، مهندسی و اجرای تخصصی انواع درب‌های اتوماتیک شیشه‌ای، تلسکوپی، کرو و سازه‌های مدرن معماری در سراسر تهران و کشور
+              </motion.p>
 
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-3"
-          >
-            <a
-              href="/calculator"
-              id="btn-hero-calc"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/calculator';
-              }}
-              className="px-8 py-4 rounded-xl bg-[#00F090] text-[#06080F] font-black text-sm hover:bg-[#00F090]/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center gap-2 cursor-pointer relative z-30 pointer-events-auto"
-            >
-              <Calculator className="w-5 h-5" />
-              <span>{heroContent.ctaPrimaryText || 'محاسبه آنلاین قیمت'}</span>
-            </a>
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap items-center justify-center gap-5 pt-6 sm:pt-8"
+              >
+                <a
+                  href="/calculator"
+                  id="btn-hero-calc"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/calculator';
+                  }}
+                  className="px-8 py-4 rounded-xl bg-[#00F090] text-[#06080F] font-black text-sm hover:bg-[#00F090]/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center gap-2.5 cursor-pointer relative z-30 pointer-events-auto"
+                >
+                  <Calculator className="w-5 h-5" />
+                  <span>{heroContent.ctaPrimaryText || 'محاسبه آنلاین قیمت'}</span>
+                </a>
 
-            <button
-              type="button"
-              onClick={onOpenInquiry}
-              id="btn-hero-inquiry"
-              className="px-8 py-4 rounded-xl bg-[#06080F]/85 text-[#00F090] border border-[#00F090]/40 backdrop-blur-md font-bold text-sm hover:bg-[#06080F] transition-all shadow-lg hover:scale-[1.02] flex items-center gap-2 cursor-pointer relative z-30 pointer-events-auto"
-            >
-              <PhoneCall className="w-5 h-5" />
-              <span>{heroContent.ctaSecondaryText || 'مشاوره و استعلام پروژه'}</span>
-            </button>
-          </motion.div>
+                <button
+                  type="button"
+                  onClick={onOpenInquiry}
+                  id="btn-hero-inquiry"
+                  className="px-8 py-4 rounded-xl bg-[#06080F]/85 text-[#00F090] border border-[#00F090]/40 backdrop-blur-md font-bold text-sm hover:bg-[#06080F] transition-all shadow-lg hover:scale-[1.02] flex items-center gap-2.5 cursor-pointer relative z-30 pointer-events-auto"
+                >
+                  <PhoneCall className="w-5 h-5" />
+                  <span>{heroContent.ctaSecondaryText || 'مشاوره و استعلام پروژه'}</span>
+                </button>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

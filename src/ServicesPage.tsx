@@ -64,7 +64,7 @@ export const ServicesPage: React.FC = () => {
   // Repair request helper interactive state
   const [repairCategory, setRepairCategory] = useState<'automatic' | 'manual_miral'>('automatic');
   const [issueDescription, setIssueDescription] = useState('');
-  const [clientDistrict, setClientDistrict] = useState('منطقه ۱ تا ۵ (شمال و غرب تهران)');
+  const [clientDistrict, setClientDistrict] = useState('تهران (کلیه مناطق)');
   const [clientPhone, setClientPhone] = useState('');
   const [repairSubmitted, setRepairSubmitted] = useState(false);
 
@@ -671,9 +671,9 @@ export const ServicesPage: React.FC = () => {
                       onChange={(e) => setClientDistrict(e.target.value)}
                       className="w-full p-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white focus:outline-none focus:border-[#00F090]"
                     >
-                      <option value="منطقه ۱ تا ۵ (شمال و غرب تهران)" className="bg-[#06080F] text-white">مناطق ۱ تا ۵ (شمال و غرب)</option>
-                      <option value="مناطق ۶ تا ۱۲ (مرکز تهران)" className="bg-[#06080F] text-white">مناطق ۶ تا ۱۲ (مرکز تهران)</option>
-                      <option value="مناطق ۱۳ تا ۲۲ (شرق و جنوب)" className="bg-[#06080F] text-white">مناطق ۱۳ تا ۲۲ و حومه</option>
+                      <option value="تهران (کلیه مناطق)" className="bg-[#06080F] text-white">تهران (کلیه مناطق و محلات)</option>
+                      <option value="حومه تهران و البرز" className="bg-[#06080F] text-white">حومه تهران، کرج و استان البرز</option>
+                      <option value="سایر استان‌ها و شهرستان‌ها" className="bg-[#06080F] text-white">سایر استان‌ها و شهرستان‌های کشور</option>
                     </select>
                   </div>
 

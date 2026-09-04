@@ -21,7 +21,7 @@ export interface AuditLogItem {
   details: string;
 }
 
-export type AdminTab = 'dashboard' | 'inquiries' | 'pricing' | 'cms' | 'articles' | 'projects' | 'settings' | 'audit' | 'article-editor';
+export type AdminTab = 'dashboard' | 'inquiries' | 'pricing' | 'cms' | 'glass-lab' | 'articles' | 'projects' | 'settings' | 'audit' | 'article-editor';
 
 export interface AdminStoreState {
   activeTab: AdminTab;
@@ -116,7 +116,7 @@ export const useAdminStore = create<AdminStoreState>()(
           timestamp: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
           user: 'کارشناس فروش',
           action: 'lead_status_change',
-          target: 'سرنخ برج الماس نیاوران',
+          target: 'سرنخ مجتمع الماس',
           details: 'تغییر وضعیت از در انتظار به تماس گرفته شده',
         },
       ],

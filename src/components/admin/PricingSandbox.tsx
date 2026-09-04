@@ -462,7 +462,7 @@ export const PricingSandbox: React.FC = () => {
                     onChange={(e) => setSimIsNorthTehran(e.target.checked)}
                     className="w-4 h-4 rounded text-[#00F090] accent-[#06080F]"
                   />
-                  <span>ضریب مناطق شمال تهران (×{draftConfig.multipliers.districtNorthMultiplier})</span>
+                  <span>ضریب خدمات اکسپرس و نصب فوری (×{draftConfig.multipliers.districtNorthMultiplier})</span>
                 </label>
 
                 <label className="flex items-center gap-2 text-xs font-bold text-[#06080F] cursor-pointer">
@@ -751,7 +751,7 @@ export const PricingSandbox: React.FC = () => {
 
               <div className="space-y-1.5">
                 <label className="text-xs font-black text-[#06080F] block">
-                  ضریب مناطق ۱ الی ۳ تهران (خدمات ویژه VIP):
+                  ضریب خدمات اکسپرس و اعزام فوری (VIP):
                 </label>
                 <input
                   type="number"

@@ -767,7 +767,7 @@ export const ARTICLES_DATA: Article[] = [
             تکنولوژی نانوپوشش تیتانیوم PVD (Physical Vapor Deposition)
           </h2>
           <p>
-            در لابی هتل‌های ۵ ستاره، طلافروشی‌ها و برج‌های لوکس منطقه ۱ تهران، پوشش‌های استیل تیتانیوم PVD اوج هنر و تجمل به شمار می‌روند:
+            در لابی هتل‌ها، فروشگاه‌ها، مراکز تجاری و ورودی ساختمان‌های شاخص، پوشش‌های استیل تیتانیوم PVD اوج هنر و ماندگاری متریال به شمار می‌روند:
           </p>
           <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-amber-950 to-slate-900 text-white space-y-2 shadow-lg">
             <div class="flex items-center justify-between border-b border-white/15 pb-2">

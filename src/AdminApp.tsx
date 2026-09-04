@@ -32,6 +32,7 @@ import { PricingSandbox } from './components/admin/PricingSandbox';
 import { CMSContentEditor } from './components/admin/CMSContentEditor';
 import { SettingsAudit } from './components/admin/SettingsAudit';
 import { ArticleEditorView } from './components/admin/ArticleEditorView';
+import { GlassLabManager } from './components/admin/GlassLabManager';
 import { isSupabaseConfigured } from './lib/supabase';
 import { SITE_CONFIG } from './config/siteConfig';
 
@@ -60,7 +61,7 @@ export default function AdminApp() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const tabParam = params.get('tab') as AdminTab | null;
-    if (tabParam && ['dashboard', 'inquiries', 'pricing', 'cms', 'audit'].includes(tabParam)) {
+    if (tabParam && ['dashboard', 'inquiries', 'pricing', 'cms', 'glass-lab', 'audit'].includes(tabParam)) {
       setActiveTab(tabParam);
     }
 
@@ -357,6 +358,26 @@ export default function AdminApp() {
 
               <button
                 onClick={() => {
+                  setActiveTab('glass-lab');
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full text-right px-4 py-3 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'glass-lab'
+                    ? 'bg-[#06080F] text-[#00F090] shadow-md'
+                    : 'text-[#06080F] hover:bg-[#E4EBF1]'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Sparkles className="w-4 h-4 text-[#06080F]" />
+                  <span>آزمایشگاه متریال و آزمون شیشه</span>
+                </div>
+                <span className="text-[10px] text-emerald-800 bg-[#00F090]/80 px-1.5 py-0.5 rounded font-black">
+                  Lab Live
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
                   setActiveTab('audit');
                   setMobileMenuOpen(false);
                 }}
@@ -489,7 +510,7 @@ export default function AdminApp() {
                       <span className="text-xs text-[#06080F] font-bold underline">ورود به محیط تست</span>
                     </div>
                     <p className="text-xs text-[#11172C] leading-relaxed">
-                      تست فوری تغییرات تعرفه شیشه سوپرکلیر، اپراتورهای دانکر آلمان و ضرایب مناطق شمال تهران با پیش‌فاکتور زنده.
+                      تست فوری تغییرات تعرفه شیشه سوپرکلیر، اپراتورهای دانکر آلمان و ضرایب نصب و خدمات با پیش‌فاکتور زنده.
                     </p>
                   </div>
 
@@ -508,6 +529,24 @@ export default function AdminApp() {
                       بارگذاری تصاویر شاخص مقالات و پروژه‌های لوکس به صورت درگ‌اند‌دراپ مستقیم بدون نیاز به کپی URL.
                     </p>
                   </div>
+
+                  <div
+                    onClick={() => setActiveTab('glass-lab')}
+                    className="bg-[#CBD8E2] border-2 border-[#00F090]/50 hover:border-[#00F090] rounded-2xl p-5 shadow-sm space-y-3 cursor-pointer transition-all hover:scale-[1.01] sm:col-span-2"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-black text-[#06080F] flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#06080F]" />
+                        <span>آزمایشگاه متریال و آزمون شیشه‌های تخصصی</span>
+                      </h3>
+                      <span className="text-xs text-emerald-800 bg-[#00F090] px-2.5 py-0.5 rounded-full font-black">
+                        کنترل تصاویر و متون علمی
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#11172C] leading-relaxed">
+                      مدیریت تصاویر و متون مقایسه شیشه‌های سوپرکلیر، فلوت، سکوریت حرارتی، لمینت ضدگلوله PVB، شیشه‌های Low-E عایق گرما و مات ساتینا همراه با شبیه‌ساز زنده.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -521,7 +560,10 @@ export default function AdminApp() {
             {/* 4. LIVE CMS & DRAG-AND-DROP MEDIA */}
             {activeTab === 'cms' && <CMSContentEditor />}
 
-            {/* 5. SETTINGS & AUDIT TRAIL */}
+            {/* 5. GLASS LAB & COMPARISON SLIDER MANAGER */}
+            {activeTab === 'glass-lab' && <GlassLabManager />}
+
+            {/* 6. SETTINGS & AUDIT TRAIL */}
             {activeTab === 'audit' && <SettingsAudit />}
           </main>
         </div>

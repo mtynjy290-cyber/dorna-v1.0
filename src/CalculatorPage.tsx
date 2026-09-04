@@ -1377,9 +1377,9 @@ export function CalculatorPage() {
               <div className="w-9 h-9 rounded-xl bg-white text-[#06080F] flex items-center justify-center mb-2 shadow-2xs">
                 <Phone className="w-5 h-5" />
               </div>
-              <h3 className="text-sm font-bold text-[#06080F]">کارشناسی حضوری و بازدید رایگان در محل</h3>
+              <h3 className="text-sm font-bold text-[#06080F]">کارشناسی حضوری و بازدید در محل</h3>
               <p className="text-xs text-[#11172C]/80 leading-relaxed">
-                کارشناسان فنی درنا درب در سراسر مناطق ۱ تا ۵ تهران (الهیه، فرشته، نیاوران، زعفرانیه و...) جهت نقشه‌برداری دقیق دهانه در محل پروژه حضور می‌یابند.
+                کارشناسان فنی درنا درب در سراسر تهران و پروژه‌های سراسر کشور جهت نقشه‌برداری دقیق ابعاد دهانه و مشاوره مهندسی در محل پروژه حضور می‌یابند.
               </p>
             </div>
           </div>

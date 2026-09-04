@@ -1,0 +1,21 @@
+# Robots.txt for Dorna Door Engineering Group (https://dornadoor.ir)
+User-agent: *
+Allow: /
+Allow: /calculator
+Allow: /products
+Allow: /projects
+Allow: /services
+Allow: /about
+Allow: /standards
+Allow: /blog
+Allow: /images/
+Allow: /video/
+
+# Disallow private and administrative zones
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/admin/
+Disallow: /private/
+
+# Sitemap definition
+Sitemap: https://dornadoor.ir/sitemap.xml

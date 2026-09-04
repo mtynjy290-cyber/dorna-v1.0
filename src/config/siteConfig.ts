@@ -33,8 +33,8 @@ export const SITE_CONFIG = {
     fullName: 'گروه فنی مهندسی درنا درب',
     legalName: 'شرکت مهندسی درنا درب آریا',
     tagline: 'طراحی و اجرای سازه‌های شیشه‌ای و درب اتوماتیک',
-    slogan: 'مرجع تخصصی سیستم‌های درب اتوماتیک و سازه‌های شیشه‌ای لوکس در تهران',
-    shortDescription: 'مرجع تخصصی محاسبه آنلاین قیمت و اجرای سیستم‌های درب اتوماتیک شیشه‌ای، پارتیشن‌های آکوستیک، شیشه سکوریت و فریم‌های لوکس در مناطق ۱ تا ۵ تهران.',
+    slogan: 'مرجع تخصصی سیستم‌های درب اتوماتیک و سازه‌های شیشه‌ای در سراسر کشور',
+    shortDescription: 'مرجع تخصصی محاسبه آنلاین قیمت و اجرای سیستم‌های مهندسی درب اتوماتیک شیشه‌ای، پارتیشن‌های آکوستیک، شیشه سکوریت و فریم‌های مدرن در سراسر کشور.',
     logoUrl: '/favicon.svg',
     ogImageUrl: '/og-image.jpg',
     establishedYear: 1389,
@@ -51,10 +51,10 @@ export const SITE_CONFIG = {
     whatsappNumber: '989122009876', // International format without +
     whatsappDisplay: '۰۹۱۲۲۰۰۹۸۷۶',
     supportEmail: 'info@dornadoor.ir',
-    officeAddress: 'تهران، خیابان فرشته (شهید فیاضی)، برج نماد الهیه، طبقه ۷، واحد ۷۰۲',
-    officeAddressShort: 'تهران، خیابان فرشته، برج نماد الهیه',
+    officeAddress: 'تهران، خیابان ولیعصر، برج فناوری و مهندسی، طبقه ۷، واحد ۷۰۲',
+    officeAddressShort: 'تهران، خیابان ولیعصر، برج فناوری و مهندسی',
     workingHours: 'شنبه تا چهارشنبه ۸:۳۰ الی ۱۹:۳۰ | پنج‌شنبه‌ها ۸:۳۰ الی ۱۴:۰۰',
-    freeLaserMeasurementCoverage: 'سراسر مناطق ۱ تا ۵ تهران (الهیه، فرشته، نیاوران، زعفرانیه، ولنجک، سعادت‌آباد)',
+    freeLaserMeasurementCoverage: 'سراسر تهران و اعزام تیم مهندسی به سراسر ایران',
   },
 
   // 🌐 Social Media & External Links
@@ -78,35 +78,35 @@ export const SITE_CONFIG = {
     glassPartner: 'سوپرکلیر اردکان و شیشه هوشمند PDLC کره‌ای',
   },
 
-  // 📍 Prime Geographic Coverage Zones (Tehran)
+  // 📍 Geographic Coverage Zones
   districts: [
     {
       id: 'd1',
-      number: 'منطقه ۱',
-      title: 'شمیرانات و شمال تهران',
-      neighborhoods: ['الهیه', 'فرشته', 'نیاوران', 'زعفرانیه', 'ولنجک', 'فرمانیه', 'کامرانیه', 'اقدسیه'],
+      number: 'پهنه شمال',
+      title: 'شمال و شمال‌غرب تهران',
+      neighborhoods: ['کلیه مناطق و شهرک‌های مسکونی و اداری شمال و غرب پایتخت'],
       averageDispatchTime: '۴۵ دقیقه',
     },
     {
       id: 'd2',
-      number: 'منطقه ۲',
-      title: 'غرب و شمال‌غرب',
-      neighborhoods: ['سعادت‌آباد', 'شهرک غرب', 'گیشا', 'ستارخان', 'مرزداران'],
-      averageDispatchTime: '۶۰ دقیقه',
-    },
-    {
-      id: 'd3',
-      number: 'منطقه ۳',
-      title: 'شمال مرکزی',
-      neighborhoods: ['جردن (نلسون ماندلا)', 'پاسداران', 'دروس', 'قلهک', 'میرداماد', 'ظفر'],
+      number: 'پهنه مرکز',
+      title: 'مرکز و پهنه اداری تجاری',
+      neighborhoods: ['مراکز تجاری، بیمارستانی، اداری و دانشگاهی سراسر تهران'],
       averageDispatchTime: '۴۵ دقیقه',
     },
     {
-      id: 'd4-5',
-      number: 'مناطق ۴ و ۵',
-      title: 'شرق و غرب مدرن',
-      neighborhoods: ['پونک', 'بلوار فردوس', 'جنت‌آباد', 'تهرانپارس غربی', 'هروی'],
+      id: 'd3',
+      number: 'پهنه شرق و جنوب',
+      title: 'شرق، جنوب و حومه صنعتی',
+      neighborhoods: ['شهرک‌های صنعتی، انبارها، مراکز لجستیک و پروژه‌های شرق و غرب'],
       averageDispatchTime: '۶۰ دقیقه',
+    },
+    {
+      id: 'd4',
+      number: 'سراسر ایران',
+      title: 'پروژه‌های استانی و کشوری',
+      neighborhoods: ['اعزام تیم مهندسی و ارسال مستقیم قطعات و شیشه به سراسر کشور'],
+      averageDispatchTime: 'طبق هماهنگی',
     },
   ],
 

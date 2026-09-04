@@ -85,11 +85,11 @@ export const ProjectsPage: React.FC = () => {
     },
     {
       id: 'security-center',
-      title: 'سیستم ورودی امنیتی و درب اتوماتیک - مرکز اداری و امنیتی',
+      title: 'سیستم ورودی امنیتی و درب اتوماتیک - مرکز اداری و پایش داده',
       category: 'institutional',
       categoryLabel: 'سطح امنیتی فوق‌العاده',
       client: 'نهاد راهبردی و مرکز اداری',
-      location: 'تهران، منطقه ۳ - مرکز داده و کنترل تردد',
+      location: 'تهران - مرکز داده و کنترل تردد',
       image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
       badge: 'سطح امنیتی فوق‌العاده',
       badgeColor: 'bg-indigo-600/90 text-white',
@@ -107,11 +107,11 @@ export const ProjectsPage: React.FC = () => {
     },
     {
       id: 'hospital-west',
-      title: 'درب‌های اتوماتیک بیمارستانی و هرمتیک - مرکز جراحی غرب تهران',
+      title: 'درب‌های اتوماتیک بیمارستانی و هرمتیک - مرکز جراحی و درمان',
       category: 'institutional',
       categoryLabel: 'درمان و سلامت',
       client: 'بیمارستان تخصصی و فوق‌تخصصی',
-      location: 'تهران، منطقه ۵ (غرب تهران) - بخش اورژانس و اتاق عمل',
+      location: 'تهران - بخش اورژانس و اتاق عمل',
       image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
       badge: 'درمان و سلامت',
       badgeColor: 'bg-emerald-600/90 text-white',
@@ -129,13 +129,13 @@ export const ProjectsPage: React.FC = () => {
     },
     {
       id: 'tower-fereshteh',
-      title: 'ورودی لوکس لابی و شیشه‌های اسلایدینگ - برج مسکونی فرشته',
+      title: 'ورودی لابی و شیشه‌های اسلایدینگ - مجتمع مسکونی مدرن',
       category: 'luxury_entrance',
-      categoryLabel: 'مسکونی لوکس',
-      client: 'سرمایه‌گذار و مالک برج مسکونی',
-      location: 'تهران، منطقه ۱ - خیابان فرشته (الهیه)',
+      categoryLabel: 'مسکونی',
+      client: 'سرمایه‌گذار و هیئت‌مدیره مجتمع مسکونی',
+      location: 'تهران - مجتمع مسکونی پارسیان',
       image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      badge: 'لوکس و معماری',
+      badge: 'معماری و ورودی',
       badgeColor: 'bg-amber-600/90 text-white',
       metricBadge: 'ارتفاع ۳.۴ متر بازشو',
       highlightTag: 'پروفیل استیل طلایی PVD',
@@ -151,11 +151,11 @@ export const ProjectsPage: React.FC = () => {
     },
     {
       id: 'commercial-saadatabad',
-      title: 'پارتیشن‌های فریم‌لس تجاری و درب‌های میرال - مجتمع تجاری سعادت‌آباد',
+      title: 'پارتیشن‌های فریم‌لس تجاری و درب‌های میرال - مجتمع تجاری الماس',
       category: 'commercial',
       categoryLabel: 'تجاری و اداری',
       client: 'شرکت سرمایه‌گذاری املاک',
-      location: 'تهران، سعادت‌آباد - میدان کاج',
+      location: 'تهران - مجتمع تجاری الماس',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
       badge: 'تجاری و اداری',
       badgeColor: 'bg-blue-600/90 text-white',
@@ -330,6 +330,7 @@ export const ProjectsPage: React.FC = () => {
                       alt={project.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#06080F]/90 via-[#06080F]/30 to-transparent" />
                     
@@ -456,7 +457,7 @@ export const ProjectsPage: React.FC = () => {
 
                 {/* Modal Image */}
                 <div className="relative h-64 rounded-2xl overflow-hidden mb-6 border border-white shadow-sm">
-                  <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
+                  <img src={selectedProject.image} alt={selectedProject.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   <span className="absolute bottom-3 right-3 text-xs font-black px-3 py-1 rounded-full bg-[#06080F]/80 text-[#00F090] border border-[#00F090]/30 backdrop-blur-md">
                     {selectedProject.highlightTag}
                   </span>

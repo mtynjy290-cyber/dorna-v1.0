@@ -268,7 +268,7 @@ export const EngineeringQuality: React.FC = () => {
       id: 1,
       value: '+۸۵۰',
       label: 'پروژه‌های فاخر اجرا شده',
-      sublabel: 'در مناطق لوکس ۱ تا ۵ تهران و برج‌های نمادین',
+      sublabel: 'در مجتمع‌های مسکونی، تجاری، درمانی و برج‌های شاخص سراسر کشور',
       tag: 'PROJECTS',
       icon: <Building className="w-6 h-6" />,
     },
@@ -291,89 +291,94 @@ export const EngineeringQuality: React.FC = () => {
   ];
 
   return (
-    <section id="engineering" className="py-20 sm:py-24 bg-[#E4EBF1] relative overflow-hidden border-t border-white/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="engineering" className="py-28 sm:py-36 bg-[#E4EBF1] relative overflow-hidden border-t border-white/60">
+      <div className="grid-container-12">
         
         {/* ========================================================
             1. TECHNICAL STANDARDS & GUARANTEE SECTION (۴ ستون اصلی)
         ======================================================== */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="grid grid-cols-12 gap-6 mb-16 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5 }}
+            className="col-span-12 lg:col-span-8 lg:col-start-3 text-center"
           >
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#06080F]/[0.04] border border-white/90 text-[#06080F] text-xs font-bold shadow-2xs backdrop-blur-md mb-2.5">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#06080F]/[0.04] border border-white/90 text-[#06080F] text-xs font-bold shadow-2xs backdrop-blur-md mb-3.5">
               <Sparkles className="w-3.5 h-3.5 text-[#00F090]" />
               <span>تعهد به کیفیت مهندسی پایدار</span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-[#06080F] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#06080F] tracking-tight">
               استانداردها و تعهدات مهندسی
             </h2>
 
-            <p className="text-xs sm:text-sm text-[#11172C]/70 mt-1.5 font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#11172C]/70 mt-3 font-medium leading-relaxed max-w-2xl mx-auto">
               تلفیق قطعات تراز اول بین‌المللی، مونتاژ دقیق کارگاهی و تکنسین‌های ارشد اجرایی
             </p>
           </motion.div>
         </div>
 
-        {/* 4 Spotlight Modern Pillar Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-16">
+        {/* 4 Spotlight Modern Pillar Cards Snapped to 12 Columns (4 x 3 cols = 12 cols, 24px gutter) */}
+        <div className="grid grid-cols-12 gap-6 mb-20 sm:mb-24">
           {pillars.map((pillar, index) => (
-            <ModernPillarCard
-              key={pillar.id}
-              pillar={pillar}
-              index={index}
-            />
+            <div key={pillar.id} className="col-span-12 sm:col-span-6 lg:col-span-3">
+              <ModernPillarCard
+                pillar={pillar}
+                index={index}
+              />
+            </div>
           ))}
         </div>
 
         {/* ========================================================
-            2. HIGH-IMPACT PRESTIGE STATS (پروژه‌های فاخر، سابقه، رضایتمندی)
+            2. HIGH-IMPACT PRESTIGE STATS (3 x 4 cols = 12 cols, 24px gutter)
         ======================================================== */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-8">
+        <div className="grid grid-cols-12 gap-6 mb-12 sm:mb-16">
           {stats.map((stat, sIdx) => (
-            <ModernStatCard
-              key={stat.id}
-              stat={stat}
-              index={sIdx}
-            />
+            <div key={stat.id} className="col-span-12 md:col-span-4">
+              <ModernStatCard
+                stat={stat}
+                index={sIdx}
+              />
+            </div>
           ))}
         </div>
 
-        {/* Bottom Standards Page Action Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-6 p-4 sm:p-5 rounded-2xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 flex flex-col sm:flex-row items-center justify-between gap-4 transition-all"
-        >
-          <div className="flex items-center gap-3 text-right">
-            <div className="w-10 h-10 rounded-xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shrink-0 shadow-sm">
-              <FileCheck2 className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-xs sm:text-sm font-bold text-[#06080F] block">
-                تعهدنامه رسمی ۲۴ ماه گارانتی طلایی و ۱۰ سال پشتیبانی فنی درنا درب
-              </span>
-              <span className="text-[11px] sm:text-xs text-[#11172C]/70 font-medium">
-                مشاهده متن کامل ضمانت‌نامه، شرایط تعویض بی‌قیدوشرط و چک‌لیست استانداردهای اروپایی EN 16005
-              </span>
-            </div>
-          </div>
-
-          <a
-            href="/standards"
-            id="btn-standards-page"
-            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 border border-[#00F090]/40 hover:border-[#00F090] shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all active:scale-[0.98] shrink-0 cursor-pointer"
+        {/* Bottom Standards Page Action Card (12 Columns) */}
+        <div className="grid grid-cols-12 gap-6 mt-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="col-span-12 p-6 sm:p-7 rounded-3xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all"
           >
-            <span>بررسی استانداردها و گارانتی</span>
-            <ArrowLeft className="w-3.5 h-3.5 text-[#00F090]" />
-          </a>
-        </motion.div>
+            <div className="flex items-center gap-4 text-right">
+              <div className="w-12 h-12 rounded-2xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shrink-0 shadow-sm">
+                <FileCheck2 className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <span className="text-sm sm:text-base font-bold text-[#06080F] block">
+                  تعهدنامه رسمی ۲۴ ماه گارانتی طلایی و ۱۰ سال پشتیبانی فنی درنا درب
+                </span>
+                <span className="text-xs text-[#11172C]/70 font-medium block">
+                  مشاهده متن کامل ضمانت‌نامه، شرایط تعویض بی‌قیدوشرط و چک‌لیست استانداردهای اروپایی EN 16005
+                </span>
+              </div>
+            </div>
+
+            <a
+              href="/standards"
+              id="btn-standards-page"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 border border-[#00F090]/40 hover:border-[#00F090] shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all active:scale-[0.98] shrink-0 cursor-pointer"
+            >
+              <span>بررسی استانداردها و گارانتی</span>
+              <ArrowLeft className="w-4 h-4 text-[#00F090]" />
+            </a>
+          </motion.div>
+        </div>
 
       </div>
     </section>

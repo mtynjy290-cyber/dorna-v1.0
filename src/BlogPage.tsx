@@ -107,6 +107,7 @@ export const BlogPage: React.FC = () => {
   // Refs
   const articleContentRef = useRef<HTMLDivElement>(null);
   const newTagInputRef = useRef<HTMLInputElement>(null);
+  const activeImageElementRef = useRef<HTMLImageElement | null>(null);
 
   // UI & Modals
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
@@ -120,9 +121,9 @@ export const BlogPage: React.FC = () => {
     {
       id: 'c1',
       name: 'مهندس آرش سپهری',
-      role: 'طراح سازه و معمار پروژه در منطقه ۱',
+      role: 'طراح سازه و معمار پروژه',
       date: '۲ روز پیش',
-      comment: 'توضیحات مربوط به تست غوطه‌وری حرارتی (HST) و استفاده از شیشه‌های کم‌آهن وین‌لایت فوق‌العاده کاربردی بود. برای پروژه برج مسکونی فرشته دقیقاً همین چالش سبزی لبه شیشه‌ها را داشتیم که با توصیه فنی مهندسین درنا درب حل شد.',
+      comment: 'توضیحات مربوط به تست غوطه‌وری حرارتی (HST) و استفاده از شیشه‌های کم‌آهن وین‌لایت فوق‌العاده کاربردی بود. برای پروژه ما دقیقاً همین چالش سبزی لبه شیشه‌ها را داشتیم که با توصیه فنی مهندسین درنا درب حل شد.',
       likes: 14,
     },
     {
@@ -202,6 +203,69 @@ export const BlogPage: React.FC = () => {
       setDraftTags(selectedArticle.tags ? [...selectedArticle.tags] : []);
       setDraftFeatured(Boolean(selectedArticle.featured));
       setHasUnsavedChanges(false);
+
+      // Dynamic SEO Management for Active Article
+      document.title = `${selectedArticle.title} | مجله مهندسی درنا درب`;
+      
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', selectedArticle.excerpt || selectedArticle.title);
+      }
+
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', selectedArticle.title);
+      }
+
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) {
+        ogDesc.setAttribute('content', selectedArticle.excerpt || selectedArticle.title);
+      }
+
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      if (ogImage && selectedArticle.image) {
+        ogImage.setAttribute('content', selectedArticle.image);
+      }
+
+      // Inject / Update Article JSON-LD Structured Data
+      let articleScript = document.getElementById('dynamic-article-ld');
+      if (!articleScript) {
+        articleScript = document.createElement('script');
+        articleScript.id = 'dynamic-article-ld';
+        articleScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(articleScript);
+      }
+      articleScript.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': selectedArticle.title,
+        'description': selectedArticle.excerpt,
+        'image': selectedArticle.image,
+        'datePublished': selectedArticle.date,
+        'dateModified': selectedArticle.date,
+        'author': {
+          '@type': 'Person',
+          'name': selectedArticle.author?.name || 'مهندس ارشد دپارتمان درنا درب',
+          'jobTitle': selectedArticle.author?.role || 'کارشناس ارشد سازه‌های شیشه‌ای'
+        },
+        'publisher': {
+          '@type': 'Organization',
+          'name': 'گروه فنی مهندسی درنا درب',
+          'url': 'https://dornadoor.ir',
+          'logo': {
+            '@type': 'ImageObject',
+            'url': 'https://dornadoor.ir/favicon.svg'
+          }
+        },
+        'mainEntityOfPage': {
+          '@type': 'WebPage',
+          '@id': `https://dornadoor.ir/blog?id=${selectedArticle.id}`
+        }
+      });
+    } else {
+      document.title = 'مجله تخصصی و مقالات فنی درب اتوماتیک و سازه‌های شیشه‌ای | درنا درب';
+      const existingScript = document.getElementById('dynamic-article-ld');
+      if (existingScript) existingScript.remove();
     }
   }, [selectedArticle]);
 
@@ -275,9 +339,41 @@ export const BlogPage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedArticle]);
 
-  // Enhance existing DOM elements with block-delete buttons when entering live edit mode
+  // Enhance existing DOM elements with image-edit badges and block-delete buttons when entering live edit mode
   useEffect(() => {
     if (isLiveEditActive && !isPreviewOnly && articleContentRef.current) {
+      // 1. Enhance all image elements in the article content
+      const images = articleContentRef.current.querySelectorAll('img');
+      images.forEach((img) => {
+        const parent = img.parentElement;
+        if (!parent) return;
+
+        // Ensure parent has relative positioning for badge overlay
+        if (!parent.classList.contains('relative')) {
+          parent.classList.add('relative', 'group/img');
+        }
+
+        // Add interactive classes and title
+        img.classList.add('cursor-pointer', 'transition-all', 'hover:brightness-95', 'hover:ring-2', 'hover:ring-[#00F090]/60');
+        img.setAttribute('title', 'کلیک کنید تا این تصویر را تغییر داده یا عکس جدید آپلود نمایید');
+
+        // Add floating edit badge if not already present
+        if (!parent.querySelector('.image-edit-badge')) {
+          const editBadge = document.createElement('div');
+          editBadge.className =
+            'image-edit-badge absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-[#06080F]/95 hover:bg-black text-[#00F090] border border-[#00F090]/60 text-xs font-black shadow-2xl cursor-pointer flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-all z-20 select-none backdrop-blur-md';
+          editBadge.setAttribute('contenteditable', 'false');
+          editBadge.setAttribute('data-action', 'edit-image');
+          editBadge.setAttribute('title', 'تغییر یا آپلود عکس جدید');
+          editBadge.innerHTML = `
+            <svg class="w-3.5 h-3.5 pointer-events-none text-[#00F090]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="pointer-events-none">تغییر و آپلود این تصویر</span>
+          `;
+          parent.prepend(editBadge);
+        }
+      });
+
+      // 2. Enhance tables, callouts, and custom blocks with delete buttons
       const tables = articleContentRef.current.querySelectorAll('table, .overflow-x-auto, blockquote, .my-6');
       tables.forEach((el) => {
         const blockContainer = el.closest('.article-editable-block') || el;
@@ -346,20 +442,63 @@ export const BlogPage: React.FC = () => {
     }
   };
 
-  // Handle direct click on any delete button inside the editable content
+  // Handle direct click on images or delete buttons inside the editable content
   const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isLiveEditActive || isPreviewOnly) return;
     const target = e.target as HTMLElement;
+
+    // 1. Check if user clicked an Edit Image button / badge or clicked on an <img> tag directly
+    const editImgBtn = target.closest('[data-action="edit-image"], .image-edit-badge, .image-edit-btn');
+    if (editImgBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const parent = editImgBtn.parentElement;
+      const img = parent?.querySelector('img') || (target instanceof HTMLImageElement ? target : null);
+      if (img) {
+        activeImageElementRef.current = img;
+        const container = img.closest('.article-editable-block, .space-y-2, div');
+        const captionText = container?.querySelector('.image-caption, .caption-text, div[class*="text-slate-400"], div[class*="text-slate-300"], div[class*="bg-[#E4EBF1]"]')?.textContent?.trim() || '';
+        setImageModalTarget('content');
+        setImageModalData({
+          url: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+          caption: captionText,
+        });
+        setImageModalOpen(true);
+      }
+      return;
+    }
+
+    // 2. Direct click on any <img> tag
+    if (target instanceof HTMLImageElement || target.tagName === 'IMG') {
+      e.preventDefault();
+      e.stopPropagation();
+      const img = target as HTMLImageElement;
+      activeImageElementRef.current = img;
+      const container = img.closest('.article-editable-block, .space-y-2, div');
+      const captionText = container?.querySelector('.image-caption, .caption-text, div[class*="text-slate-400"], div[class*="text-slate-300"], div[class*="bg-[#E4EBF1]"]')?.textContent?.trim() || '';
+      setImageModalTarget('content');
+      setImageModalData({
+        url: img.getAttribute('src') || '',
+        alt: img.getAttribute('alt') || '',
+        caption: captionText,
+      });
+      setImageModalOpen(true);
+      return;
+    }
+
+    // 3. Delete action
     const deleteBtn = target.closest('[data-action="delete-block"], .block-delete-badge, .block-delete-btn');
     if (deleteBtn) {
       e.preventDefault();
       e.stopPropagation();
-      const block = deleteBtn.closest('.article-editable-block, .my-6, table, .overflow-x-auto, blockquote');
+      const block = deleteBtn.closest('.article-editable-block, .my-6, table, .overflow-x-auto, blockquote, .group\\/img');
       if (block) {
         block.remove();
         if (articleContentRef.current) {
           setDraftContent(articleContentRef.current.innerHTML);
           setHasUnsavedChanges(true);
-          setSaveToast('باکس / جدول با موفقیت حذف گردید.');
+          setSaveToast('بخش / تصویر با موفقیت حذف گردید.');
           setTimeout(() => setSaveToast(null), 3000);
         }
       }
@@ -494,7 +633,7 @@ export const BlogPage: React.FC = () => {
           </div>
           <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="پروژه درنا درب" class="w-full h-72 object-cover" />
           <div class="p-3 bg-[#E4EBF1] text-xs text-[#11172C] text-center font-medium">
-            توضیح تصویر: اجرای سیستم شیشه‌ای فریم‌لس با موتور دانکر آلمان در برج زعفرانیه تهران
+            توضیح تصویر: اجرای سیستم شیشه‌ای فریم‌لس با موتور دانکر آلمان در پروژه‌های ساختمانی
           </div>
         </div>
       `;
@@ -578,12 +717,12 @@ export const BlogPage: React.FC = () => {
     setIsSaving(true);
 
     let currentHtml = articleContentRef.current?.innerHTML || draftContent;
-    // Sanitize by removing edit-only deletion badges before saving to database
+    // Sanitize by removing edit-only deletion and edit badges before saving to database
     if (typeof window !== 'undefined') {
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = currentHtml;
-      const deleteBadges = tempDiv.querySelectorAll('.block-delete-badge, [data-action="delete-block"]');
-      deleteBadges.forEach((badge) => badge.remove());
+      const badges = tempDiv.querySelectorAll('.block-delete-badge, .image-edit-badge, [data-action="delete-block"], [data-action="edit-image"]');
+      badges.forEach((badge) => badge.remove());
       currentHtml = tempDiv.innerHTML;
     }
 
@@ -778,6 +917,12 @@ export const BlogPage: React.FC = () => {
           isVisible={true}
           onApplyFormat={handleApplyFormat}
           onInsertSnippet={handleInsertSnippet}
+          onInsertImage={() => {
+            setImageModalTarget('content');
+            activeImageElementRef.current = null;
+            setImageModalData({ url: '' });
+            setImageModalOpen(true);
+          }}
           onDeleteCurrentBlock={handleDeleteCurrentBlock}
         />
       )}
@@ -1088,7 +1233,7 @@ export const BlogPage: React.FC = () => {
 
                   <div className="absolute bottom-4 right-4 left-4 flex items-center justify-between text-white text-xs backdrop-blur-md bg-slate-950/60 p-3 rounded-xl border border-white/10">
                     <span className="font-medium truncate">
-                      عکس اختصاصی پروژه اجرایی درنا درب • منطقه ۱ تهران (زعفرانیه و الهیه)
+                      عکس اختصاصی پروژه اجرایی مهندسی درنا درب
                     </span>
                     <span className="font-mono text-[11px] text-slate-300 shrink-0">
                       ID: #{selectedArticle.id}
@@ -1438,7 +1583,7 @@ export const BlogPage: React.FC = () => {
                         type="text"
                         value={newCommentRole}
                         onChange={(e) => setNewCommentRole(e.target.value)}
-                        placeholder="مثال: مدیر پروژه برج الهیه"
+                        placeholder="مثال: مدیر پروژه / کارفرما"
                         className="w-full px-3 py-2 rounded-xl bg-white border border-white/90 text-xs text-[#06080F] focus:border-[#00F090] focus:outline-none shadow-2xs"
                       />
                     </div>
@@ -1536,7 +1681,7 @@ export const BlogPage: React.FC = () => {
                 </h1>
 
                 <p className="text-xs sm:text-sm text-[#11172C]/80 leading-relaxed">
-                  راهنماهای انتخاب متریال، تحلیل متالورژی موتورهای دانکر آلمان، استانداردسازی عایق صوتی و حرارتی در پروژه‌های لوکس مناطق ۱ تا ۵ تهران.
+                  راهنماهای تخصصی انتخاب متریال، تحلیل کارکرد موتورهای دانکر آلمان، استانداردسازی عایق صوتی و حرارتی در انواع پروژه‌های ساختمانی.
                 </p>
               </div>
 
@@ -1548,8 +1693,10 @@ export const BlogPage: React.FC = () => {
                 >
                   <div className="lg:col-span-7 rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-96 relative bg-slate-950">
                     <img
-                      src={featuredArticle.image}
+                      src={featuredArticle.image.includes('unsplash.com') ? `${featuredArticle.image.split('?')[0]}?auto=format&fit=crop&w=800&q=75` : featuredArticle.image}
                       alt={featuredArticle.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       referrerPolicy="no-referrer"
                     />
@@ -1651,8 +1798,10 @@ export const BlogPage: React.FC = () => {
                         {/* Thumbnail Image */}
                         <div className="h-48 rounded-xl overflow-hidden bg-slate-950 relative">
                           <img
-                            src={article.image}
+                            src={article.image.includes('unsplash.com') ? `${article.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : article.image}
                             alt={article.title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             referrerPolicy="no-referrer"
                           />
@@ -1747,7 +1896,7 @@ export const BlogPage: React.FC = () => {
                     مشاوره تخصصی با دفاتر معماری و مهندسین مشاور
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-                    ارائه دیتیل‌های اجرایی اتوکد (CAD Details)، نمونه متریال شیشه‌های سوپرکلیر، و محاسبات بارهای سازه‌ای برای پروژه‌های مناطق ۱ تا ۵ تهران.
+                    ارائه دیتیل‌های اجرایی اتوکد (CAD Details)، نمونه متریال شیشه‌های سوپرکلیر، و محاسبات بارهای سازه‌ای برای پروژه‌های ساختمانی سراسر کشور.
                   </p>
                 </div>
 
@@ -1781,17 +1930,49 @@ export const BlogPage: React.FC = () => {
       {/* Live Image Editor Modal */}
       <LiveImageEditorModal
         isOpen={imageModalOpen}
-        onClose={() => setImageModalOpen(false)}
+        onClose={() => {
+          setImageModalOpen(false);
+          activeImageElementRef.current = null;
+        }}
         currentImageUrl={imageModalData.url}
         currentAltText={imageModalData.alt}
         currentCaption={imageModalData.caption}
-        title={imageModalTarget === 'hero' ? 'تغییر و آپلود تصویر شاخص مقاله' : 'تغییر تصویر محتوا'}
+        title={imageModalTarget === 'hero' ? 'تغییر و آپلود تصویر شاخص مقاله' : 'تغییر و آپلود تصویر این بخش'}
         onSave={(data) => {
           if (imageModalTarget === 'hero') {
             setDraftImage(data.imageUrl);
+            setSaveToast('تصویر شاخص مقاله با موفقیت تغییر یافت.');
+          } else if (imageModalTarget === 'content') {
+            if (activeImageElementRef.current) {
+              activeImageElementRef.current.src = data.imageUrl;
+              if (data.altText) {
+                activeImageElementRef.current.alt = data.altText;
+              }
+              const container = activeImageElementRef.current.closest('.article-editable-block, .space-y-2, div');
+              const captionEl = container?.querySelector('.image-caption, .caption-text, div[class*="text-slate-400"], div[class*="text-slate-300"], div[class*="bg-[#E4EBF1]"]');
+              if (captionEl && data.caption) {
+                captionEl.textContent = data.caption;
+              }
+              if (articleContentRef.current) {
+                setDraftContent(articleContentRef.current.innerHTML);
+              }
+              setSaveToast('تصویر بخش با موفقیت به‌روزرسانی شد.');
+            } else {
+              // Append a new image block with this image
+              const newImgHtml = `
+                <div class="article-editable-block relative group/block my-6 rounded-2xl overflow-hidden border border-[#06080F]/15 bg-white shadow-xs">
+                  <img src="${data.imageUrl}" alt="${data.altText || 'پروژه درنا درب'}" class="w-full h-72 object-cover" />
+                  ${data.caption ? `<div class="p-3 bg-[#E4EBF1] text-xs text-[#11172C] text-center font-medium">${data.caption}</div>` : ''}
+                </div>
+              `;
+              if (articleContentRef.current) {
+                articleContentRef.current.innerHTML += newImgHtml;
+                setDraftContent(articleContentRef.current.innerHTML);
+              }
+              setSaveToast('تصویر جدید با موفقیت به مقاله اضافه شد.');
+            }
           }
           setHasUnsavedChanges(true);
-          setSaveToast('تصویر شاخص با موفقیت اعمال گردید.');
           setTimeout(() => setSaveToast(null), 3000);
         }}
       />

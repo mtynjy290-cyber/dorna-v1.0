@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
+  <url>
+    <loc>https://dornadoor.ir/</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://dornadoor.ir/og-image.jpg</image:loc>
+      <image:title>گروه فنی مهندسی درنا درب</image:title>
+      <image:caption>طراحی و اجرای درب اتوماتیک شیشه‌ای، پارتیشن و فریم‌های لوکس با موتور دانکر آلمان</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Online Price Calculator -->
+  <url>
+    <loc>https://dornadoor.ir/calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://dornadoor.ir/og-image.jpg</image:loc>
+      <image:title>سامانه محاسبه آنلاین قیمت درب اتوماتیک و پارتیشن شیشه‌ای</image:title>
+      <image:caption>استعلام آنلاین هزینه و پیش‌فاکتور مهندسی درب‌های اتوماتیک</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Products & Specifications Catalog -->
+  <url>
+    <loc>https://dornadoor.ir/products</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>کاتالوگ قطعات درب اتوماتیک و اپراتور دانکر آلمان</image:title>
+      <image:caption>موتور دانکر، شیشه سوپرکلیر، پروفیل آنودایز و رادارهای هوشمند</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Executed Projects Archive -->
+  <url>
+    <loc>https://dornadoor.ir/projects</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>آرشیو پروژه‌ها و رزومه اجرایی درنا درب</image:title>
+      <image:caption>نمونه پروژه‌های اجرا شده در برج‌ها، مراکز تجاری و ویلاهای لوکس</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Services & Technical Support -->
+  <url>
+    <loc>https://dornadoor.ir/services</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>خدمات فنی و مهندسی درنا درب</image:title>
+      <image:caption>مشاوره تخصصی، طراحی سازه، نصب دقیق لیزری و خدمات پس از فروش</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Engineering Blog & Knowledge Base -->
+  <url>
+    <loc>https://dornadoor.ir/blog</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>مجله تخصصی و دانشنامه فنی درنا درب</image:title>
+      <image:caption>مقالات تخصصی و استانداردهای جهانی درب‌های اتوماتیک و شیشه‌ای</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Engineering Standards & Quality Guarantees -->
+  <url>
+    <loc>https://dornadoor.ir/standards</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>استانداردهای مهندسی و گارانتی طلایی درنا درب</image:title>
+      <image:caption>تعهدات فنی، گارانتی ۲۴ ماهه و کنترل کیفی قطعات</image:caption>
+    </image:image>
+  </url>
+
+  <!-- About Us & Heritage -->
+  <url>
+    <loc>https://dornadoor.ir/about</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=800&amp;q=80</image:loc>
+      <image:title>درباره گروه مهندسی درنا درب</image:title>
+      <image:caption>۲۵ سال اصالت و تجربه در صنعت درب‌های اتوماتیک و سازه‌های شیشه‌ای</image:caption>
+    </image:image>
+  </url>
+</urlset>

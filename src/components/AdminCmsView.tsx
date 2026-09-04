@@ -77,7 +77,7 @@ export const AdminCmsView: React.FC = () => {
     const newProj: ProjectShowcaseItem = {
       id: `proj_${Date.now()}`,
       title: 'پروژه جدید دُرنا دَرب',
-      district: 'منطقه ۱ - تهران',
+      district: 'تهران - ورودی اصلی',
       systemType: 'درب اتوماتیک اسلایدینگ تلسکوپی',
       imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
       year: '۱۴۰۴',
@@ -899,7 +899,7 @@ export const AdminCmsView: React.FC = () => {
                 <span>مدیریت گالری پروژه‌ها، تصاویر و ویترین رزومه سایت</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
-                پروژه‌های شاخص در بخش نمونه‌کارهای مناطق ۱ تا ۵ تهران با تصاویر و مشخصات فنی کامل
+                پروژه‌های شاخص در بخش نمونه‌کارهای اجرایی درنا درب در سراسر کشور با تصاویر و مشخصات فنی کامل
               </p>
             </div>
 

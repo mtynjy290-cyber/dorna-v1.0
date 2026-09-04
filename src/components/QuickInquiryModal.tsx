@@ -312,7 +312,7 @@ export const QuickInquiryModal: React.FC<QuickInquiryModalProps> = ({
                   </label>
                   <textarea
                     rows={2}
-                    placeholder="مثال: دهانه ۳ در ۲.۵ متر، موتور دانکر آلمان، منطقه الهیه..."
+                    placeholder="مثال: دهانه ۳ در ۲.۵ متر، موتور دانکر آلمان، کاربری تجاری/مسکونی..."
                     value={formData.note}
                     onChange={(e) => setFormData({ ...formData, note: e.target.value })}
                     className="w-full p-2.5 rounded-xl bg-white/90 backdrop-blur-md border border-white/80 text-xs font-medium text-[#06080F] focus:outline-none focus:border-[#06080F] focus:bg-white shadow-xs transition-all"
@@ -323,7 +323,7 @@ export const QuickInquiryModal: React.FC<QuickInquiryModalProps> = ({
                 <div className="bg-[#CBD8E2]/80 border border-white/80 rounded-2xl p-3 text-[11px] text-[#11172C] flex items-center gap-2.5">
                   <Shield className="w-4 h-4 text-[#06080F] shrink-0" />
                   <span className="font-medium">
-                    مشاوره مهندسی، برآورد ریالی و اعزام کارشناس ابعادبرداری لیزری در سراسر مناطق ۱ تا ۵ تهران کاملاً رایگان است.
+                    مشاوره فنی، برآورد ریالی و اعزام کارشناس ابعادبرداری لیزری جهت بررسی اولیه کاملاً رایگان است.
                   </span>
                 </div>
 

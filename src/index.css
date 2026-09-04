@@ -38,6 +38,63 @@
   body {
     background-color: #E4EBF1;
     color: #06080F;
+    overflow-x: hidden;
+  }
+
+  /* 12-Column Grid System Architecture (Desktop Margin: 80px, Gutter: 24px) */
+  .grid-container-12 {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .grid-container-12 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-container-12 {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-container-12 {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+  }
+
+  .grid-12-cols-24 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 24px;
+  }
+
+  /* Optimize off-screen rendering with content-visibility */
+  #projects,
+  #articles,
+  #districts,
+  #standards,
+  footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
+
+  /* GPU Hardware Acceleration */
+  .transform-gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
   }
 }
 
@@ -272,4 +329,46 @@ button:hover .brand-logo-icon {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
+}
+
+/* ========================================================
+   FLUID TYPOGRAPHY (HERO)
+   ======================================================== */
+.hero-title {
+  /* سایز از ۲۴ پیکسل در موبایل شروع میشه، با تغییر صفحه رشد میکنه و در دسکتاپ به حداکثر ۴۸ پیکسل میرسه */
+  font-size: clamp(1.5rem, 2.5vw + 1rem, 3rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.hero-subtitle {
+  /* سایز سیال برای متن توضیحی زیر تیتر */
+  font-size: clamp(0.9rem, 0.8vw + 0.7rem, 1.2rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.8 !important;
+  opacity: 0.9 !important;
+}
+
+/* ========================================================
+   FLUID HERO VIDEO & VIEWPORT
+   ======================================================== */
+.hero-video-container {
+  /* ارتفاع سیال ویوپورت ویدیو: در موبایل از ۵۶۰ پیکسل شروع شده و در دسکتاپ به ۱۰۰ درصد ارتفاع نما می‌رسد */
+  height: clamp(560px, 85vh + 5vw, 100vh) !important;
+  min-height: clamp(520px, 85dvh, 960px) !important;
+  width: 100%;
+}
+
+.hero-video-canvas {
+  /* پوشش کامل و تطبیق‌پذیر بستر رندر ویدیو با نسبت ابعاد متغیر */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video-content {
+  /* فاصله‌گذاری و پدینگ سیال محتوای روی ویدیو متناسب با اندازه صفحه */
+  padding-top: clamp(2.5rem, 6vh + 1rem, 6rem) !important;
+  padding-bottom: clamp(2.5rem, 6vh + 1rem, 6rem) !important;
 }

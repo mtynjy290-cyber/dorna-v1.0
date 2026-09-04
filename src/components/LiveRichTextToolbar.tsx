@@ -13,13 +13,15 @@ import {
   Table as TableIcon,
   AlertCircle,
   Highlighter,
-  Trash2
+  Trash2,
+  Image as ImageIcon
 } from 'lucide-react';
 
 interface LiveRichTextToolbarProps {
   isVisible: boolean;
   onApplyFormat: (command: string, value?: string) => void;
   onInsertSnippet?: (type: 'callout' | 'table' | 'quote') => void;
+  onInsertImage?: () => void;
   onDeleteCurrentBlock?: () => void;
 }
 
@@ -27,6 +29,7 @@ export const LiveRichTextToolbar: React.FC<LiveRichTextToolbarProps> = ({
   isVisible,
   onApplyFormat,
   onInsertSnippet,
+  onInsertImage,
   onDeleteCurrentBlock,
 }) => {
   if (!isVisible) return null;
@@ -170,6 +173,21 @@ export const LiveRichTextToolbar: React.FC<LiveRichTextToolbarProps> = ({
               <span>جدول</span>
             </button>
           </>
+        )}
+
+        {onInsertImage && (
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              onInsertImage();
+            }}
+            className="px-2 h-8 rounded-lg bg-[#00F090]/15 hover:bg-[#00F090]/30 text-[11px] font-bold text-[#00F090] border border-[#00F090]/40 flex items-center gap-1 transition-colors cursor-pointer"
+            title="افزودن یا تغییر عکس در متن"
+          >
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span>عکس</span>
+          </button>
         )}
 
         {onDeleteCurrentBlock && (

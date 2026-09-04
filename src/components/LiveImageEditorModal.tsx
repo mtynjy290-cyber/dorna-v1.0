@@ -25,8 +25,20 @@ interface LiveImageEditorModalProps {
 
 const PRESET_ARCHITECTURAL_IMAGES = [
   {
+    url: '/images/float-glass.jpg',
+    title: 'شیشه فلوت خام با ته‌رنگ سبز لبه‌ها',
+  },
+  {
+    url: '/images/super-clear-glass.jpg',
+    title: 'شیشه سوپرکلیر کم‌آهن وین‌لایت کریستال',
+  },
+  {
+    url: '/images/laminated-safety.jpg',
+    title: 'شیشه لمینت ایمنی با لایه PVB / SGP',
+  },
+  {
     url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    title: 'ورودی لوکس برج فرشته با فریم طلایی',
+    title: 'ورودی لوکس برج با فریم طلایی',
   },
   {
     url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
@@ -34,7 +46,7 @@ const PRESET_ARCHITECTURAL_IMAGES = [
   },
   {
     url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
-    title: 'درب گردان اتوماتیک ریولوینگ',
+    title: 'درب گردان اتوماتیک ریولوینگ لوکس',
   },
   {
     url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
@@ -46,7 +58,7 @@ const PRESET_ARCHITECTURAL_IMAGES = [
   },
   {
     url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
-    title: 'طراحی مینیمال شیشه سوپرکلیر و هندریل استیل',
+    title: 'طراحی مینیمال شیشه سوپرکلیر و استیل',
   },
 ];
 
@@ -284,7 +296,7 @@ export const LiveImageEditorModal: React.FC<LiveImageEditorModalProps> = ({
                     type="text"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
-                    placeholder="مثال: درب شیشه‌ای اتوماتیک ورودی فرشته"
+                    placeholder="مثال: درب شیشه‌ای اتوماتیک اسلایدینگ با موتور دانکر"
                     className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-white focus:outline-none focus:border-[#00F090]"
                   />
                 </div>

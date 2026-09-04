@@ -688,9 +688,10 @@ export const ProductsPage: React.FC = () => {
                   {/* Top Product Image Container */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-950/20 border-b border-white/60">
                     <img
-                      src={product.image}
+                      src={product.image.includes('unsplash.com') ? `${product.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : product.image}
                       alt={product.nameFa}
                       loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-[0.92] group-hover:brightness-100"
                     />
@@ -870,6 +871,8 @@ export const ProductsPage: React.FC = () => {
                     <img
                       src={selectedProduct.image}
                       alt={selectedProduct.nameFa}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-2 right-2 left-2 px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-sm text-[#00F090] text-[10px] font-bold text-center border border-white/10">

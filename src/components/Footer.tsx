@@ -51,18 +51,18 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
   ];
 
   return (
-    <footer className="relative bg-[#06080F] text-[#CBD8E2] pt-16 pb-10 border-t border-white/10 overflow-hidden">
+    <footer className="relative bg-[#06080F] text-[#CBD8E2] pt-24 sm:pt-32 pb-16 sm:pb-20 border-t border-white/10 overflow-hidden">
       
       {/* Dynamic Background Glows */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#00F090]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-40" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="grid-container-12 relative z-10">
         
-        {/* Top Highlight Feature Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-12 border-b border-white/10">
-          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+        {/* Top Highlight Feature Bar (3 x 4 cols = 12 cols, 24px gutter) */}
+        <div className="grid grid-cols-12 gap-6 pb-16 sm:pb-20 border-b border-white/10">
+          <div className="col-span-12 md:col-span-4 flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
             <div className="w-11 h-11 rounded-xl bg-[#00F090]/10 border border-[#00F090]/30 flex items-center justify-center shrink-0">
               <Award className="w-5 h-5 text-[#00F090]" />
             </div>
@@ -72,7 +72,7 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+          <div className="col-span-12 md:col-span-4 flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
             <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-400/30 flex items-center justify-center shrink-0">
               <Cpu className="w-5 h-5 text-blue-400" />
             </div>
@@ -82,7 +82,7 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+          <div className="col-span-12 md:col-span-4 flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
             <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shrink-0">
               <Clock className="w-5 h-5 text-amber-400" />
             </div>
@@ -93,13 +93,13 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
           </div>
         </div>
 
-        {/* Main Footer Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 py-12 border-b border-white/10">
+        {/* Main Footer Content Grid (12 Columns: 4 + 2 + 3 + 3 = 12, 24px gutter) */}
+        <div className="grid grid-cols-12 gap-6 py-16 sm:py-20 border-b border-white/10">
           
           {/* ========================================================
               RIGHT: BRAND IDENTITY & OFFICIAL DETAILS (4 cols)
           ======================================================== */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="col-span-12 md:col-span-6 lg:col-span-4 space-y-4">
             {/* Brand Logo & Name */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#06080F] flex items-center justify-center p-2 border border-white/20 shadow-md">
@@ -157,9 +157,9 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
           </div>
 
           {/* ========================================================
-              CENTER-RIGHT: QUICK NAVIGATION LINKS (2.5 cols)
+              CENTER-RIGHT: QUICK NAVIGATION LINKS (2 cols)
           ======================================================== */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="col-span-12 md:col-span-6 lg:col-span-2 space-y-4">
             <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5 flex items-center gap-1.5">
               <span>صفحات اصلی</span>
             </h4>
@@ -180,9 +180,9 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
           </div>
 
           {/* ========================================================
-              CENTER-LEFT: PRODUCTS & SYSTEMS (2.5 cols)
+              CENTER-LEFT: PRODUCTS & SYSTEMS (3 cols)
           ======================================================== */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="col-span-12 md:col-span-6 lg:col-span-3 space-y-4">
             <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5 flex items-center gap-1.5">
               <span>محصولات و سیستم‌ها</span>
             </h4>
@@ -205,7 +205,7 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
           {/* ========================================================
               LEFT: DIRECT CONTACT TRIGGERS & ACTIONS (3 cols)
           ======================================================== */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="col-span-12 md:col-span-6 lg:col-span-3 space-y-4">
             <h4 className="text-xs font-black text-white uppercase tracking-wider border-r-2 border-[#00F090] pr-2.5">
               ارتباط و استعلام قیمت
             </h4>
@@ -252,21 +252,21 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
 
         </div>
 
-        {/* Technical Guarantee Footnote */}
-        <div className="py-5 border-b border-white/10 text-[11px] text-[#CBD8E2]/70 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+        {/* Technical Guarantee Footnote (12 Columns) */}
+        <div className="grid grid-cols-12 gap-6 py-8 border-b border-white/10 text-[11px] text-[#CBD8E2]/70 items-center">
+          <div className="col-span-12 sm:col-span-7 flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#00F090] shrink-0" />
             <span className="font-bold text-white">{SITE_CONFIG.guarantees.goldenWarrantyLabel} ({SITE_CONFIG.guarantees.afterSalesLabel})</span>
           </div>
-          <div className="flex items-center gap-2 text-[#CBD8E2] font-sans text-[11px] font-semibold">
+          <div className="col-span-12 sm:col-span-5 flex sm:justify-end items-center gap-2 text-[#CBD8E2] font-sans text-[11px] font-semibold">
             <Mail className="w-3.5 h-3.5 text-[#00F090]" />
             <span>{contact.email || SITE_CONFIG.contact.supportEmail}</span>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#CBD8E2]/70">
-          <div className="flex flex-wrap items-center gap-3">
+        {/* Bottom Bar: Copyright & Back to Top (12 Columns) */}
+        <div className="grid grid-cols-12 gap-6 pt-8 sm:pt-10 items-center text-xs text-[#CBD8E2]/70">
+          <div className="col-span-12 md:col-span-8 flex flex-wrap items-center gap-3">
             <p>© {new Date().getFullYear()} {brand.name} ({brand.nameEn}). تمامی حقوق مادی و معنوی محفوظ است.</p>
             <span className="text-white/20 hidden sm:inline">•</span>
             {/* Discreet Admin Link */}
@@ -282,13 +282,15 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
             </a>
           </div>
           
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-white/15 backdrop-blur-md cursor-pointer hover:border-[#00F090]/40"
-          >
-            <span>بازگشت به بالای صفحه</span>
-            <ArrowUp className="w-3.5 h-3.5 text-[#00F090]" />
-          </button>
+          <div className="col-span-12 md:col-span-4 flex md:justify-end">
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-white/15 backdrop-blur-md cursor-pointer hover:border-[#00F090]/40"
+            >
+              <span>بازگشت به بالای صفحه</span>
+              <ArrowUp className="w-3.5 h-3.5 text-[#00F090]" />
+            </button>
+          </div>
         </div>
 
       </div>

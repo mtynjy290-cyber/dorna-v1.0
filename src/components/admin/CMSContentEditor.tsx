@@ -22,6 +22,7 @@ import { useAdminStore } from '../../stores/adminStore';
 import { useSiteContentStore } from '../../lib/siteContentStore';
 import { ArticleRecord, ProjectRecord } from '../../lib/supabase';
 import { ImageDropUploader } from './ImageDropUploader';
+import { GlassLabManager } from './GlassLabManager';
 
 export const CMSContentEditor: React.FC = () => {
   const {
@@ -40,7 +41,7 @@ export const CMSContentEditor: React.FC = () => {
 
   const siteContent = useSiteContentStore();
 
-  const [activeSubTab, setActiveSubTab] = useState<'hero' | 'articles' | 'projects' | 'contact'>('hero');
+  const [activeSubTab, setActiveSubTab] = useState<'hero' | 'articles' | 'projects' | 'glass-lab' | 'contact'>('hero');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Project Modal State
@@ -76,7 +77,7 @@ export const CMSContentEditor: React.FC = () => {
     const recordToSave: ProjectRecord = {
       ...editingProject,
       location: editingProject.location || 'تهران',
-      district: editingProject.district || 'منطقه ۱',
+      district: editingProject.district || 'تهران',
       systemType: editingProject.systemType || 'درب اتوماتیک اسلایدینگ',
       specs: editingProject.specs || 'موتور دانکر آلمان • شیشه سوپرکلیر',
       category: editingProject.category || 'residential',
@@ -144,8 +145,8 @@ export const CMSContentEditor: React.FC = () => {
                   setEditingProject({
                     id: '',
                     title: '',
-                    location: 'تهران، نیاوران',
-                    district: 'منطقه ۱',
+                    location: 'تهران - ورودی اصلی',
+                    district: 'تهران',
                     systemType: 'درب اتوماتیک اسلایدینگ تلسکوپی',
                     specs: 'موتور دانکر BG75 آلمان • شیشه سوپرکلیر ۱۰ میل',
                     category: 'residential',
@@ -201,6 +202,18 @@ export const CMSContentEditor: React.FC = () => {
           >
             <Briefcase className="w-4 h-4" />
             <span>پروژه‌ها و نمونه‌کارها ({projects.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('glass-lab')}
+            className={`px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 transition-all cursor-pointer ${
+              activeSubTab === 'glass-lab'
+                ? 'bg-[#06080F] text-[#00F090] shadow-md'
+                : 'bg-[#E4EBF1] text-[#06080F] hover:bg-white'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>آزمایشگاه متریال و آزمون شیشه</span>
           </button>
 
           <button
@@ -622,6 +635,11 @@ export const CMSContentEditor: React.FC = () => {
       )}
 
       {/* ================================================================ */}
+      {/* 5. GLASS LAB & COMPARISON SLIDER MANAGER */}
+      {/* ================================================================ */}
+      {activeSubTab === 'glass-lab' && <GlassLabManager />}
+
+      {/* ================================================================ */}
       {/* PROJECT EDIT / CREATE MODAL WITH DRAG & DROP UPLOADER */}
       {/* ================================================================ */}
       {isProjectModalOpen && editingProject && (
@@ -654,12 +672,12 @@ export const CMSContentEditor: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-xs font-black text-[#06080F] block mb-1">منطقه / موقعیت:</label>
+                  <label className="text-xs font-black text-[#06080F] block mb-1">موقعیت / شهر:</label>
                   <input
                     type="text"
                     value={editingProject.district}
                     onChange={(e) => setEditingProject({ ...editingProject, district: e.target.value })}
-                    placeholder="منطقه ۱ - الهیه"
+                    placeholder="تهران / اصفهان / شیراز ..."
                     className="w-full px-3 py-2 rounded-xl bg-[#E4EBF1] border border-[#06080F]/15 text-xs font-bold text-[#06080F] focus:outline-none"
                   />
                 </div>

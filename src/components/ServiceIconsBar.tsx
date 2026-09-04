@@ -135,7 +135,7 @@ const ModernServiceCard: React.FC<{
       viewport={{ once: true, margin: '-20px' }}
       transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
-      className="group relative flex flex-col justify-between p-5 rounded-2xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 hover:border-[#00F090]/40 shadow-[0_4px_20px_rgba(6,8,15,0.03)] hover:shadow-[0_16px_36px_rgba(6,8,15,0.08)] transition-all duration-300 overflow-hidden"
+      className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 hover:border-[#00F090]/40 shadow-[0_4px_20px_rgba(6,8,15,0.03)] hover:shadow-[0_16px_36px_rgba(6,8,15,0.08)] transition-all duration-300 overflow-hidden"
     >
       {/* 2026 Dynamic Mouse Spotlight Glow */}
       <motion.div
@@ -156,8 +156,8 @@ const ModernServiceCard: React.FC<{
 
       <div>
         {/* Top Header Row: Icon + Mini Tech Badge */}
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(0,240,144,0.3)] transition-all duration-300">
+        <div className="flex items-center justify-between gap-3 mb-5">
+          <div className="w-11 h-11 rounded-xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(0,240,144,0.3)] transition-all duration-300">
             {getServiceSvg(service.iconType)}
           </div>
 
@@ -167,18 +167,18 @@ const ModernServiceCard: React.FC<{
         </div>
 
         {/* Title Block (Persian Main + Latin Architectural Subtitle) */}
-        <h3 className="text-[15px] font-black text-[#06080F] tracking-tight group-hover:text-[#06080F] transition-colors leading-snug">
+        <h3 className="text-[16px] font-black text-[#06080F] tracking-tight group-hover:text-[#06080F] transition-colors leading-snug">
           {service.titleFa}
         </h3>
         
-        <p className="text-[10px] font-semibold text-[#11172C]/50 font-sans tracking-wide uppercase mt-0.5 mb-3">
+        <p className="text-[10px] font-semibold text-[#11172C]/50 font-sans tracking-wide uppercase mt-1 mb-4">
           {service.titleEn}
         </p>
 
         {/* Concise Engineering Specs Grid (High-Trust, Clean Minimalist) */}
-        <div className="space-y-1.5 py-2.5 my-1 border-y border-white/60">
+        <div className="space-y-2 py-3.5 my-2 border-y border-white/60">
           {specs.map((item, i) => (
-            <div key={i} className="flex items-center justify-between text-[11px] leading-tight">
+            <div key={i} className="flex items-center justify-between text-[11px] leading-relaxed">
               <span className="text-[#11172C]/60 font-medium">{item.label}</span>
               <span className="font-bold text-[#06080F] text-left ltr">{item.val}</span>
             </div>
@@ -187,7 +187,7 @@ const ModernServiceCard: React.FC<{
       </div>
 
       {/* Card Action Link */}
-      <div className="pt-3 mt-1 flex items-center justify-between">
+      <div className="pt-4 mt-2 flex items-center justify-between">
         <a
           href="/calculator"
           className="inline-flex items-center gap-1.5 text-xs font-black text-[#06080F] group-hover:text-[#06080F] transition-colors"
@@ -196,7 +196,7 @@ const ModernServiceCard: React.FC<{
           <span>استعلام و محاسبه آنلاین</span>
         </a>
 
-        <div className="w-6 h-6 rounded-full bg-white/80 border border-white flex items-center justify-center text-[#06080F] group-hover:bg-[#00F090] group-hover:text-[#06080F] group-hover:border-[#00F090] transition-all duration-300">
+        <div className="w-7 h-7 rounded-full bg-white/80 border border-white flex items-center justify-center text-[#06080F] group-hover:bg-[#00F090] group-hover:text-[#06080F] group-hover:border-[#00F090] transition-all duration-300">
           <ChevronLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
         </div>
       </div>
@@ -211,77 +211,87 @@ export const ServiceIconsBar: React.FC = () => {
   const storeServices = useSiteContentStore((state) => state.services);
 
   return (
-    <section id="services" className="relative z-20 -mt-8 pt-16 pb-20 bg-[#E4EBF1] rounded-t-[32px] sm:rounded-t-[48px] shadow-[0_-25px_60px_rgba(6,8,15,0.4)] border-t border-white/60 overflow-hidden">
+    <section id="services" className="relative z-20 -mt-8 pt-24 pb-28 sm:pt-32 sm:pb-36 bg-[#E4EBF1] rounded-t-[32px] sm:rounded-t-[48px] shadow-[0_-25px_60px_rgba(6,8,15,0.4)] border-t border-white/60 overflow-hidden">
       {/* Top Architectural Accent Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[2px] bg-gradient-to-r from-transparent via-[#00F090]/60 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 max-w-2xl h-24 bg-gradient-to-b from-[#00F090]/10 to-transparent blur-2xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="grid-container-12 relative z-10">
         
-        {/* Minimalist Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-10"
-        >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#06080F]/[0.04] border border-white/90 text-[#06080F] text-xs font-bold shadow-2xs backdrop-blur-md mb-2.5">
-            <Cpu className="w-3.5 h-3.5 text-[#00F090]" />
-            <span>مهندسی ورودی‌های هوشمند</span>
-          </div>
+        {/* 12-Column Grid Layout */}
+        <div className="grid grid-cols-12 gap-6">
 
-          <h2 className="text-2xl sm:text-3xl font-black text-[#06080F] tracking-tight">
-            خدمات و سیستم‌های اجرایی
-          </h2>
-
-          <p className="text-xs sm:text-sm text-[#11172C]/70 mt-1.5 font-medium leading-relaxed">
-            طراحی، تأمین و نصب تخصصی با موتورهای دانکر آلمان و شیشه‌های سوپرکلیر ۱۰ میل
-          </p>
-        </motion.div>
-
-        {/* 5 High-Trust Minimalist Engineering Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {storeServices.map((service, index) => (
-            <ModernServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-            />
-          ))}
-        </div>
-
-        {/* High-Trust Engineering Standards Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 pt-5 border-t border-white/60 flex flex-wrap items-center justify-center sm:justify-between gap-4 text-xs text-[#11172C]/70"
-        >
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-medium">
-            <span className="flex items-center gap-1.5 text-[#06080F] font-bold">
-              <CheckCircle2 className="w-4 h-4 text-[#00F090]" />
-              <span>موتورهای براشلس دانکر آلمان (Dunker Motoren)</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-[#06080F] font-bold">
-              <ShieldCheck className="w-4 h-4 text-[#00F090]" />
-              <span>۵ سال ضمانت تعویض قطعات اصلی</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-[#06080F] font-bold">
-              <Sparkles className="w-4 h-4 text-[#00F090]" />
-              <span>شیشه سوپرکلیر سکوریت ۱۰ میلی‌متر نشکن</span>
-            </span>
-          </div>
-
-          <a
-            href="/services"
-            className="inline-flex items-center gap-1.5 font-black text-[#06080F] hover:text-[#00D882] transition-colors py-1 px-3 rounded-lg bg-white/70 border border-white hover:border-[#00F090]/40 shadow-2xs"
+          {/* Minimalist Section Header (Centered over 8 columns with ample negative space) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="col-span-12 lg:col-span-8 lg:col-start-3 text-center mb-12 sm:mb-16"
           >
-            <span>کاتالوگ کامل و مشخصات فنی</span>
-            <ArrowLeft className="w-3.5 h-3.5" />
-          </a>
-        </motion.div>
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#06080F]/[0.04] border border-white/90 text-[#06080F] text-xs font-bold shadow-2xs backdrop-blur-md mb-3.5">
+              <Cpu className="w-3.5 h-3.5 text-[#00F090]" />
+              <span>مهندسی ورودی‌های هوشمند</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#06080F] tracking-tight">
+              خدمات و سیستم‌های اجرایی
+            </h2>
+
+            <p className="text-xs sm:text-sm text-[#11172C]/70 mt-3 font-medium leading-relaxed max-w-2xl mx-auto">
+              طراحی، تأمین و نصب تخصصی با موتورهای دانکر آلمان و شیشه‌های سوپرکلیر ۱۰ میل
+            </p>
+          </motion.div>
+
+          {/* 5 High-Trust Minimalist Engineering Cards Snapped to 12 Columns (Row 1: 3x4col, Row 2: 2x6col) */}
+          {storeServices.map((service, index) => {
+            const isRowTwo = index >= 3;
+            return (
+              <div 
+                key={service.id} 
+                className={isRowTwo ? 'col-span-12 sm:col-span-6 lg:col-span-6' : 'col-span-12 sm:col-span-6 lg:col-span-4'}
+              >
+                <ModernServiceCard
+                  service={service}
+                  index={index}
+                />
+              </div>
+            );
+          })}
+
+          {/* High-Trust Engineering Standards Strip (12 Columns with spacious breathing room) */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="col-span-12 mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-white/60 flex flex-wrap items-center justify-center sm:justify-between gap-6 text-xs text-[#11172C]/70"
+          >
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8 font-medium">
+              <span className="flex items-center gap-2 text-[#06080F] font-bold">
+                <CheckCircle2 className="w-4 h-4 text-[#00F090]" />
+                <span>موتورهای براشلس دانکر آلمان (Dunker Motoren)</span>
+              </span>
+              <span className="flex items-center gap-2 text-[#06080F] font-bold">
+                <ShieldCheck className="w-4 h-4 text-[#00F090]" />
+                <span>۵ سال ضمانت تعویض قطعات اصلی</span>
+              </span>
+              <span className="flex items-center gap-2 text-[#06080F] font-bold">
+                <Sparkles className="w-4 h-4 text-[#00F090]" />
+                <span>شیشه سوپرکلیر سکوریت ۱۰ میلی‌متر نشکن</span>
+              </span>
+            </div>
+
+            <a
+              href="/services"
+              className="inline-flex items-center gap-2 font-black text-[#06080F] hover:text-[#00D882] transition-colors py-2 px-4 rounded-xl bg-white/70 border border-white hover:border-[#00F090]/40 shadow-2xs"
+            >
+              <span>کاتالوگ کامل و مشخصات فنی</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+            </a>
+          </motion.div>
+
+        </div>
 
       </div>
     </section>
