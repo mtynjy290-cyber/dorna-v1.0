@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ServiceIconsBar } from './components/ServiceIconsBar';
-import { EngineeringQuality } from './components/EngineeringQuality';
-import { LuxuryProjectsShowcase } from './components/LuxuryProjectsShowcase';
-import { GlassComparisonSlider } from './components/GlassComparisonSlider';
-import { MobileStickyBar } from './components/MobileStickyBar';
-import { ArticlesSection } from './components/ArticlesSection';
-import { TehranDistrictsCoverage } from './components/TehranDistrictsCoverage';
-import { Footer } from './components/Footer';
-import { QuickInquiryModal } from './components/QuickInquiryModal';
 import { MessageCircle, Phone, Calculator } from 'lucide-react';
 import { useSiteContentStore } from './lib/siteContentStore';
+
+// Lazy load below-the-fold heavy components to drastically reduce initial JS payload
+const EngineeringQuality = lazy(() => import('./components/EngineeringQuality').then(m => ({ default: m.EngineeringQuality })));
+const LuxuryProjectsShowcase = lazy(() => import('./components/LuxuryProjectsShowcase').then(m => ({ default: m.LuxuryProjectsShowcase })));
+const GlassComparisonSlider = lazy(() => import('./components/GlassComparisonSlider').then(m => ({ default: m.GlassComparisonSlider })));
+const ArticlesSection = lazy(() => import('./components/ArticlesSection').then(m => ({ default: m.ArticlesSection })));
+const TehranDistrictsCoverage = lazy(() => import('./components/TehranDistrictsCoverage').then(m => ({ default: m.TehranDistrictsCoverage })));
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
+const QuickInquiryModal = lazy(() => import('./components/QuickInquiryModal').then(m => ({ default: m.QuickInquiryModal })));
 
 export default function App() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
@@ -33,40 +34,51 @@ export default function App() {
         />
 
         {/* Sub-Hero Service Icons Bar (Service Cards) */}
-        <ServiceIconsBar />
-
-        {/* Engineering Standards & Quality Highlights */}
-        <EngineeringQuality />
-
-        {/* Luxury Projects Showcase in Tehran Districts */}
-        <LuxuryProjectsShowcase 
+        <ServiceIconsBar 
           onOpenInquiry={() => setInquiryOpen(true)}
         />
 
-        {/* Interactive Material Comparison Slider (Clarity & Safety) */}
-        <GlassComparisonSlider 
-          onOpenInquiry={() => setInquiryOpen(true)}
-        />
+        {/* Below-the-fold components loaded on-demand via Suspense with zero layout shift */}
+        <Suspense fallback={<div className="min-h-[200px]" />}>
+          {/* Engineering Standards & Quality Highlights */}
+          <EngineeringQuality />
 
-        {/* Engineering Articles & Architectural Guides */}
-        <ArticlesSection />
+          {/* Luxury Projects Showcase in Tehran Districts */}
+          <LuxuryProjectsShowcase 
+            onOpenInquiry={() => setInquiryOpen(true)}
+          />
 
-        {/* Tehran North Districts (1-5) Local Coverage & Dispatch */}
-        <TehranDistrictsCoverage 
-          onOpenInquiry={() => setInquiryOpen(true)}
-        />
+          {/* Interactive Material Comparison Slider (Clarity & Safety) */}
+          <GlassComparisonSlider 
+            onOpenInquiry={() => setInquiryOpen(true)}
+          />
+
+          {/* Engineering Articles & Architectural Guides */}
+          <ArticlesSection />
+
+          {/* Tehran North Districts (1-5) Local Coverage & Dispatch */}
+          <TehranDistrictsCoverage 
+            onOpenInquiry={() => setInquiryOpen(true)}
+          />
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <Footer 
-        onOpenInquiry={() => setInquiryOpen(true)}
-      />
+      {/* Footer (Lazy Loaded) */}
+      <Suspense fallback={null}>
+        <Footer 
+          onOpenInquiry={() => setInquiryOpen(true)}
+        />
+      </Suspense>
 
-      {/* Quick Engineer Request & On-site Survey Modal */}
-      <QuickInquiryModal 
-        isOpen={inquiryOpen}
-        onClose={() => setInquiryOpen(false)}
-      />
+      {/* Quick Engineer Request & On-site Survey Modal (Lazy Loaded) */}
+      {inquiryOpen && (
+        <Suspense fallback={null}>
+          <QuickInquiryModal 
+            isOpen={inquiryOpen}
+            onClose={() => setInquiryOpen(false)}
+          />
+        </Suspense>
+      )}
 
       {/* Floating Quick Action Widget for Luxury Tehran Clients (Desktop / Tablet) */}
       <div className="hidden md:flex fixed bottom-5 left-5 z-40 flex-col items-center gap-3">
@@ -100,9 +112,6 @@ export default function App() {
           <Phone className="w-5 h-5" />
         </a>
       </div>
-
-      {/* Dedicated Sticky Conversion Action Bar on Mobile Screen */}
-      <MobileStickyBar onOpenInquiry={() => setInquiryOpen(true)} />
 
     </div>
   );

@@ -340,14 +340,20 @@ button:hover .brand-logo-icon {
   font-weight: 800 !important;
   line-height: 1.4 !important;
   letter-spacing: -0.03em !important;
+  color: #FFFFFF !important;
+  /* کنتراست بالا برای تیتر اصلی با سایه عمیق چندلایه در برابر پس‌زمینه ویدیو */
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 4px 28px rgba(6, 8, 15, 0.9), 0 1px 3px rgba(0, 0, 0, 1) !important;
 }
 
 .hero-subtitle {
-  /* سایز سیال برای متن توضیحی زیر تیتر */
+  /* سایز سیال برای متن توضیحی زیر تیتر با کنتراست ملایم‌تر */
   font-size: clamp(0.9rem, 0.8vw + 0.7rem, 1.2rem) !important;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
   line-height: 1.8 !important;
-  opacity: 0.9 !important;
+  color: #E6EFF6 !important;
+  opacity: 0.96 !important;
+  /* کنتراست ملایم‌تر برای زیرتیتر */
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8), 0 2px 16px rgba(6, 8, 15, 0.65) !important;
 }
 
 /* ========================================================
@@ -372,3 +378,70 @@ button:hover .brand-logo-icon {
   padding-top: clamp(2.5rem, 6vh + 1rem, 6rem) !important;
   padding-bottom: clamp(2.5rem, 6vh + 1rem, 6rem) !important;
 }
+
+/* ========================================================
+   PREMIUM ARCHITECTURAL SERVICE CARDS (1:1 Square Horizontal Scroll)
+   ======================================================== */
+.services-horizontal-track {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.services-horizontal-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.service-square-card {
+  flex: 0 0 clamp(280px, 28vw, 420px);
+  width: clamp(280px, 28vw, 420px);
+  aspect-ratio: 1 / 1;
+  scroll-snap-align: start;
+  scroll-margin-right: 24px;
+}
+
+/* Stacked Interaction Container & Overrides */
+.services-stacked-stage {
+  position: relative;
+  width: min(clamp(280px, 26vw, 380px), 50vh);
+  height: min(clamp(280px, 26vw, 380px), 50vh);
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 640px) {
+  .services-stacked-stage {
+    width: min(74vw, 44vh, 290px);
+    height: min(74vw, 44vh, 290px);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.services-stacked-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.services-stacked-card .service-square-card {
+  width: 100% !important;
+  height: 100% !important;
+  flex: none !important;
+}
+
+@media (max-width: 640px) {
+  .service-square-card {
+    flex: 0 0 82vw;
+    width: 82vw;
+    aspect-ratio: 1 / 1;
+    scroll-margin-right: 16px;
+  }
+}
+
+

@@ -1,296 +1,432 @@
-import React, { useState, useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'motion/react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'motion/react';
 import { 
-  ArrowLeft,
-  Calculator,
-  Layers,
-  Sparkles,
-  ShieldCheck,
-  Cpu,
+  Sparkles, 
+  Layers, 
+  ChevronDown,
   CheckCircle2,
-  SlidersHorizontal,
-  ChevronLeft
+  Maximize2
 } from 'lucide-react';
-import { useSiteContentStore, ServiceContentItem } from '../lib/siteContentStore';
+import { 
+  ArchitecturalServiceCard, 
+  ArchitecturalProductCardData 
+} from './ArchitecturalServiceCard';
 
-// Individual 2026 Spotlight Interactive Service Card
-const ModernServiceCard: React.FC<{
-  service: ServiceContentItem;
+export interface ServiceIconsBarProps {
+  onOpenInquiry?: (serviceName?: string) => void;
+}
+
+/**
+ * The 5 Core Architectural Services:
+ * ۱. درب اتوماتیک اسلایدینگ
+ * ۲. درب اتوماتیک تلسکوپی
+ * ۳. درب های میرال
+ * ۴. پارتیشن شیشه ای
+ * ۵. کرکره برقی
+ */
+export const SERVICES_DATA: ArchitecturalProductCardData[] = [
+  {
+    id: 'sliding',
+    titleFa: 'درب اتوماتیک اسلایدینگ',
+    titleEn: 'AUTOMATIC SLIDING DOORS',
+    iconType: 'sliding',
+    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85',
+    description: 'حرکت خطی یکنواخت و بدون لرزش با استاندارد تردد نامحدود و اپراتورهای هوشمند اروپایی',
+  },
+  {
+    id: 'telescopic',
+    titleFa: 'درب اتوماتیک تلسکوپی',
+    titleEn: 'AUTOMATIC TELESCOPIC DOORS',
+    iconType: 'telescopic',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=85',
+    description: 'افزایش بیش از ۳۰٪ عرض بازشوی مفید در ورودی‌های عریض با لنگه‌های متحرک همگام',
+  },
+  {
+    id: 'miral',
+    titleFa: 'درب های میرال',
+    titleEn: 'FRAMELESS MIRAL GLASS DOORS',
+    iconType: 'miral',
+    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=85',
+    description: 'درب‌های شیشه‌ای سکوریت نشکن با یراق‌آلات استیل ضدزنگ ۳۰۴ و استوپ‌های هیدرولیک توکار',
+  },
+  {
+    id: 'partition',
+    titleFa: 'پارتیشن شیشه ای',
+    titleEn: 'FRAMELESS GLASS PARTITIONS',
+    iconType: 'partition',
+    imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85',
+    description: 'تفکیک مدرن فضاهای اداری و پنت‌هاوس با پروفیل‌های اسلیم فریم‌لس و شیشه‌های آکوستیک',
+  },
+  {
+    id: 'shutter',
+    titleFa: 'کرکره برقی',
+    titleEn: 'ELECTRIC ROROLLER SHUTTERS',
+    iconType: 'shutter',
+    imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=85',
+    description: 'تیغه‌های آلومینیوم سنگین ۶۰۶۳ و پلی‌کربنات شفاف ضدسرقت با موتورهای صنعتی ساید و توبولار',
+  },
+];
+
+/**
+ * Ease-Out Cubic Mathematical Curve
+ * f(t) = 1 - (1 - t)^3
+ */
+const easeOutCubic = (t: number): number => {
+  const clamped = Math.max(0, Math.min(1, t));
+  return 1 - Math.pow(1 - clamped, 3);
+};
+
+// Layout constants for the stacking animation
+// 100px exposed on the right side of underlying cards (scaled smoothly on small mobile screens)
+const getStepOffsetPx = (windowWidth: number) => {
+  return windowWidth >= 768
+    ? 100
+    : Math.min(100, Math.max(50, Math.floor((windowWidth - 180) / 4)));
+};
+
+interface CardAnimationRange {
+  start: number;
+  end: number;
+}
+
+// Progress distribution for 5 cards:
+// 0.00 -> Card 1 already in place
+// 0.04 - 0.25 -> Card 2 enters from left and stacks
+// 0.28 - 0.49 -> Card 3 enters from left and stacks
+// 0.52 - 0.73 -> Card 4 enters from left and stacks
+// 0.76 - 0.97 -> Card 5 enters from left and stacks
+// 0.97 - 1.00 -> Full stack complete & resting before normal scroll resumes
+const CARD_RANGES: CardAnimationRange[] = [
+  { start: 0.00, end: 0.00 }, // Card 1: Stationary anchor
+  { start: 0.04, end: 0.25 }, // Card 2
+  { start: 0.28, end: 0.49 }, // Card 3
+  { start: 0.52, end: 0.73 }, // Card 4
+  { start: 0.76, end: 0.97 }, // Card 5
+];
+
+interface StackedCardProps {
+  data: ArchitecturalProductCardData;
   index: number;
-}> = ({ service, index }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const [isHovered, setIsHovered] = useState(false);
+  scrollYProgress: MotionValue<number>;
+  windowWidth: number;
+  onInquiryClick: (product: ArchitecturalProductCardData) => void;
+}
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+/**
+ * Individual Card in the Horizontal Stack
+ * - Subscribes to scroll progress with 60fps hardware accelerated transform
+ * - Enters from the LEFT (negative X) and lands at its exact stacked coordinate
+ * - Exactly 100px of the previous card remains visible on the right
+ */
+const StackedCardItem: React.FC<StackedCardProps> = ({
+  data,
+  index,
+  scrollYProgress,
+  windowWidth,
+  onInquiryClick,
+}) => {
+  const stepOffset = getStepOffsetPx(windowWidth);
+  const baseCenterOffset = 2 * stepOffset; // Centers the stack symmetrically ([-2*step, +2*step])
 
-  // Engineering highlights mapping based on service type
-  const getEngineeringSpecs = (id: string) => {
-    switch (id) {
-      case 'sliding':
-        return [
-          { label: 'موتور', val: 'Dunker آلمان BG75' },
-          { label: 'کنترلر', val: 'میکروپروسسور هوشمند ۳۲ بیتی' },
-          { label: 'استاندارد', val: 'EN 16005 تردد نامحدود' },
-        ];
-      case 'telescopic':
-        return [
-          { label: 'سیستم', val: 'مکانیزم سنکرون ۲ و ۴ لنگه' },
-          { label: 'راندمان', val: '۳۰٪ بازشوی بیشتر' },
-          { label: 'ریل', val: 'آلومینیوم آنودایز سخت ۸۰ میکرون' },
-        ];
-      case 'manual_glass':
-        return [
-          { label: 'شیشه', val: '۱۰ میل سکوریت سوپرکلیر' },
-          { label: 'یراق', val: 'استیل ۳۰۴ ضدزنگ ضدخش' },
-          { label: 'استوپ', val: 'هیدرولیک روغنی بی‌صدا' },
-        ];
-      case 'partition':
-        return [
-          { label: 'پروفیل', val: 'اسلیم فریم‌لس آلومینیومی' },
-          { label: 'آکوستیک', val: 'عایق صوت تا ۴۲ دسی‌بل' },
-          { label: 'طراحی', val: 'تک‌جداره و دوجداره اختصاصی' },
-        ];
-      case 'shutter':
-        return [
-          { label: 'تیغه', val: 'آلومینیوم سنگین ۶۰۶۳ دوبل' },
-          { label: 'موتور', val: 'ساید صنعتی با UPS اضطراری' },
-          { label: 'امنیت', val: 'ضدسرقت با قفل اتوماتیک' },
-        ];
-      default:
-        return [
-          { label: 'شیشه', val: 'سکوریت جام‌ویژه ۱۰ میل' },
-          { label: 'قطعات', val: 'استاندارد اروپایی CE' },
-          { label: 'گارانتی', val: '۵ سال ضمانت تعویض' },
-        ];
-    }
-  };
+  // Target docked position:
+  // index 0 -> +200px
+  // index 1 -> +100px (100px of index 0 exposed on the right)
+  // index 2 -> 0px    (100px of index 1 exposed on the right)
+  // index 3 -> -100px (100px of index 2 exposed on the right)
+  // index 4 -> -200px (100px of index 3 exposed on the right)
+  const targetX = baseCenterOffset - index * stepOffset;
 
-  const getServiceSvg = (iconType: string) => {
-    switch (iconType) {
-      case 'sliding':
-        return (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-            <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.7" />
-            <path d="M7 6v12M7 12h2" strokeWidth="1.7" strokeLinecap="round" />
-            <path d="M17 6v12M17 12h-2" strokeWidth="1.7" strokeLinecap="round" />
-            <line x1="12" y1="4" x2="12" y2="20" strokeWidth="1.3" strokeDasharray="2 2" />
-          </svg>
-        );
-      case 'telescopic':
-        return (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-            <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.7" />
-            <path d="M6 6v12M9 6v12M15 6v12M18 6v12" strokeWidth="1.7" strokeLinecap="round" />
-            <path d="M9 12h6" strokeWidth="1.7" strokeLinecap="round" />
-          </svg>
-        );
-      case 'partition':
-        return (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-            <rect x="3" y="3" width="18" height="18" rx="1.5" strokeWidth="1.7" />
-            <line x1="9" y1="3" x2="9" y2="21" strokeWidth="1.7" />
-            <line x1="15" y1="3" x2="15" y2="21" strokeWidth="1.7" />
-            <circle cx="6" cy="12" r="1.2" fill="currentColor" />
-            <circle cx="12" cy="12" r="1.2" fill="currentColor" />
-          </svg>
-        );
-      case 'shutter':
-        return (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-            <rect x="4" y="3" width="16" height="18" rx="2" strokeWidth="1.7" />
-            <line x1="4" y1="7" x2="20" y2="7" strokeWidth="1.7" />
-            <line x1="4" y1="11" x2="20" y2="11" strokeWidth="1.7" />
-            <line x1="4" y1="15" x2="20" y2="15" strokeWidth="1.7" />
-            <circle cx="12" cy="18" r="1.2" fill="currentColor" />
-          </svg>
-        );
-      default:
-        return (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-            <rect x="4" y="3" width="16" height="18" rx="1.5" strokeWidth="1.7" />
-            <circle cx="8" cy="12" r="1.2" fill="currentColor" />
-            <path d="M12 3v18" strokeWidth="1.2" strokeDasharray="3 2" />
-            <path d="M18 7l-2 2M18 17l-2-2" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        );
-    }
-  };
+  // Offscreen start position (to the LEFT: negative X):
+  const startX = -(Math.max(windowWidth, 1100) + 400);
+  const range = CARD_RANGES[index];
 
-  const specs = getEngineeringSpecs(service.id);
+  // Dynamic transform mapping with ease-out cubic (entering from LEFT to RIGHT)
+  const cardX = useTransform(scrollYProgress, (p: number) => {
+    if (index === 0) return targetX;
+    if (p <= range.start) return startX;
+    if (p >= range.end) return targetX;
+
+    const rawT = (p - range.start) / (range.end - range.start);
+    const easedT = easeOutCubic(rawT);
+    return startX + (targetX - startX) * easedT;
+  });
+
+  const cardOpacity = useTransform(scrollYProgress, (p: number) => {
+    if (index === 0) return 1;
+    if (p <= range.start) return 0;
+    if (p >= range.end) return 1;
+
+    const rawT = (p - range.start) / (range.end - range.start);
+    // Smooth, rapid fade in during the first 25% of entry travel from the left
+    return Math.min(1, rawT * 4);
+  });
+
+  // Layer order: Card 1 is lowest (zIndex 10), Card 5 is highest (zIndex 50)
+  const zIndex = (index + 1) * 10;
+
+  // Right-directed drop shadow on upper cards to give depth to the 100px exposed strip below
+  const stackedShadowClass = index === 0
+    ? 'shadow-[0_16px_45px_rgba(6,8,15,0.35)]'
+    : 'shadow-[14px_0_32px_rgba(0,0,0,0.55),0_18px_45px_rgba(6,8,15,0.4)]';
 
   return (
     <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
-      className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 hover:border-[#00F090]/40 shadow-[0_4px_20px_rgba(6,8,15,0.03)] hover:shadow-[0_16px_36px_rgba(6,8,15,0.08)] transition-all duration-300 overflow-hidden"
+      style={{
+        x: cardX,
+        opacity: cardOpacity,
+        zIndex,
+      }}
+      className={`services-stacked-card ${stackedShadowClass} rounded-2xl sm:rounded-3xl`}
     >
-      {/* 2026 Dynamic Mouse Spotlight Glow */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              280px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 240, 144, 0.12),
-              transparent 80%
-            )
-          `,
-        }}
+      <ArchitecturalServiceCard
+        data={data}
+        index={index}
+        onInquiryClick={onInquiryClick}
+        className="w-full h-full"
       />
-
-      {/* Top Ambient Edge Glow */}
-      <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent group-hover:via-[#00F090]/60 transition-all duration-500" />
-
-      <div>
-        {/* Top Header Row: Icon + Mini Tech Badge */}
-        <div className="flex items-center justify-between gap-3 mb-5">
-          <div className="w-11 h-11 rounded-xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(0,240,144,0.3)] transition-all duration-300">
-            {getServiceSvg(service.iconType)}
-          </div>
-
-          <span className="text-[10px] font-bold font-mono tracking-wider px-2.5 py-1 rounded-full bg-white/80 border border-white text-[#11172C] shadow-2xs group-hover:border-[#00F090]/30 transition-colors">
-            {service.id === 'sliding' ? 'SERIES-SL' : service.id === 'telescopic' ? 'SERIES-TL' : service.id === 'partition' ? 'ARCH-PART' : service.id === 'shutter' ? 'IND-SHUT' : 'MIRRAL-GL'}
-          </span>
-        </div>
-
-        {/* Title Block (Persian Main + Latin Architectural Subtitle) */}
-        <h3 className="text-[16px] font-black text-[#06080F] tracking-tight group-hover:text-[#06080F] transition-colors leading-snug">
-          {service.titleFa}
-        </h3>
-        
-        <p className="text-[10px] font-semibold text-[#11172C]/50 font-sans tracking-wide uppercase mt-1 mb-4">
-          {service.titleEn}
-        </p>
-
-        {/* Concise Engineering Specs Grid (High-Trust, Clean Minimalist) */}
-        <div className="space-y-2 py-3.5 my-2 border-y border-white/60">
-          {specs.map((item, i) => (
-            <div key={i} className="flex items-center justify-between text-[11px] leading-relaxed">
-              <span className="text-[#11172C]/60 font-medium">{item.label}</span>
-              <span className="font-bold text-[#06080F] text-left ltr">{item.val}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Card Action Link */}
-      <div className="pt-4 mt-2 flex items-center justify-between">
-        <a
-          href="/calculator"
-          className="inline-flex items-center gap-1.5 text-xs font-black text-[#06080F] group-hover:text-[#06080F] transition-colors"
-        >
-          <Calculator className="w-3.5 h-3.5 text-[#00F090]" />
-          <span>استعلام و محاسبه آنلاین</span>
-        </a>
-
-        <div className="w-7 h-7 rounded-full bg-white/80 border border-white flex items-center justify-center text-[#06080F] group-hover:bg-[#00F090] group-hover:text-[#06080F] group-hover:border-[#00F090] transition-all duration-300">
-          <ChevronLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
-        </div>
-      </div>
-
-      {/* Subtle Bottom Accent Indicator */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F090] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
     </motion.div>
   );
 };
 
-export const ServiceIconsBar: React.FC = () => {
-  const storeServices = useSiteContentStore((state) => state.services);
+export const ServiceIconsBar: React.FC<ServiceIconsBarProps> = ({ onOpenInquiry }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [isStackComplete, setIsStackComplete] = useState(false);
+
+  // Responsive window width tracking
+  const [windowWidth, setWindowWidth] = useState<number>(() =>
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Framer Motion scroll tracking over the tall pinned section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Keep active step state in sync with current scroll progress
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (progress) => {
+      if (progress < 0.25) {
+        setActiveStep(progress < 0.04 ? 0 : 1);
+        setIsStackComplete(false);
+      } else if (progress < 0.49) {
+        setActiveStep(2);
+        setIsStackComplete(false);
+      } else if (progress < 0.73) {
+        setActiveStep(3);
+        setIsStackComplete(false);
+      } else if (progress < 0.97) {
+        setActiveStep(4);
+        setIsStackComplete(false);
+      } else {
+        setActiveStep(4);
+        setIsStackComplete(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  // Clickable interactive step navigator
+  const handleScrollToStep = useCallback((stepIndex: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const containerTop = rect.top + scrollTop;
+    const totalScrollDistance = containerRef.current.offsetHeight - window.innerHeight;
+
+    const targetProgressMap = [0.01, 0.22, 0.47, 0.71, 0.96];
+    const targetProgress = targetProgressMap[stepIndex];
+    const targetY = containerTop + targetProgress * totalScrollDistance;
+
+    window.scrollTo({
+      top: targetY,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  const handleCardInquiry = (product: ArchitecturalProductCardData) => {
+    if (onOpenInquiry) {
+      onOpenInquiry(product.titleFa);
+    } else {
+      window.location.href = '/calculator';
+    }
+  };
 
   return (
-    <section id="services" className="relative z-20 -mt-8 pt-24 pb-28 sm:pt-32 sm:pb-36 bg-[#E4EBF1] rounded-t-[32px] sm:rounded-t-[48px] shadow-[0_-25px_60px_rgba(6,8,15,0.4)] border-t border-white/60 overflow-hidden">
-      {/* Top Architectural Accent Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[2px] bg-gradient-to-r from-transparent via-[#00F090]/60 to-transparent" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 max-w-2xl h-24 bg-gradient-to-b from-[#00F090]/10 to-transparent blur-2xl pointer-events-none" />
-
-      <div className="grid-container-12 relative z-10">
+    <section 
+      id="services" 
+      ref={containerRef}
+      className="relative z-20 h-[500vh] bg-[#E4EBF1] border-t border-white/60"
+      dir="rtl"
+    >
+      {/* 
+        STICKY VIEWPORT CONTAINER (Pinned during the 500vh vertical scroll)
+        - Sticks at top: 0
+        - Exactly 100dvh height
+        - Overflow hidden to prevent any unwanted horizontal document scrollbar
+      */}
+      <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between py-4 sm:py-6 md:py-8 px-4 sm:px-6 lg:px-12 overflow-hidden select-none">
         
-        {/* 12-Column Grid Layout */}
-        <div className="grid grid-cols-12 gap-6">
+        {/* Top Ambient Glow Accent */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-5xl h-[2px] bg-gradient-to-r from-transparent via-[#00F5A0]/60 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 max-w-3xl h-24 bg-gradient-to-b from-[#00F5A0]/10 to-transparent blur-2xl pointer-events-none" />
 
-          {/* Minimalist Section Header (Centered over 8 columns with ample negative space) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="col-span-12 lg:col-span-8 lg:col-start-3 text-center mb-12 sm:mb-16"
-          >
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#06080F]/[0.04] border border-white/90 text-[#06080F] text-xs font-bold shadow-2xs backdrop-blur-md mb-3.5">
-              <Cpu className="w-3.5 h-3.5 text-[#00F090]" />
-              <span>مهندسی ورودی‌های هوشمند</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#06080F] tracking-tight">
-              خدمات و سیستم‌های اجرایی
-            </h2>
-
-            <p className="text-xs sm:text-sm text-[#11172C]/70 mt-3 font-medium leading-relaxed max-w-2xl mx-auto">
-              طراحی، تأمین و نصب تخصصی با موتورهای دانکر آلمان و شیشه‌های سوپرکلیر ۱۰ میل
-            </p>
-          </motion.div>
-
-          {/* 5 High-Trust Minimalist Engineering Cards Snapped to 12 Columns (Row 1: 3x4col, Row 2: 2x6col) */}
-          {storeServices.map((service, index) => {
-            const isRowTwo = index >= 3;
-            return (
-              <div 
-                key={service.id} 
-                className={isRowTwo ? 'col-span-12 sm:col-span-6 lg:col-span-6' : 'col-span-12 sm:col-span-6 lg:col-span-4'}
-              >
-                <ModernServiceCard
-                  service={service}
-                  index={index}
-                />
+        {/* 
+          1. SECTION HEADER (Titles, Indicators and Real-time Counter)
+        */}
+        <div className="w-full max-w-[1400px] mx-auto shrink-0">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-5">
+            
+            {/* Header Text Group */}
+            <div className="max-w-2xl">
+              {/* Pill Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#06080F]/[0.06] border border-white/80 text-[#06080F] text-[11px] sm:text-xs font-bold shadow-2xs backdrop-blur-md mb-2 sm:mb-2.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#00F5A0]" />
+                <span>خدمات تخصصی درنا درب</span>
               </div>
-            );
-          })}
 
-          {/* High-Trust Engineering Standards Strip (12 Columns with spacious breathing room) */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="col-span-12 mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-white/60 flex flex-wrap items-center justify-center sm:justify-between gap-6 text-xs text-[#11172C]/70"
-          >
-            <div className="flex flex-wrap items-center gap-4 sm:gap-8 font-medium">
-              <span className="flex items-center gap-2 text-[#06080F] font-bold">
-                <CheckCircle2 className="w-4 h-4 text-[#00F090]" />
-                <span>موتورهای براشلس دانکر آلمان (Dunker Motoren)</span>
-              </span>
-              <span className="flex items-center gap-2 text-[#06080F] font-bold">
-                <ShieldCheck className="w-4 h-4 text-[#00F090]" />
-                <span>۵ سال ضمانت تعویض قطعات اصلی</span>
-              </span>
-              <span className="flex items-center gap-2 text-[#06080F] font-bold">
-                <Sparkles className="w-4 h-4 text-[#00F090]" />
-                <span>شیشه سوپرکلیر سکوریت ۱۰ میلی‌متر نشکن</span>
-              </span>
+              {/* Main Section Title */}
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-[#06080F] tracking-tight leading-tight">
+                خدمات مهندسی و سیستم‌های ورودی
+              </h2>
+
+              {/* Subtitle */}
+              <p className="text-[11px] sm:text-xs md:text-sm text-[#11172C]/75 font-medium mt-1.5 line-clamp-1 sm:line-clamp-none">
+                طراحی، تولید و اجرای ۵ سیستم استاندارد معماری با قطعات فابریک و اپراتورهای هوشمند
+              </p>
             </div>
 
-            <a
-              href="/services"
-              className="inline-flex items-center gap-2 font-black text-[#06080F] hover:text-[#00D882] transition-colors py-2 px-4 rounded-xl bg-white/70 border border-white hover:border-[#00F090]/40 shadow-2xs"
-            >
-              <span>کاتالوگ کامل و مشخصات فنی</span>
-              <ArrowLeft className="w-3.5 h-3.5" />
-            </a>
-          </motion.div>
+            {/* Step Indicators and Live Status Badge */}
+            <div className="flex items-center gap-2.5 shrink-0 self-start md:self-end">
+              {/* Active Card Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-white/90 text-[#06080F] text-xs font-bold shadow-xs">
+                <Layers className="w-3.5 h-3.5 text-[#00F5A0]" />
+                <span className="font-mono">
+                  {isStackComplete ? (
+                    <span className="inline-flex items-center gap-1 text-[#00A86B]">
+                      <span>استقرار کامل ۵ لایه</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A86B]" />
+                    </span>
+                  ) : (
+                    <span>
+                      کارت {(activeStep + 1).toLocaleString('fa-IR')} از ۵
+                    </span>
+                  )}
+                </span>
+              </div>
 
+              {/* Interactive Service Step Buttons */}
+              <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-white/70 border border-white/80 shadow-2xs">
+                {SERVICES_DATA.map((service, idx) => {
+                  const isCurrent = idx === activeStep;
+                  const isPast = idx < activeStep;
+                  return (
+                    <button
+                      key={service.id}
+                      type="button"
+                      onClick={() => handleScrollToStep(idx)}
+                      title={`مشاهده ${service.titleFa}`}
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition-all duration-300 cursor-pointer ${
+                        isCurrent
+                          ? 'bg-[#06080F] text-[#00F5A0] shadow-sm'
+                          : isPast
+                          ? 'text-[#06080F] hover:bg-black/5'
+                          : 'text-[#11172C]/40 hover:text-[#06080F]'
+                      }`}
+                    >
+                      {service.titleFa.replace('درب اتوماتیک ', '').replace('درب های ', '')}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* 
+          2. STACKING STAGE (Centered Viewport Area)
+          - Contains all 5 cards in absolute stacking layout
+          - Width is responsive (square 1:1)
+          - Cards move horizontally driven by scroll
+          - Exactly 25px of the previous card remains visible on the right
+        */}
+        <div className="relative w-full flex-1 flex items-center justify-center my-auto py-2">
+          
+          {/* Central Architectural Framing Stage */}
+          <div className="services-stacked-stage">
+            {SERVICES_DATA.map((service, index) => (
+              <StackedCardItem
+                key={service.id}
+                data={service}
+                index={index}
+                scrollYProgress={scrollYProgress}
+                windowWidth={windowWidth}
+                onInquiryClick={handleCardInquiry}
+              />
+            ))}
+          </div>
+
+        </div>
+
+        {/* 
+          3. BOTTOM CONTROLS & SCROLL CUE
+          - Responsive step progress bar
+          - Visual cue indicating scroll direction
+        */}
+        <div className="w-full max-w-[1400px] mx-auto shrink-0 pt-2 pb-1">
+          <div className="flex items-center justify-between gap-4">
+            
+            {/* Step Dots & Progress for Mobile / Tablet */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {SERVICES_DATA.map((service, idx) => {
+                const isCurrent = idx === activeStep;
+                const isPast = idx < activeStep;
+                return (
+                  <button
+                    key={service.id}
+                    type="button"
+                    onClick={() => handleScrollToStep(idx)}
+                    aria-label={`رفتن به سیستم ${service.titleFa}`}
+                    className={`transition-all duration-300 rounded-full cursor-pointer focus:outline-none ${
+                      isCurrent
+                        ? 'w-7 sm:w-9 h-2 bg-[#06080F]'
+                        : isPast
+                        ? 'w-2 h-2 bg-[#00F5A0] ring-2 ring-[#00F5A0]/20'
+                        : 'w-2 h-2 bg-[#06080F]/20 hover:bg-[#06080F]/40'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Scroll Indicator Prompt */}
+            <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-[#11172C]/70 bg-white/60 px-3 py-1.5 rounded-full border border-white/80 shadow-2xs backdrop-blur-xs">
+              {isStackComplete ? (
+                <span className="text-[#06080F] font-bold">
+                  استقرار کامل ۵ لایه با نمای ۱۰۰ پیکسلی • ادامه اسکرول عمودی
+                </span>
+              ) : (
+                <span>
+                  اسکرول عمودی جهت استقرار سیستم‌ها از سمت چپ (سیستم {activeStep + 1} از ۵)
+                </span>
+              )}
+              <ChevronDown 
+                className={`w-3.5 h-3.5 text-[#00F5A0] ${
+                  isStackComplete ? 'animate-bounce' : 'animate-pulse'
+                }`} 
+              />
+            </div>
+
+          </div>
         </div>
 
       </div>
