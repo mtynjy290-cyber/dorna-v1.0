@@ -297,3 +297,5 @@ export const Footer: React.FC<{ onOpenInquiry?: () => void }> = ({
     </footer>
   );
 };
+
+export default Footer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, ChevronLeft } from 'lucide-react';
+import { MapPin, ChevronLeft } from 'lucide-react';
 
 export const TehranDistrictsCoverage: React.FC<{ onOpenInquiry: () => void }> = ({ onOpenInquiry }) => {
   const sectors = [
@@ -96,14 +96,10 @@ export const TehranDistrictsCoverage: React.FC<{ onOpenInquiry: () => void }> = 
               className="col-span-12 md:col-span-6 lg:col-span-4 p-7 sm:p-8 rounded-3xl bg-[#CBD8E2]/60 backdrop-blur-xl border border-white/80 hover:bg-[#CBD8E2]/90 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-start mb-4">
                   <span className="text-[11px] font-bold text-[#00F090] bg-[#06080F] px-3.5 py-1 rounded-full border border-white/10 shadow-xs">
                     {item.category}
                   </span>
-                  <div className="flex items-center gap-1.5 text-[11px] text-[#06080F] bg-[#00F090]/25 border border-[#00F090]/50 px-3 py-0.5 rounded-full font-bold">
-                    <Clock className="w-3.5 h-3.5 text-[#06080F]" />
-                    <span>اعزام: {item.responseTime}</span>
-                  </div>
                 </div>
 
                 <h3 className="text-xl font-black text-[#06080F] transition-colors">
@@ -148,3 +144,5 @@ export const TehranDistrictsCoverage: React.FC<{ onOpenInquiry: () => void }> = 
     </section>
   );
 };
+
+export default TehranDistrictsCoverage;

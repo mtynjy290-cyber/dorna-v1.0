@@ -51,17 +51,29 @@ export const ArticlesSection: React.FC = () => {
                 className="p-5 sm:p-6 rounded-3xl bg-[#CBD8E2]/60 backdrop-blur-xl border border-white/80 hover:bg-[#CBD8E2]/90 shadow-xs hover:shadow-md transition-all duration-300 group flex flex-col justify-between cursor-pointer h-full"
               >
                 <div>
-                  {/* Article Thumbnail */}
+                  {/* Article Thumbnail or Clean Placeholder */}
                   <div className="relative h-48 rounded-xl overflow-hidden mb-4 bg-slate-950">
-                    <img
-                      src={article.image.includes('unsplash.com') ? `${article.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : article.image}
-                      alt={article.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                    {article.image ? (
+                      <img
+                        src={article.image.includes('unsplash.com') ? `${article.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : article.image}
+                        alt={article.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#0A0F1D] to-[#06080F] text-white/50 relative px-4 select-none">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+                        <div className="relative z-10 w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-2 shadow-inner">
+                          <BookOpen className="w-5 h-5 text-[#00F090]/60 stroke-1" />
+                        </div>
+                        <span className="relative z-10 text-[11px] text-[#CBD8E2]/60 font-medium text-center">
+                          محل درج تصویر مقاله (تنظیم از پنل مدیریت)
+                        </span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
                     <span className="absolute top-3 right-3 bg-[#06080F]/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-bold text-[#00F090] border border-white/15">
                       {article.category}
                     </span>
@@ -113,18 +125,10 @@ export const ArticlesSection: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="group relative rounded-3xl overflow-hidden bg-slate-950 border border-white/80 hover:border-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5 cursor-pointer min-h-[380px] h-full flex flex-col justify-between p-6 sm:p-7"
             >
-              {/* Background architectural/technical library photography */}
-              <img
-                src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=700&q=75"
-                alt="پایگاه دانش معماری درنا درب"
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-700 ease-out brightness-[0.85] group-hover:brightness-[0.80]"
-              />
-
-              {/* 25% Overlay so photography is clearly visible */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-slate-900/10 pointer-events-none" />
+              {/* Architectural Dark Background with Blueprint Grid Accents (No photo) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#090E1A] to-[#04060B]" />
+              <div className="absolute inset-0 bg-[radial-gradient(#00F090_1px,transparent_1px)] [background-size:20px_20px] opacity-15 pointer-events-none group-hover:opacity-25 transition-opacity" />
+              <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-[#00F090]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00F090]/20 transition-all" />
 
               {/* Top Bar with Badge & Icon */}
               <div className="relative z-10 flex items-center justify-between">
@@ -190,3 +194,5 @@ export const ArticlesSection: React.FC = () => {
     </section>
   );
 };
+
+export default ArticlesSection;

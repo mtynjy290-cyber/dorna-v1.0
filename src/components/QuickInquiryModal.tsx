@@ -350,3 +350,5 @@ export const QuickInquiryModal: React.FC<QuickInquiryModalProps> = ({
     </AnimatePresence>
   );
 };
+
+export default QuickInquiryModal;

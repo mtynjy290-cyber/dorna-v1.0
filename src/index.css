@@ -397,6 +397,7 @@ button:hover .brand-logo-icon {
   display: none; /* Chrome, Safari, Opera */
 }
 
+/* Mobile / Default Base Sizes */
 .service-square-card {
   flex: 0 0 clamp(280px, 28vw, 420px);
   width: clamp(280px, 28vw, 420px);
@@ -405,7 +406,6 @@ button:hover .brand-logo-icon {
   scroll-margin-right: 24px;
 }
 
-/* Stacked Interaction Container & Overrides */
 .services-stacked-stage {
   position: relative;
   width: min(clamp(280px, 26vw, 380px), 50vh);
@@ -419,6 +419,12 @@ button:hover .brand-logo-icon {
     height: min(74vw, 44vh, 290px);
     aspect-ratio: 1 / 1;
   }
+  .service-square-card {
+    flex: 0 0 82vw;
+    width: 82vw;
+    aspect-ratio: 1 / 1;
+    scroll-margin-right: 16px;
+  }
 }
 
 .services-stacked-card {
@@ -430,17 +436,31 @@ button:hover .brand-logo-icon {
 }
 
 .services-stacked-card .service-square-card {
-  width: 100% !important;
-  height: 100% !important;
-  flex: none !important;
+  width: 100%;
+  height: 100%;
+  flex: none;
 }
 
-@media (max-width: 640px) {
-  .service-square-card {
-    flex: 0 0 82vw;
-    width: 82vw;
-    aspect-ratio: 1 / 1;
-    scroll-margin-right: 16px;
+/* Desktop strictly 750px width and 350px height (Active on any desktop/tablet viewport >= 768px) */
+@media (min-width: 768px) {
+  .services-stacked-stage {
+    width: 750px !important;
+    height: 350px !important;
+    aspect-ratio: 750 / 350 !important;
+  }
+
+  .services-stacked-card {
+    width: 750px !important;
+    height: 350px !important;
+  }
+
+  .services-stacked-card .service-square-card,
+  .services-stacked-card article,
+  article.service-square-card {
+    width: 750px !important;
+    height: 350px !important;
+    aspect-ratio: 750 / 350 !important;
+    flex: none !important;
   }
 }
 

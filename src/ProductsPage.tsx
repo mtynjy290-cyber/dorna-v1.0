@@ -34,7 +34,8 @@ import {
   Grid,
   Radio,
   Sliders,
-  Calculator
+  Calculator,
+  Image as ImageIcon
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -92,7 +93,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران / آلمان',
       originFlag: '🇮🇷🇩🇪',
       highlightBadge: 'حداکثر بازشو در دهانه‌های باریک',
-      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'سیستم تلسکوپی هوشمند با بازشوی ۲/۳ دهانه، مجهز به شیشه سوپرکلیر ۱۰ میل سکوریت، شاسی مقطع سنگین و سنسورهای مایکروویو ترکیبی.',
       fullDesc: 'درب اتوماتیک اسلایدینگ تلسکوپی درنا مستر گزینه‌ای ایده‌آل برای ورودی‌هایی است که نیاز به بیشترین پهنای تردد خالص دارند. با مکانیزم سنکرونیزاسیون تسمه‌ای و چرخ‌های پلی‌آمیدی دوبل ضدسایش، عملکردی بدون تکان و کاملاً آرام با سرعت بازشوی تنظیم‌پذیر ارائه می‌دهد.',
       status: 'in_stock',
@@ -132,7 +133,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران',
       originFlag: '🇮🇷',
       highlightBadge: 'طراحی باشکوه و هلی‌کال',
-      image: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'طراحی هلالی و مدور شیشه‌ای که جلوه‌ای از شکوه معماری و عایق‌بندی فوق‌العاده در برابر تبادل حرارتی و گردوغبار ایجاد می‌کند.',
       fullDesc: 'درب‌های اتوماتیک نیم‌دایره و تمام‌دایره (Curved) درنا درب بر اساس شعاع دقیق ورودی ساختمان با شیشه‌های لمینت سکوریت خم مهندسی ساخته می‌شوند. شاسی مدور با دقت میلی‌متری نورد و آنودایز شده و هوابندی درزها با لاستیک‌های سیلیکونی و مویی‌های متراکم تضمین می‌شود.',
       status: 'project_delivery',
@@ -171,7 +172,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران',
       originFlag: '🇮🇷',
       highlightBadge: 'بی‌صدا، ضدسرقت و مقاوم در برابر باد شدید',
-      image: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'تیغه‌های فابریک آلومینیومی تولید شده از شمش خالص با وزن سنگین، کپس ضدلغزش و موتورهای ساید و توبلار پرقدرت بدون صدا.',
       fullDesc: 'کرکره‌های برقی درنا درب با بهره‌گیری از تیغه‌های آلومینیومی استاندارد با سختی ایجینگ مناسب و رنگ کوره‌ای مقاوم در برابر اشعه UV آفتاب تولید می‌شوند. حضور پل‌های تقویت‌کننده داخلی مانع از تغییر فرم تیغه در برابر فشار باد و ضربه‌های احتمالی می‌گردد.',
       status: 'in_stock',
@@ -210,7 +211,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'آلمان / مونتاژ درنا',
       originFlag: '🇩🇪',
       highlightBadge: 'دید ۲۴ ساعته + مقاومت ضدگلوله و ضدحریق',
-      image: 'https://images.unsplash.com/photo-1508873696983-2df5703bc225?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'تیغه‌های شفاف پلی‌کربنات با اتصالات لوله استیل ضدزنگ و آلومینیومی، غیرقابل اشتعال با مقاومت در برابر شدیدترین ضربات پُتک و دیلم.',
       fullDesc: 'کرکره برقی شفاف پلی‌کربنات درنا درب از رزین نانو پلی‌کربنات خالص مقاوم در برابر پرتوهای ماوراء بنفش ساخته شده که دچار تغییر رنگ و کدر شدن نمی‌شود. لوله‌های تقویت‌کننده استیل ۳۰۴ میان تیغه‌ها سطح ایمنی فوق‌العاده‌ای برابر با دیواره‌های ضدسرقت برای طلافروشی‌ها و بانک‌ها ایجاد می‌کند.',
       status: 'in_stock',
@@ -250,7 +251,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران / آلمان',
       originFlag: '🇮🇷🇩🇪',
       highlightBadge: 'شفافیت کریستالی ۱۰۰٪ با بازشوی ۱۸۰ درجه',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'درب شیشه‌ای میرال ۱۰ میل سکوریت بدون فریم با استوپ روغنی کف‌خواب پرقدرت، یراق‌آلات استیل ضدزنگ ۳۰۴ و قفل فرانسوی ۱۰۵۷.',
       fullDesc: 'درب‌های شیشه‌ای میرال لولایی درنا درب با استفاده از کوره‌های سکوریت پیشرفته با حداکثر همگنی حرارتی تولید می‌شوند تا از هرگونه موج و اعوجاج نوری جلوگیری شود. استوپ‌های کف مجهز به دو شیر تنظیم سرعت بسته‌شدن و نگه‌دارنده ۹۰ درجه در بازشو هستند.',
       status: 'in_stock',
@@ -288,7 +289,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران',
       originFlag: '🇮🇷',
       highlightBadge: 'فریم بسیار باریک مینیمال با غلتک‌های سایلنت',
-      image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'فریم باریک ۲۰ میلی‌متری آلومینیومی اکسترود با ریل آویز فوق روان بالارو، بدون نیاز به ریل‌گذاری در کف زمین.',
       fullDesc: 'درب‌های کشویی اسلیم فریم انتخابی بی‌نظیر برای دکوراسیون داخلی مینیمال و معاصر است. ریل سقفی مخفی به همراه سیستم آرام‌بند Soft-Close دوطرفه مانع از کوبیده‌شدن درب به دیواره‌ها شده و عبور بدون مانع را در کف زمین فراهم می‌کند.',
       status: 'in_stock',
@@ -327,7 +328,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران',
       originFlag: '🇮🇷',
       highlightBadge: 'نهایت نور و شفافیت با درزگیر پلی‌کربنات نامرئی',
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'جداسازی مدرن فضاهای اداری با شیشه‌های ۱۰ و ۱۲ میل سکوریت سوپرکلیر، پروفیل‌های مینی‌مال کف و سقف و اتصال شیشه‌ها با چسب یووی و درزگیر شفاف.',
       fullDesc: 'پارتیشن‌های فریم‌لس درنا درب با حداقل پروفیل آلومینیومی در محیط و حداکثر وسعت دید شیشه‌ای، ارتباط بصری و روشنایی طبیعی دفاتر کار را حفظ می‌کنند. اتصال لبه به لبه شیشه‌ها با استفاده از نوارهای پلی‌کربنات شفاف H-Profile عایق‌بندی صوتی عالی تا ۳۲ دسی‌بل را فراهم می‌آورد.',
       status: 'in_stock',
@@ -365,7 +366,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران',
       originFlag: '🇮🇷',
       highlightBadge: 'عایق صوتی فوق‌العاده ۴۲ دسی‌بل + حریم خصوصی کامل',
-      image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'سیستم دوجداره شیشه‌ای با فریم پهن اختصاصی، پرده کرکره آلومینیومی ۱۶ میل داخلی با ولوم مگنتی بدون تماس فیزیکی، عایق صدای اتاق جلسات و مدیریت.',
       fullDesc: 'پارتیشن دوجداره درنا درب با ضخامت کلی ۸۰ الی ۱۰۰ میلی‌متر و استفاده از دو لایه شیشه سکوریت، سکوت مطلق را برای جلسات محرمانه و اتاق‌های مدیران ارشد به ارمغان می‌آورد. پرده کرکره آلومینیومی درون محفظه کاملاً درزگیری شده قرار گرفته و نیاز به هیچ‌گونه نظافت و گردگیری ندارد.',
       status: 'in_stock',
@@ -404,7 +405,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'آلمان',
       originFlag: '🇩🇪',
       highlightBadge: 'موتور اورجینال تردد نامحدود',
-      image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'قلب تپنده سیستم‌های درب اتوماتیک پرتردد با گشتاور بالا، راندمان ۹۲٪ و طول عمر تضمین‌شده بالای ۵ میلیون سیکل باز و بست.',
       fullDesc: 'موتور DC براشلس بدون زغال دانکر آلمان سری GR63x55 یکی از معتبرترین و بادوام‌ترین موتورهای صنعتی در صنعت اتوماسیون درب است. این موتور مجهز به انکودر نوری مگنتیک با دقت کالیبراسیون میلی‌متری و گیربکس خورشیدی فولادی سخت‌کاری شده است که در سنگین‌ترین شرایط آب‌وهوایی و ترافیک نامحدود، عملکردی کاملاً بی‌صدا و فوق روان ارائه می‌دهد.',
       status: 'in_stock',
@@ -446,7 +447,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'ایران / مهندسی درنا',
       originFlag: '🇮🇷',
       highlightBadge: 'شاسی اکسترود سنگین + باتری بک‌آپ',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'شاسی آلومینیومی مقطع سنگین مجهز به مقطع ریل فولادی ضدسایش، پردازنده ۳۲ بیتی با عیب‌یابی خودکار و سیستم معکوس‌کننده هوشمند.',
       fullDesc: 'پکیج کامل اپراتور هوشمند درنا پرو نتیجه ۲۵ سال تجربه در نصب و اجرای پروژه‌های ملی است. این سیستم با بهره‌گیری از پروفیل مقطع سنگین آنودایز شده، هرزگردهای بلبرینگی دوبل و تسمه دندانه‌دار تقویت‌شده با الیاف کولار، حرکت بدون کوچک‌ترین لرزش و ضربه را تضمین می‌کند.',
       status: 'in_stock',
@@ -483,7 +484,7 @@ export const ProductsPage: React.FC = () => {
       originCountry: 'بلژیک',
       originFlag: '🇧🇪',
       highlightBadge: 'بالاترین دقت تشخیص و ایمنی تردد',
-      image: 'https://images.unsplash.com/photo-1580983218765-f663bec07b37?auto=format&fit=crop&w=800&q=80',
+      image: '',
       shortDesc: 'رادار پیشرفته تلفیقی تشخیص حرکت مایکروویو و پرده پرتو مادون قرمز حفاظتی با قابلیت تنظیم دقیق میدان دید و حذف تداخل باد.',
       fullDesc: 'سنسور BEA IXIO-DT1 ساخت بلژیک، استاندارد طلایی ایمنی درب‌های اتوماتیک در سراسر جهان است. این سنسور دوگانه، علاوه بر بازکردن سریع درب با نزدیک‌شدن عابر، پرده‌ای نوری با ۲۴ نقطه لیزری مادون قرمز در مقابل دهانه ایجاد می‌کند تا در صورت توقف فرد یا کالسکه بین لنگه‌ها، از بسته‌شدن درب کاملاً جلوگیری نماید.',
       status: 'in_stock',
@@ -687,14 +688,26 @@ export const ProductsPage: React.FC = () => {
                 >
                   {/* Top Product Image Container */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-950/20 border-b border-white/60">
-                    <img
-                      src={product.image.includes('unsplash.com') ? `${product.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : product.image}
-                      alt={product.nameFa}
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-[0.92] group-hover:brightness-100"
-                    />
+                    {product.image ? (
+                      <img
+                        src={product.image.includes('unsplash.com') ? `${product.image.split('?')[0]}?auto=format&fit=crop&w=600&q=75` : product.image}
+                        alt={product.nameFa}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-[0.92] group-hover:brightness-100"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#0A0F1D] to-[#06080F] text-white/50 relative px-4 select-none">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+                        <div className="relative z-10 w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-1.5 shadow-inner">
+                          <ImageIcon className="w-5 h-5 text-[#00F090]/70 stroke-1" />
+                        </div>
+                        <span className="relative z-10 text-[10px] text-[#CBD8E2]/60 font-medium text-center">
+                          در انتظار بارگذاری تصویر محصول
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20 pointer-events-none" />
 
                     {/* Top Floating Badges */}
@@ -868,13 +881,25 @@ export const ProductsPage: React.FC = () => {
                 {/* Image & Main Description */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                   <div className="md:col-span-5 rounded-2xl overflow-hidden aspect-[4/3] bg-slate-900 border border-white/10 shadow-sm relative">
-                    <img
-                      src={selectedProduct.image}
-                      alt={selectedProduct.nameFa}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
+                    {selectedProduct.image ? (
+                      <img
+                        src={selectedProduct.image}
+                        alt={selectedProduct.nameFa}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#0A0F1D] to-[#06080F] text-white/50 relative px-4 select-none min-h-[160px]">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+                        <div className="relative z-10 w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-1.5 shadow-inner">
+                          <ImageIcon className="w-5 h-5 text-[#00F090]/70 stroke-1" />
+                        </div>
+                        <span className="relative z-10 text-[10px] text-[#CBD8E2]/60 font-medium text-center">
+                          در انتظار بارگذاری تصویر محصول
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute bottom-2 right-2 left-2 px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-sm text-[#00F090] text-[10px] font-bold text-center border border-white/10">
                       {selectedProduct.highlightBadge}
                     </div>

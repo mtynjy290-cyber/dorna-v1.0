@@ -6,7 +6,8 @@ import {
   Sparkles, 
   Layers, 
   Maximize2, 
-  Building2
+  Building2,
+  Image as ImageIcon
 } from 'lucide-react';
 import { useSiteContentStore } from '../lib/siteContentStore';
 
@@ -38,11 +39,6 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="col-span-12 lg:col-span-7"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CBD8E2]/80 border border-white/80 text-[#11172C] text-xs font-bold shadow-xs backdrop-blur-md mb-3.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#06080F]" />
-              <span>نمونه کارهای شاخص درنا درب</span>
-            </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#06080F] tracking-tight">
               پروژه‌ها
             </h2>
@@ -98,15 +94,27 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
                 className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-white/80 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer aspect-[16/12] h-full"
                 onClick={onOpenInquiry}
               >
-                {/* High-Resolution Architectural Photography Preview */}
-                <img
-                  src={project.imageUrl.includes('unsplash.com') ? `${project.imageUrl.split('?')[0]}?auto=format&fit=crop&w=700&q=75` : project.imageUrl}
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out brightness-[0.92] group-hover:brightness-75"
-                />
+                {/* High-Resolution Architectural Photography Preview or Clean Placeholder */}
+                {project.imageUrl ? (
+                  <img
+                    src={project.imageUrl.includes('unsplash.com') ? `${project.imageUrl.split('?')[0]}?auto=format&fit=crop&w=700&q=75` : project.imageUrl}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out brightness-[0.92] group-hover:brightness-75"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0F172A] via-[#0A0F1D] to-[#06080F] text-white/50 relative px-4 select-none">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+                    <div className="relative z-10 w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-2 shadow-inner">
+                      <ImageIcon className="w-6 h-6 text-[#00F090]/60 stroke-1" />
+                    </div>
+                    <span className="relative z-10 text-xs text-[#CBD8E2]/60 font-medium text-center">
+                      محل درج تصویر پروژه (تنظیم از پنل مدیریت)
+                    </span>
+                  </div>
+                )}
 
                 {/* Permanent Subtle Gradient for Baseline Readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none" />
@@ -177,18 +185,10 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="group relative rounded-3xl overflow-hidden bg-slate-950 border border-white/80 hover:border-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5 cursor-pointer aspect-[16/12] h-full flex flex-col justify-between p-6 sm:p-7"
             >
-              {/* Background luxury architectural photography */}
-              <img
-                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=75"
-                alt="آرشیو کامل پروژه‌ها"
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-700 ease-out brightness-[0.85] group-hover:brightness-[0.80]"
-              />
-
-              {/* 25% Overlay so image is vivid and crisp */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-slate-900/10 pointer-events-none" />
+              {/* Architectural Dark Background with Blueprint Grid Accents (No photo) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#090E1A] to-[#04060B]" />
+              <div className="absolute inset-0 bg-[radial-gradient(#00F090_1px,transparent_1px)] [background-size:20px_20px] opacity-15 pointer-events-none group-hover:opacity-25 transition-opacity" />
+              <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-[#00F090]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00F090]/20 transition-all" />
 
               {/* Top Bar with Badge & Icon */}
               <div className="relative z-10 flex items-center justify-between">
@@ -268,3 +268,5 @@ export const LuxuryProjectsShowcase: React.FC<{ onOpenInquiry: () => void }> = (
     </section>
   );
 };
+
+export default LuxuryProjectsShowcase;

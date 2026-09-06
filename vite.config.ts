@@ -39,7 +39,7 @@ export default defineConfig(() => {
     },
     build: {
       target: 'es2020',
-      minify: 'esbuild',
+      minify: 'esbuild' as const,
       cssCodeSplit: true,
       assetsInlineLimit: 4096,
       reportCompressedSize: false,
@@ -56,23 +56,9 @@ export default defineConfig(() => {
           admin: path.resolve(__dirname, 'admin.html'),
         },
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom')) {
-                return 'vendor-react';
-              }
-              if (id.includes('motion')) {
-                return 'vendor-motion';
-              }
-              if (id.includes('lucide-react')) {
-                return 'vendor-icons';
-              }
-              if (id.includes('@supabase') || id.includes('zustand')) {
-                return 'vendor-data';
-              }
-              return 'vendor-core';
-            }
-          },
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
         },
       },
     },

@@ -6,13 +6,13 @@ import { MessageCircle, Phone, Calculator } from 'lucide-react';
 import { useSiteContentStore } from './lib/siteContentStore';
 
 // Lazy load below-the-fold heavy components to drastically reduce initial JS payload
-const EngineeringQuality = lazy(() => import('./components/EngineeringQuality').then(m => ({ default: m.EngineeringQuality })));
-const LuxuryProjectsShowcase = lazy(() => import('./components/LuxuryProjectsShowcase').then(m => ({ default: m.LuxuryProjectsShowcase })));
-const GlassComparisonSlider = lazy(() => import('./components/GlassComparisonSlider').then(m => ({ default: m.GlassComparisonSlider })));
-const ArticlesSection = lazy(() => import('./components/ArticlesSection').then(m => ({ default: m.ArticlesSection })));
-const TehranDistrictsCoverage = lazy(() => import('./components/TehranDistrictsCoverage').then(m => ({ default: m.TehranDistrictsCoverage })));
-const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
-const QuickInquiryModal = lazy(() => import('./components/QuickInquiryModal').then(m => ({ default: m.QuickInquiryModal })));
+const EngineeringQuality = lazy(() => import('./components/EngineeringQuality'));
+const LuxuryProjectsShowcase = lazy(() => import('./components/LuxuryProjectsShowcase'));
+const GlassComparisonSlider = lazy(() => import('./components/GlassComparisonSlider'));
+const ArticlesSection = lazy(() => import('./components/ArticlesSection'));
+const TehranDistrictsCoverage = lazy(() => import('./components/TehranDistrictsCoverage'));
+const Footer = lazy(() => import('./components/Footer'));
+const QuickInquiryModal = lazy(() => import('./components/QuickInquiryModal'));
 
 export default function App() {
   const [inquiryOpen, setInquiryOpen] = useState(false);

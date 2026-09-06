@@ -116,11 +116,6 @@ export function GlassComparisonSlider({ onOpenInquiry }: GlassComparisonSliderPr
         {/* Section Header (12 Columns) */}
         <div className="grid grid-cols-12 gap-6 mb-16 sm:mb-20">
           <div className="col-span-12 lg:col-span-10 lg:col-start-2 text-center">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CBD8E2]/80 border border-white/80 text-[#11172C] text-xs font-bold mb-3.5 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#06080F]" />
-              <span>{glassLab.sectionBadge || `آزمایشگاه متریال و آزمون شیشه ${SITE_CONFIG.brand.name}`}</span>
-            </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-[#06080F] leading-tight">
               {glassLab.sectionTitle || 'بررسی زنده و میکرومتری تفاوت شیشه‌های تخصصی'}
             </h2>
@@ -200,7 +195,7 @@ export function GlassComparisonSlider({ onOpenInquiry }: GlassComparisonSliderPr
             <div className="bg-[#CBD8E2]/70 rounded-3xl p-6 sm:p-8 md:p-10 border border-white/80 shadow-md backdrop-blur-md">
           
           {/* Active Comparison Badge & Description */}
-          <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-white/60">
+          <div className="mb-6 flex items-center justify-between gap-3 pb-4 border-b border-white/60">
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-1 rounded-lg bg-[#06080F] text-[#00F090] text-[11px] font-black">
                 {current.badge}
@@ -208,28 +203,6 @@ export function GlassComparisonSlider({ onOpenInquiry }: GlassComparisonSliderPr
               <h3 className="text-xs sm:text-sm font-bold text-[#06080F]">
                 {current.title}
               </h3>
-            </div>
-            {/* Quick Slider Position Shortcuts */}
-            <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#11172C]">
-              <span className="hidden md:inline">موقعیت مقایسه:</span>
-              <button
-                onClick={() => setSliderPosition(20)}
-                className="px-2.5 py-1 rounded-lg bg-white/70 hover:bg-white text-[#06080F] transition-all cursor-pointer"
-              >
-                ۸۰٪ چپ
-              </button>
-              <button
-                onClick={() => setSliderPosition(50)}
-                className="px-2.5 py-1 rounded-lg bg-white/70 hover:bg-white text-[#06080F] transition-all cursor-pointer"
-              >
-                ۵۰/۵۰
-              </button>
-              <button
-                onClick={() => setSliderPosition(80)}
-                className="px-2.5 py-1 rounded-lg bg-white/70 hover:bg-white text-[#06080F] transition-all cursor-pointer"
-              >
-                ۸۰٪ راست
-              </button>
             </div>
           </div>
 
@@ -408,3 +381,5 @@ export function GlassComparisonSlider({ onOpenInquiry }: GlassComparisonSliderPr
     </section>
   );
 }
+
+export default GlassComparisonSlider;

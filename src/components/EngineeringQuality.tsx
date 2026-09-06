@@ -10,8 +10,6 @@ import {
   Building,
   Calendar,
   Users,
-  ArrowLeft,
-  FileCheck2,
   ChevronLeft,
   Zap,
   Cpu
@@ -346,41 +344,9 @@ export const EngineeringQuality: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom Standards Page Action Card (12 Columns) */}
-        <div className="grid grid-cols-12 gap-6 mt-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="col-span-12 p-6 sm:p-7 rounded-3xl bg-[#06080F]/[0.03] hover:bg-[#06080F]/[0.06] backdrop-blur-xl border border-white/80 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all"
-          >
-            <div className="flex items-center gap-4 text-right">
-              <div className="w-12 h-12 rounded-2xl bg-[#06080F] text-[#00F090] border border-[#00F090]/30 flex items-center justify-center shrink-0 shadow-sm">
-                <FileCheck2 className="w-6 h-6" />
-              </div>
-              <div className="space-y-1">
-                <span className="text-sm sm:text-base font-bold text-[#06080F] block">
-                  تعهدنامه رسمی ۲۴ ماه گارانتی طلایی و ۱۰ سال پشتیبانی فنی درنا درب
-                </span>
-                <span className="text-xs text-[#11172C]/70 font-medium block">
-                  مشاهده متن کامل ضمانت‌نامه، شرایط تعویض بی‌قیدوشرط و چک‌لیست استانداردهای اروپایی EN 16005
-                </span>
-              </div>
-            </div>
-
-            <a
-              href="/standards"
-              id="btn-standards-page"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#06080F] hover:bg-[#11172C] text-[#00F090] text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 border border-[#00F090]/40 hover:border-[#00F090] shadow-[0_0_12px_rgba(0,240,144,0.12)] hover:shadow-[0_0_16px_rgba(0,240,144,0.25)] transition-all active:scale-[0.98] shrink-0 cursor-pointer"
-            >
-              <span>بررسی استانداردها و گارانتی</span>
-              <ArrowLeft className="w-4 h-4 text-[#00F090]" />
-            </a>
-          </motion.div>
-        </div>
-
       </div>
     </section>
   );
 };
+
+export default EngineeringQuality;
