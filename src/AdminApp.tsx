@@ -24,6 +24,7 @@ import {
   Database,
   Activity,
   Phone,
+  Edit3,
 } from 'lucide-react';
 import { authService, AdminUser } from './lib/auth';
 import { useAdminStore, AdminTab } from './stores/adminStore';
@@ -33,6 +34,7 @@ import { CMSContentEditor } from './components/admin/CMSContentEditor';
 import { SettingsAudit } from './components/admin/SettingsAudit';
 import { ArticleEditorView } from './components/admin/ArticleEditorView';
 import { GlassLabManager } from './components/admin/GlassLabManager';
+import { PagesContentEditor } from './components/admin/PagesContentEditor';
 import { isSupabaseConfigured } from './lib/supabase';
 import { SITE_CONFIG } from './config/siteConfig';
 
@@ -61,7 +63,7 @@ export default function AdminApp() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const tabParam = params.get('tab') as AdminTab | null;
-    if (tabParam && ['dashboard', 'inquiries', 'pricing', 'cms', 'glass-lab', 'audit'].includes(tabParam)) {
+    if (tabParam && ['dashboard', 'inquiries', 'pricing', 'pages-editor', 'cms', 'glass-lab', 'audit'].includes(tabParam)) {
       setActiveTab(tabParam);
     }
 
@@ -378,6 +380,26 @@ export default function AdminApp() {
 
               <button
                 onClick={() => {
+                  setActiveTab('pages-editor');
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full text-right px-4 py-3 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer border ${
+                  activeTab === 'pages-editor'
+                    ? 'bg-[#06080F] text-[#00F090] border-[#00F090]/50 shadow-lg'
+                    : 'text-[#06080F] border-transparent hover:bg-[#E4EBF1]'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Edit3 className="w-4 h-4 text-[#00F090]" />
+                  <span>ادیت صفحات (زیربرگ‌ها)</span>
+                </div>
+                <span className="text-[10px] text-[#06080F] bg-[#00F090] px-2 py-0.5 rounded-full font-black">
+                  ۸ زیربرگ
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
                   setActiveTab('audit');
                   setMobileMenuOpen(false);
                 }}
@@ -547,6 +569,24 @@ export default function AdminApp() {
                       مدیریت تصاویر و متون مقایسه شیشه‌های سوپرکلیر، فلوت، سکوریت حرارتی، لمینت ضدگلوله PVB، شیشه‌های Low-E عایق گرما و مات ساتینا همراه با شبیه‌ساز زنده.
                     </p>
                   </div>
+                  <div
+                    onClick={() => setActiveTab('pages-editor')}
+                    className="bg-[#06080F] text-white border-2 border-[#00F090]/60 hover:border-[#00F090] rounded-2xl p-5 shadow-lg space-y-3 cursor-pointer transition-all hover:scale-[1.01] sm:col-span-2"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-black text-[#00F090] flex items-center gap-2">
+                        <Edit3 className="w-4 h-4 text-[#00F090]" />
+                        <span>ادیت و ویرایش محتوای صفحات سایت با زیربرگ‌های اختصاصی (Pages Editor)</span>
+                      </h3>
+                      <span className="text-xs text-[#06080F] bg-[#00F090] px-3 py-1 rounded-full font-black flex items-center gap-1">
+                        <span>ورود به ادیتور صفحات</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      ویرایش متمرکز و جامع محتوای تمام صفحات وب‌سایت شامل زیربرگ‌های: صفحه اصلی، پروژه‌ها و رزومه، وبلاگ و مقالات، محصولات، خدمات مهندسی، فرمول محاسبه‌گر، درباره ما و آزمایشگاه استانداردها.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -563,7 +603,10 @@ export default function AdminApp() {
             {/* 5. GLASS LAB & COMPARISON SLIDER MANAGER */}
             {activeTab === 'glass-lab' && <GlassLabManager />}
 
-            {/* 6. SETTINGS & AUDIT TRAIL */}
+            {/* 6. PAGES CONTENT EDITOR (WITH SUB-TABS) */}
+            {activeTab === 'pages-editor' && <PagesContentEditor />}
+
+            {/* 7. SETTINGS & AUDIT TRAIL */}
             {activeTab === 'audit' && <SettingsAudit />}
           </main>
         </div>

@@ -50,6 +50,19 @@ export const authService = {
     return { success: false, message: 'رمز عبور مدیریت اشتباه است. (رمز پیش‌فرض: dorna2026)' };
   },
 
+  // Ensure session is persisted to localStorage for multi-tab operations
+  ensureSessionPersisted(): void {
+    const user = this.getCurrentUser();
+    if (user) {
+      localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify(user));
+    }
+  },
+
+  // Check if current user has valid admin session
+  isAuthenticated(): boolean {
+    return this.getCurrentUser() !== null;
+  },
+
   // Logout handler
   logout() {
     localStorage.removeItem(ADMIN_SESSION_KEY);

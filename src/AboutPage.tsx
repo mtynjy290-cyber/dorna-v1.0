@@ -24,10 +24,18 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { QuickInquiryModal } from './components/QuickInquiryModal';
 import { SITE_CONFIG } from './config/siteConfig';
+import { useSiteContentStore } from './lib/siteContentStore';
 
 export const AboutPage: React.FC = () => {
+  const { about } = useSiteContentStore();
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [prefilledProject, setPrefilledProject] = useState('استعلام درباره ما و مشاوره سازه');
+
+  const headline = about?.headline || 'اصالت ۲۵ ساله در صنعت سازه‌های شیشه‌ای و درب‌های هوشمند';
+  const badge = about?.badge || 'اصالت، تخصص کارگاهی و اعتبار ۲۵ ساله';
+  const story = about?.story || 'روایتی از تجربه، مهندسی دقیق و تعهد بی‌وقفه در درنا درب؛ از نخستین کارگاه تخصصی شیشه میرال در سال ۱۳۷۹ تا اجرای سامانه‌های هوشمند درب اتوماتیک و پارتیشن‌های آکوستیک در مراکز حساس و دانشگاهی کشور.';
+  const projectsCount = about?.projectsCount || '+۸۵۰';
+  const warrantyPeriod = about?.warrantyPeriod || '۲۴ ماه';
 
   const timelineMilestones = [
     {
@@ -92,15 +100,15 @@ export const AboutPage: React.FC = () => {
               <div className="lg:col-span-8">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-white text-[#06080F] text-xs font-bold shadow-xs mb-4">
                   <Award className="w-3.5 h-3.5 text-[#00F090]" />
-                  <span>اصالت، تخصص کارگاهی و اعتبار ۲۵ ساله</span>
+                  <span>{badge}</span>
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#06080F] tracking-tight leading-tight mb-6">
-                  اصالت ۲۵ ساله در صنعت سازه‌های شیشه‌ای و درب‌های هوشمند
+                  {headline}
                 </h1>
 
                 <p className="text-sm sm:text-base text-[#11172C]/80 font-medium leading-relaxed max-w-2xl mb-8">
-                  روایتی از تجربه، مهندسی دقیق و تعهد بی‌وقفه در درنا درب؛ از نخستین کارگاه تخصصی شیشه میرال در سال ۱۳۷۹ تا اجرای سامانه‌های هوشمند درب اتوماتیک و پارتیشن‌های آکوستیک در مراکز حساس و دانشگاهی کشور.
+                  {story}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3">
@@ -132,12 +140,12 @@ export const AboutPage: React.FC = () => {
 
                   <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                     <span className="text-xs font-bold text-[#CBD8E2]">پروژه‌های اجرایی موفق</span>
-                    <span className="text-2xl font-black font-sans text-white">+۸۵۰</span>
+                    <span className="text-2xl font-black font-sans text-white">{projectsCount}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-[#CBD8E2]">گارانتی طلایی تعویض</span>
-                    <span className="text-2xl font-black font-sans text-amber-300">۲۴ ماه</span>
+                    <span className="text-2xl font-black font-sans text-amber-300">{warrantyPeriod}</span>
                   </div>
                 </div>
 

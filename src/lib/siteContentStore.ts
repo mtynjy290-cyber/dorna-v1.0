@@ -107,6 +107,17 @@ export interface GlassLabContent {
   categories: Record<ComparisonCategoryKey, GlassComparisonCategoryData>;
 }
 
+export interface AboutContent {
+  headline: string;
+  badge: string;
+  story: string;
+  establishedYear: number;
+  projectsCount: string;
+  satisfactionRate: string;
+  warrantyPeriod: string;
+  factoryImage: string;
+}
+
 export interface SiteContentState {
   hero: HeroContent;
   brand: BrandContent;
@@ -115,6 +126,7 @@ export interface SiteContentState {
   services: ServiceContentItem[];
   projects: ProjectShowcaseItem[];
   glassLab: GlassLabContent;
+  about: AboutContent;
   isAdminModalOpen: boolean;
   
   // Actions
@@ -129,6 +141,7 @@ export interface SiteContentState {
   updateGlassLab: (data: Partial<GlassLabContent>) => void;
   updateGlassLabCategory: (categoryKey: ComparisonCategoryKey, data: Partial<GlassComparisonCategoryData>) => void;
   updateGlassLabSide: (categoryKey: ComparisonCategoryKey, side: 'left' | 'right', data: Partial<GlassSideProfile>) => void;
+  updateAbout: (data: Partial<AboutContent>) => void;
   resetGlassLabToDefaults: () => void;
   setAdminModalOpen: (open: boolean) => void;
   resetToDefaults: () => void;
@@ -400,6 +413,17 @@ export const DEFAULT_GLASS_LAB_CONTENT: GlassLabContent = {
   },
 };
 
+export const DEFAULT_ABOUT_CONTENT: AboutContent = {
+  headline: 'اصالت ۲۵ ساله در صنعت سازه‌های شیشه‌ای و درب‌های هوشمند',
+  badge: 'اصالت، تخصص کارگاهی و اعتبار ۲۵ ساله',
+  story: 'روایتی از تجربه، مهندسی دقیق و تعهد بی‌وقفه در درنا درب؛ از نخستین کارگاه تخصصی شیشه میرال در سال ۱۳۷۹ تا اجرای سامانه‌های هوشمند درب اتوماتیک و پارتیشن‌های آکوستیک در مراکز حساس و دانشگاهی کشور.',
+  establishedYear: 1379,
+  projectsCount: '۸۵۰+',
+  satisfactionRate: '۹۹.۴٪',
+  warrantyPeriod: '۲۴ ماه طلایی',
+  factoryImage: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1600&q=80',
+};
+
 export const useSiteContentStore = create<SiteContentState>()(
   persist(
     (set) => ({
@@ -410,6 +434,7 @@ export const useSiteContentStore = create<SiteContentState>()(
       services: DEFAULT_SERVICES_CONTENT,
       projects: DEFAULT_PROJECTS_CONTENT,
       glassLab: DEFAULT_GLASS_LAB_CONTENT,
+      about: DEFAULT_ABOUT_CONTENT,
       isAdminModalOpen: false,
 
       updateHero: (data) =>
@@ -503,6 +528,11 @@ export const useSiteContentStore = create<SiteContentState>()(
           };
         }),
 
+      updateAbout: (data) =>
+        set((state) => ({
+          about: { ...state.about, ...data },
+        })),
+
       resetGlassLabToDefaults: () =>
         set((state) => ({
           glassLab: DEFAULT_GLASS_LAB_CONTENT,
@@ -522,6 +552,7 @@ export const useSiteContentStore = create<SiteContentState>()(
           services: DEFAULT_SERVICES_CONTENT,
           projects: DEFAULT_PROJECTS_CONTENT,
           glassLab: DEFAULT_GLASS_LAB_CONTENT,
+          about: DEFAULT_ABOUT_CONTENT,
         })),
     }),
     {

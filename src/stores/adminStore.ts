@@ -21,7 +21,7 @@ export interface AuditLogItem {
   details: string;
 }
 
-export type AdminTab = 'dashboard' | 'inquiries' | 'pricing' | 'cms' | 'glass-lab' | 'articles' | 'projects' | 'settings' | 'audit' | 'article-editor';
+export type AdminTab = 'dashboard' | 'inquiries' | 'pricing' | 'pages-editor' | 'cms' | 'glass-lab' | 'articles' | 'projects' | 'settings' | 'audit' | 'article-editor';
 
 export interface AdminStoreState {
   activeTab: AdminTab;
