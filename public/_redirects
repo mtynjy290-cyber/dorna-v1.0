@@ -1,0 +1,9 @@
+/products    /products.html   200
+/calculator  /calculator.html 200
+/services    /services.html   200
+/projects    /projects.html   200
+/about       /about.html      200
+/standards   /standards.html  200
+/blog        /blog.html       200
+/admin       /admin.html      200
+/blog/*      /blog.html       200

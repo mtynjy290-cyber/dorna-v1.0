@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
 import {defineConfig, Plugin} from 'vite';
 
@@ -25,6 +26,20 @@ function cleanUrlsPlugin(): Plugin {
     },
     configurePreviewServer(server) {
       server.middlewares.use(handler);
+    },
+    closeBundle() {
+      const distDir = path.resolve(__dirname, 'dist');
+      if (!fs.existsSync(distDir)) return;
+      pages.forEach((page) => {
+        const htmlFile = path.join(distDir, `${page}.html`);
+        if (fs.existsSync(htmlFile)) {
+          const pageDir = path.join(distDir, page);
+          if (!fs.existsSync(pageDir)) {
+            fs.mkdirSync(pageDir, { recursive: true });
+          }
+          fs.copyFileSync(htmlFile, path.join(pageDir, 'index.html'));
+        }
+      });
     },
   };
 }
