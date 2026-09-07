@@ -9,26 +9,33 @@ import {
 } from './ArchitecturalServiceCard';
 
 // ============================================================================
-// تنظیمات ابعاد و موقعیت کارت‌ها (اینجا را می‌توانید دستی تغییر دهید)
+// راهنمای تنظیمات اختصاصی کارت‌های خدمات (ابعاد، موقعیت و فاصله‌ها)
+// فایل منبع: /src/components/ServiceIconsBar.tsx
 // ============================================================================
-/**
- * میزان بیرون‌زدگی لبه کارت بعدی از سمت چپ صفحه دسکتاپ به پیکسل (Peek Offset)
- * --------------------------------------------------------------------------
- * هم‌اکنون روی 25 پیکسل تنظیم شده است.
- * شما می‌توانید این عدد را مستقیماً به هر مقداری که مایلید تغییر دهید:
- * - مثلاً 0: کارت کاملاً بیرون از کادر پنهان می‌ماند تا وقتی اسکرول شود.
- * - مثلاً 25: ۲۵ پیکسل از لبه کارت بعدی از سمت چپ دیده می‌شود.
- * - مثلاً 50 یا 70: لبه بیشتری از کارت بعدی نمایان خواهد بود.
- */
-export const CARD_PEEK_OFFSET_PX = 25;
 
-/** عرض کارت در دسکتاپ (پیکسل) */
+/**
+ * ۱. میزان بیرون‌زدگی لبه کارت بعدی در دسکتاپ به پیکسل (Peek Offset):
+ *    - پیش‌فرض: 25 پیکسل
+ *    - این عدد تعیین می‌کند چقدر از لبه کارت بعدی از سمت چپ دسکتاپ دیده شود.
+ */
+export const CARD_PEEK_OFFSET_PX = 100;
+
+/**
+ * ۲. عرض کارت در دسکتاپ به پیکسل (برای صفحات بزرگ >= 1024px):
+ *    - پیش‌فرض: 750 پیکسل
+ */
 export const CARD_DESKTOP_WIDTH_PX = 750;
 
-/** ارتفاع کارت در دسکتاپ (پیکسل) */
+/**
+ * ۳. ارتفاع کارت در دسکتاپ به پیکسل (برای صفحات بزرگ >= 1024px):
+ *    - پیش‌فرض: 350 پیکسل
+ */
 export const CARD_DESKTOP_HEIGHT_PX = 350;
 
-/** میزان لبه کارت‌های زیرین که از سمت راست بیرون می‌ماند (پیکسل) */
+/**
+ * ۴. میزان نوار نمایان کارت‌های قبلی از سمت راست در دسکتاپ به پیکسل:
+ *    - پیش‌فرض: 100 پیکسل
+ */
 export const UNDERLYING_CARD_EXPOSED_PX = 100;
 
 export interface ServiceIconsBarProps {
@@ -97,17 +104,49 @@ const easeInOutCubic = (t: number): number => {
     : 1 - Math.pow(-2 * clamped + 2, 3) / 2;
 };
 
-// Layout constants for the stacking animation
-// Uses UNDERLYING_CARD_EXPOSED_PX exposed on the right side of underlying cards (scaled smoothly on small mobile screens)
-const getStepOffsetPx = (windowWidth: number) => {
+/**
+ * محاسبه عرض کارت متناسب با دستگاه:
+ * - دسکتاپ (>= 1024px): عدد تنظیم شده در دسکتاپ (750px)
+ * - تبلت (768px تا 1023px): حفظ فرم مربعی ۱:۱ اصلی
+ * - موبایل (< 768px): فیت شدن دقیق در صفحه موبایل بدون هیچ بیرون‌زدگی
+ */
+const getCardWidth = (windowWidth: number): number => {
+  if (windowWidth >= 1024) {
+    return CARD_DESKTOP_WIDTH_PX;
+  }
+  if (windowWidth >= 768) {
+    // تبلت: ابعاد مربعی متناسب با مرحله استیج
+    return Math.min(380, Math.max(300, Math.round(windowWidth * 0.38)));
+  }
+  // موبایل: اندازه متناسب با عرض صفحه
+  return Math.min(260, Math.max(220, Math.round(windowWidth * 0.68)));
+};
+
+/**
+ * محاسبه گام لایه‌ها (فاصله افقی نمایان بودن لبه کارت‌های زیرین):
+ * - در دسکتاپ: عدد تنظیم‌شده UNDERLYING_CARD_EXPOSED_PX (100px)
+ * - در تبلت: گام متناسب با فرم مربعی با حاشیه امن از لبه‌های صفحه
+ * - در موبایل: تضمین ریاضی ۱۰۰٪ برای عدم بیرون‌زدگی کارت‌ها از کادر صفحه گوشی
+ */
+const getStepOffsetPx = (windowWidth: number): number => {
+  const cardWidth = getCardWidth(windowWidth);
+
   if (windowWidth >= 1200) {
     return UNDERLYING_CARD_EXPOSED_PX;
   }
-  if (windowWidth >= 768) {
-    // Smooth adaptive offset for desktop range with configured card width
-    return Math.min(UNDERLYING_CARD_EXPOSED_PX, Math.max(40, Math.floor((windowWidth - CARD_DESKTOP_WIDTH_PX - 48) / 4)));
+  if (windowWidth >= 1024) {
+    const maxAvailable = windowWidth - cardWidth - 48;
+    return Math.min(UNDERLYING_CARD_EXPOSED_PX, Math.max(50, Math.floor(maxAvailable / 4)));
   }
-  return Math.min(UNDERLYING_CARD_EXPOSED_PX, Math.max(40, Math.floor((windowWidth - 180) / 4)));
+  if (windowWidth >= 768) {
+    // تبلت: با حداقل ۶۴ پیکسل فاصله از کناره‌ها
+    const maxAvailable = windowWidth - cardWidth - 64;
+    return Math.min(80, Math.max(45, Math.floor(maxAvailable / 4)));
+  }
+  // موبایل (< 768px): (cardWidth + 4 * stepOffset) <= windowWidth - 32px
+  // تمام ۵ کارت به صورت بی‌نقص داخل صفحه نمایشگر گوشی جا می‌گیرند.
+  const maxAvailable = Math.max(48, windowWidth - cardWidth - 32);
+  return Math.max(12, Math.min(26, Math.floor(maxAvailable / 4)));
 };
 
 interface CardAnimationRange {
@@ -140,10 +179,9 @@ interface StackedCardProps {
 
 /**
  * Individual Card in the Horizontal Stack
- * - Subscribes to scroll progress with 60fps hardware accelerated transform
- * - On desktop: CARD_PEEK_OFFSET_PX of the incoming card peeks out from the left viewport edge
- * - Glides into its docked position with velvety smooth ease-in-out curve
- * - Exactly UNDERLYING_CARD_EXPOSED_PX of each underlying card remains exposed on the right
+ * - دسکتاپ: کارت بعدی ۲۵ پیکسل از لبه چپ سرک می‌کشد و بعد از لغزش در محل می‌نشیند
+ * - تبلت: ابعاد مربعی ۱:۱ دست‌نخورده با پایداری کامل
+ * - موبایل: فیت کامل در صفحه بدون هیچ بیرون‌زدگی
  */
 const StackedCardItem: React.FC<StackedCardProps> = ({
   data,
@@ -152,27 +190,20 @@ const StackedCardItem: React.FC<StackedCardProps> = ({
   windowWidth,
   onInquiryClick,
 }) => {
+  const isDesktop = windowWidth >= 1024;
+  const cardWidth = getCardWidth(windowWidth);
   const stepOffset = getStepOffsetPx(windowWidth);
   const baseCenterOffset = 2 * stepOffset; // Centers the stack symmetrically ([-2*step, +2*step])
 
   // Target docked position:
-  // index 0 -> +200px
-  // index 1 -> +100px (100px of index 0 exposed on the right)
-  // index 2 -> 0px    (100px of index 1 exposed on the right)
-  // index 3 -> -100px (100px of index 2 exposed on the right)
-  // index 4 -> -200px (100px of index 3 exposed on the right)
   const targetX = baseCenterOffset - index * stepOffset;
 
-  const isDesktop = windowWidth >= 768;
-
   // Peek start position on left edge:
-  // Exactly CARD_PEEK_OFFSET_PX of the right side of the card remains visible inside the left edge of the screen.
-  // Stage is centered horizontally (x = 0 is center of screen). Left screen edge is -windowWidth / 2.
-  // For a card of width W, right edge is at x + W / 2.
-  // We want x + W / 2 = -windowWidth / 2 + CARD_PEEK_OFFSET_PX  =>  x = -((windowWidth + W) / 2 - CARD_PEEK_OFFSET_PX)
+  // - دسکتاپ: لبه کارت به اندازه CARD_PEEK_OFFSET_PX (۲۵ پیکسل) از سمت چپ نمایان است
+  // - تبلت و موبایل: بیرون از صفحه قرار دارد تا از کادر گوشی بیرون نزند
   const startX = isDesktop
-    ? -Math.round((windowWidth + CARD_DESKTOP_WIDTH_PX) / 2 - CARD_PEEK_OFFSET_PX)
-    : -(Math.max(windowWidth, 400) + 300);
+    ? -Math.round((windowWidth + cardWidth) / 2 - CARD_PEEK_OFFSET_PX)
+    : -Math.round((windowWidth + cardWidth) / 2 + 50);
 
   const range = CARD_RANGES[index] || { start: 0, end: 1 };
 
@@ -188,16 +219,17 @@ const StackedCardItem: React.FC<StackedCardProps> = ({
   });
 
   // Opacity handling:
-  // - Card 0: Always 1
-  // - Card 1: Always 1 (at p=0 it is visible at startX with peek offset to invite scrolling!)
-  // - Cards 2..4: Fade in smoothly as the preceding card departs from the left edge
+  // - Card 0: همیشه 1
+  // - Card 1 در دسکتاپ: همیشه 1 (با ۲۵ پیکسل لبه نمایان)
+  // - سایر کارت‌ها یا در موبایل/تبلت: محو (0) هستند تا زمانی که نوبت انیمیشن آن‌ها فرا برسد
   const cardOpacity = useTransform(scrollYProgress, (p: number) => {
-    if (index <= 1) return 1;
+    if (index === 0) return 1;
+    if (index === 1 && isDesktop) return 1;
 
     const prevRange = CARD_RANGES[index - 1] || { start: 0, end: 1 };
     if (p < prevRange.start) return 0;
 
-    const fadeWindow = 0.06;
+    const fadeWindow = 0.05;
     if (p < prevRange.start + fadeWindow) {
       return Math.min(1, (p - prevRange.start) / fadeWindow);
     }
@@ -221,13 +253,13 @@ const StackedCardItem: React.FC<StackedCardProps> = ({
         width: isDesktop ? `${CARD_DESKTOP_WIDTH_PX}px` : undefined,
         height: isDesktop ? `${CARD_DESKTOP_HEIGHT_PX}px` : undefined,
       }}
-      className={`services-stacked-card ${stackedShadowClass} rounded-2xl sm:rounded-3xl md:w-[750px] md:h-[350px]`}
+      className={`services-stacked-card ${stackedShadowClass} rounded-2xl sm:rounded-3xl lg:w-[750px] lg:h-[350px]`}
     >
       <ArchitecturalServiceCard
         data={data}
         index={index}
         onInquiryClick={onInquiryClick}
-        className="w-full h-full md:w-[750px] md:h-[350px]"
+        className="w-full h-full lg:w-[750px] lg:h-[350px]"
         style={{
           width: isDesktop ? `${CARD_DESKTOP_WIDTH_PX}px` : undefined,
           height: isDesktop ? `${CARD_DESKTOP_HEIGHT_PX}px` : undefined,
@@ -315,12 +347,12 @@ export const ServiceIconsBar: React.FC<ServiceIconsBarProps> = ({ onOpenInquiry 
         */}
         <div className="relative w-full flex-1 flex items-center justify-center my-auto py-2">
           
-          {/* Central Architectural Framing Stage (Configured dimensions on desktop) */}
+          {/* Central Architectural Framing Stage (Configured dimensions on desktop, 1:1 square on tablet & mobile) */}
           <div 
-            className="services-stacked-stage md:w-[750px] md:h-[350px]"
+            className="services-stacked-stage lg:w-[750px] lg:h-[350px]"
             style={{
-              width: windowWidth >= 768 ? `${CARD_DESKTOP_WIDTH_PX}px` : undefined,
-              height: windowWidth >= 768 ? `${CARD_DESKTOP_HEIGHT_PX}px` : undefined,
+              width: windowWidth >= 1024 ? `${CARD_DESKTOP_WIDTH_PX}px` : undefined,
+              height: windowWidth >= 1024 ? `${CARD_DESKTOP_HEIGHT_PX}px` : undefined,
             }}
           >
             {SERVICES_DATA.map((service, index) => (

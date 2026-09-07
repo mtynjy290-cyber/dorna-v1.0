@@ -397,34 +397,14 @@ button:hover .brand-logo-icon {
   display: none; /* Chrome, Safari, Opera */
 }
 
-/* Mobile / Default Base Sizes */
+/* Base Sizes for Service Cards */
 .service-square-card {
-  flex: 0 0 clamp(280px, 28vw, 420px);
-  width: clamp(280px, 28vw, 420px);
   aspect-ratio: 1 / 1;
-  scroll-snap-align: start;
-  scroll-margin-right: 24px;
 }
 
 .services-stacked-stage {
   position: relative;
-  width: min(clamp(280px, 26vw, 380px), 50vh);
-  height: min(clamp(280px, 26vw, 380px), 50vh);
   aspect-ratio: 1 / 1;
-}
-
-@media (max-width: 640px) {
-  .services-stacked-stage {
-    width: min(74vw, 44vh, 290px);
-    height: min(74vw, 44vh, 290px);
-    aspect-ratio: 1 / 1;
-  }
-  .service-square-card {
-    flex: 0 0 82vw;
-    width: 82vw;
-    aspect-ratio: 1 / 1;
-    scroll-margin-right: 16px;
-  }
 }
 
 .services-stacked-card {
@@ -435,32 +415,51 @@ button:hover .brand-logo-icon {
   height: 100%;
 }
 
-.services-stacked-card .service-square-card {
+.services-stacked-card .service-square-card,
+.services-stacked-card article {
   width: 100%;
   height: 100%;
   flex: none;
 }
 
-/* Desktop strictly 750px width and 350px height (Active on any desktop/tablet viewport >= 768px) */
-@media (min-width: 768px) {
+/* 1. Mobile Sizes (< 640px): Centered, contained, zero overflow */
+@media (max-width: 640px) {
   .services-stacked-stage {
-    width: 750px !important;
-    height: 350px !important;
-    aspect-ratio: 750 / 350 !important;
+    width: min(68vw, 260px);
+    height: min(68vw, 260px);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* 2. Tablet Sizes (641px to 1023px): Exact 1:1 Square untouched */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .services-stacked-stage {
+    width: min(clamp(300px, 38vw, 380px), 48vh);
+    height: min(clamp(300px, 38vw, 380px), 48vh);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* 3. Desktop Sizes (>= 1024px): 750px width and 350px height */
+@media (min-width: 1024px) {
+  .services-stacked-stage {
+    width: 750px;
+    height: 350px;
+    aspect-ratio: 750 / 350;
   }
 
   .services-stacked-card {
-    width: 750px !important;
-    height: 350px !important;
+    width: 750px;
+    height: 350px;
   }
 
   .services-stacked-card .service-square-card,
   .services-stacked-card article,
   article.service-square-card {
-    width: 750px !important;
-    height: 350px !important;
-    aspect-ratio: 750 / 350 !important;
-    flex: none !important;
+    width: 750px;
+    height: 350px;
+    aspect-ratio: 750 / 350;
+    flex: none;
   }
 }
 
