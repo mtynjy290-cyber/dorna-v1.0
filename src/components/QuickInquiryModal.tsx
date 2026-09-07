@@ -125,6 +125,7 @@ export const QuickInquiryModal: React.FC<QuickInquiryModalProps> = ({
       <div 
         id="dorna-inquiry-modal-backdrop"
         onClick={onClose}
+        data-lenis-prevent
         className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
       >
         <motion.div
@@ -133,6 +134,7 @@ export const QuickInquiryModal: React.FC<QuickInquiryModalProps> = ({
           exit={{ opacity: 0, scale: 0.94, y: 20 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           onClick={(e) => e.stopPropagation()}
+          data-lenis-prevent
           className="relative w-full max-w-lg bg-[#E4EBF1]/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/90 overflow-hidden text-[#06080F]"
         >
           {/* Top Glassmorphic Header */}

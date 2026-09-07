@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import { Sparkles, Calculator, PhoneCall } from 'lucide-react';
+import { Calculator, PhoneCall } from 'lucide-react';
 import { useSiteContentStore } from '../lib/siteContentStore';
 
 interface HeroProps {
@@ -8,13 +8,11 @@ interface HeroProps {
   onOpenInquiry?: () => void;
 }
 
-const TOTAL_FRAMES = 141;
-
 export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const heroContent = useSiteContentStore((state) => state.hero);
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   // 1. Precise Track of Section Scroll
   const { scrollYProgress } = useScroll({
@@ -24,211 +22,87 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
 
   // Smooth spring motion for buttery responsive frame interpolation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 140,
-    damping: 26,
+    stiffness: 180,
+    damping: 28,
     mass: 0.1,
     restDelta: 0.0001,
   });
 
   // Camera Pass-Through Zoom & Forward Motion as doors open (0.65 -> 1.0)
-  const canvasScale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 1.18]);
+  const videoScale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 1.18]);
   const passThroughGlowOpacity = useTransform(scrollYProgress, [0.65, 0.92, 1], [0, 0.6, 0.9]);
   const heroFadeOut = useTransform(scrollYProgress, [0.88, 1], [1, 0.2]);
 
-  // 2. High-Performance Instant Image Sequence Preloader & Canvas Renderer
+  // 2. Hardware-Accelerated Video Scrubbing Engine (Instant 0-Lag Seeking)
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-
-    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES + 1);
-    let currentRenderedIndex = -1;
     let isComponentMounted = true;
     let rafId: number;
+    let lastSetTime = 0;
+    const duration = 5.875; // exact duration of hero-scroll.mp4
 
-    // Helper: Draw single unified high-definition full-screen frame (Cover mode)
-    const drawCoverImage = (img: HTMLImageElement) => {
-      if (!ctx || !canvas || !img || !img.complete || !img.naturalWidth) return;
+    // Prepare video element for instant low-latency scrubbing
+    video.pause();
 
-      const cWidth = canvas.width;
-      const cHeight = canvas.height;
-      const iWidth = img.naturalWidth;
-      const iHeight = img.naturalHeight;
-
-      // Clean single cover scaling - fills viewport seamlessly with zero letterboxing
-      const scale = Math.max(cWidth / iWidth, cHeight / iHeight);
-      const renderW = iWidth * scale;
-      const renderH = iHeight * scale;
-      const offsetX = (cWidth - renderW) / 2;
-      const offsetY = (cHeight - renderH) / 2;
-
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-    };
-
-    // Resize canvas with high-DPI awareness
-    const handleResize = () => {
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-
-      const frameIdx = currentRenderedIndex > 0 ? currentRenderedIndex : 1;
-      if (images[frameIdx] && images[frameIdx].complete) {
-        drawCoverImage(images[frameIdx]);
-      }
-    };
-
-    // 1. Instant First Frame Load (Zero Waiting)
-    const firstImg = new Image();
-    firstImg.decoding = 'async';
-    firstImg.src = '/video/frames/frame_001.webp';
-    images[1] = firstImg;
-
-    firstImg.onload = () => {
+    const handleLoaded = () => {
       if (!isComponentMounted) return;
-      setFirstFrameLoaded(true);
-      handleResize();
-      drawCoverImage(firstImg);
-      currentRenderedIndex = 1;
+      setVideoReady(true);
+      video.pause();
     };
 
-    if (firstImg.complete) {
-      setFirstFrameLoaded(true);
-      handleResize();
-      drawCoverImage(firstImg);
-      currentRenderedIndex = 1;
+    video.addEventListener('loadedmetadata', handleLoaded);
+    video.addEventListener('canplay', handleLoaded);
+
+    if (video.readyState >= 1) {
+      setVideoReady(true);
     }
 
-    // 2. Intelligent Progressive Background Preloader (Adaptive Mobile & Desktop)
-    // On mobile devices, scrub speed and touch physics make 71 frames (every 2nd frame) indistinguishable from 141,
-    // saving ~3.8 MB of bandwidth, reducing battery load, and doubling mobile load speed.
-    const isMobileDevice = typeof window !== 'undefined' && (window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024));
-    const frameStep = isMobileDevice ? 2 : 1;
-
-    const keyframeIndices: number[] = [];
-    const remainingIndices: number[] = [];
-
-    for (let i = 1 + frameStep; i <= TOTAL_FRAMES; i += frameStep) {
-      if (i % (frameStep * 4) === 0 || i === TOTAL_FRAMES) {
-        keyframeIndices.push(i);
-      } else {
-        remainingIndices.push(i);
-      }
-    }
-
-    const loadSingleFrame = (idx: number): Promise<void> => {
-      return new Promise((resolve) => {
-        if (images[idx] && images[idx].complete) {
-          resolve();
-          return;
-        }
-        const img = new Image();
-        img.decoding = 'async';
-        const paddedIndex = String(idx).padStart(3, '0');
-        img.src = `/video/frames/frame_${paddedIndex}.webp`;
-        img.onload = () => {
-          if (isComponentMounted) images[idx] = img;
-          resolve();
-        };
-        img.onerror = () => resolve();
-        images[idx] = img;
-      });
-    };
-
-    // Load keyframes in small batches to preserve network bandwidth for above-the-fold assets
-    let chunkTimer: any = null;
-    const processBatch = (queue: number[], batchSize: number, delayMs: number) => {
-      if (!isComponentMounted || queue.length === 0) return;
-      const currentBatch = queue.splice(0, batchSize);
-      currentBatch.forEach((idx) => loadSingleFrame(idx));
-
-      if (queue.length > 0) {
-        chunkTimer = setTimeout(() => {
-          if ('requestIdleCallback' in window) {
-            (window as any).requestIdleCallback(() => processBatch(queue, batchSize, delayMs), { timeout: 150 });
-          } else {
-            processBatch(queue, batchSize, delayMs);
-          }
-        }, delayMs);
-      }
-    };
-
-    // Start keyframe loading after initial paint and hero rendering settles
-    setTimeout(() => {
-      processBatch(keyframeIndices, isMobileDevice ? 3 : 4, 30);
-      // Once keyframes are on their way, stream remaining frames smoothly
-      setTimeout(() => {
-        processBatch(remainingIndices, isMobileDevice ? 4 : 6, 40);
-      }, 150);
-    }, 60);
-
-    // 3. Continuous 60fps / 120fps ultra-fast canvas render loop
+    // High-frequency, lock-protected video scrubbing
     const renderLoop = () => {
+      if (!isComponentMounted) return;
+
       const progress = smoothProgress.get();
-      // Calculate active frame index (1 to 141)
-      const rawIndex = Math.min(
-        Math.max(Math.round(progress * (TOTAL_FRAMES - 1)) + 1, 1),
-        TOTAL_FRAMES
-      );
+      const currentDuration = video.duration && !isNaN(video.duration) && video.duration > 0
+        ? video.duration
+        : duration;
 
-      // On mobile devices, seamlessly snap to odd frames to match the lightweight 71-frame stream
-      const targetIndex = isMobileDevice 
-        ? (rawIndex % 2 === 0 ? Math.max(rawIndex - 1, 1) : rawIndex)
-        : rawIndex;
+      const targetTime = Math.min(Math.max(progress * currentDuration, 0), currentDuration);
 
-      if (targetIndex !== currentRenderedIndex) {
-        const targetImg = images[targetIndex];
-        if (targetImg && targetImg.complete && targetImg.naturalWidth > 0) {
-          drawCoverImage(targetImg);
-          currentRenderedIndex = targetIndex;
-        } else {
-          // If current frame is not yet loaded, actively load it immediately
-          if (!targetImg) {
-            loadSingleFrame(targetIndex);
-          }
-
-          // Fallback to nearest loaded frame to guarantee zero flicker
-          for (let offset = 1; offset <= 15; offset++) {
-            const prev = images[targetIndex - offset];
-            if (prev && prev.complete && prev.naturalWidth > 0) {
-              drawCoverImage(prev);
-              break;
-            }
-            const next = images[targetIndex + offset];
-            if (next && next.complete && next.naturalWidth > 0) {
-              drawCoverImage(next);
-              break;
-            }
-          }
-        }
+      // Only seek if hardware decoder is idle and time delta is noticeable (> 0.015s)
+      if (!video.seeking && Math.abs(video.currentTime - targetTime) > 0.015) {
+        lastSetTime = targetTime;
+        video.currentTime = targetTime;
       }
 
       rafId = requestAnimationFrame(renderLoop);
     };
 
-    window.addEventListener('resize', handleResize, { passive: true });
+    // When hardware seek finishes, catch up immediately if user scrolled further during seek
+    const handleSeeked = () => {
+      if (!isComponentMounted) return;
+      const progress = smoothProgress.get();
+      const currentDuration = video.duration && !isNaN(video.duration) && video.duration > 0
+        ? video.duration
+        : duration;
+      const targetTime = Math.min(Math.max(progress * currentDuration, 0), currentDuration);
 
-    // Precise ResizeObserver for seamless fluid resizing
-    const resizeObserver = new ResizeObserver(() => {
-      handleResize();
-    });
-    if (canvas) {
-      resizeObserver.observe(canvas);
-    }
+      if (!video.seeking && Math.abs(video.currentTime - targetTime) > 0.02) {
+        lastSetTime = targetTime;
+        video.currentTime = targetTime;
+      }
+    };
 
+    video.addEventListener('seeked', handleSeeked);
     rafId = requestAnimationFrame(renderLoop);
 
     return () => {
       isComponentMounted = false;
-      if (chunkTimer) clearTimeout(chunkTimer);
       cancelAnimationFrame(rafId);
-      window.removeEventListener('resize', handleResize);
-      resizeObserver.disconnect();
+      video.removeEventListener('loadedmetadata', handleLoaded);
+      video.removeEventListener('canplay', handleLoaded);
+      video.removeEventListener('seeked', handleSeeked);
     };
   }, [smoothProgress]);
 
@@ -243,11 +117,30 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
         }}
         className="hero-video-container sticky top-0 w-full flex items-center justify-center overflow-hidden"
       >
-        {/* GPU-Accelerated 2D Canvas Viewport (Zero Lag, Instant Load, 60/120fps with Pass-Through Zoom) */}
-        <motion.canvas
-          ref={canvasRef}
-          style={{ scale: canvasScale }}
-          className="hero-video-canvas absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform origin-center"
+        {/* Instant Fallback Poster (Zero Waiting / 0ms First Paint) */}
+        <img
+          src="/video/frames/frame_001.webp"
+          alt="Dorna Door Automatic Glass Architecture"
+          width="1876"
+          height="1024"
+          fetchPriority="high"
+          decoding="async"
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transition-opacity duration-500 ${
+            videoReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+        />
+
+        {/* Ultra-Fast Single MP4 Video (GPU Accelerated Scrubbing, 750KB instead of 7.5MB) */}
+        <motion.video
+          ref={videoRef}
+          src="/video/hero-scroll.mp4"
+          poster="/video/frames/frame_001.webp"
+          preload="auto"
+          muted
+          playsInline
+          disablePictureInPicture
+          style={{ scale: videoScale }}
+          className="hero-video-player absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transform-gpu will-change-transform origin-center"
         />
 
         {/* Ambient Contrast Gradient Overlay */}
@@ -282,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                   color: '#FFFFFF',
                   textShadow: '0 2px 14px rgba(0, 0, 0, 0.95), 0 4px 28px rgba(6, 8, 15, 0.9), 0 1px 3px rgba(0, 0, 0, 1)',
                 }}
-                className="hero-title text-white max-w-4xl mx-auto drop-shadow-xl text-[clamp(1.5rem,2.5vw+1rem,3rem)] font-[800] leading-[1.4] tracking-[-0.03em]"
+                className="hero-title text-white max-w-4xl mx-auto drop-shadow-xl font-[800] leading-[1.4] tracking-[-0.03em]"
               >
                 {heroContent.headline || 'تلاقی شیشه، نور و مهندسی مدرن'}
               </motion.h1>
@@ -300,7 +193,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                   color: '#E6EFF6',
                   textShadow: '0 1px 8px rgba(0, 0, 0, 0.8), 0 2px 16px rgba(6, 8, 15, 0.65)',
                 }}
-                className="hero-subtitle text-[#E6EFF6] max-w-2xl mx-auto drop-shadow-md text-[clamp(0.9rem,0.8vw+0.7rem,1.2rem)] font-[400] leading-[1.8] opacity-95"
+                className="hero-subtitle text-[#E6EFF6] max-w-2xl mx-auto drop-shadow-md font-[400] leading-[1.8] opacity-95"
               >
                 طراحی، مهندسی و اجرای تخصصی انواع درب‌های اتوماتیک شیشه‌ای، تلسکوپی، کرو و سازه‌های مدرن معماری در سراسر تهران و کشور
               </motion.p>
@@ -342,5 +235,3 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
     </div>
   );
 };
-
-

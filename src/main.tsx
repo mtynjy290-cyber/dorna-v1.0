@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { CalculatorPage } from './CalculatorPage.tsx';
 import './index.css';
+import './lib/smoothScroll';
 
 const isCalculatorRoute = typeof window !== 'undefined' && window.location.pathname.includes('calculator');
 
